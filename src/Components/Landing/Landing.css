@@ -1,0 +1,116 @@
+.main-landing-container{
+    display:grid;
+    grid-template-columns:20px 40vw 42vw 20px ;
+    grid-template-rows:10vh 55vh  40vh 40vh ;
+    grid-gap:5px 5px;
+    justify-content: center;
+    background-color:#f8f8ff;
+    width:100%;
+}
+
+.main-landing-container h1{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    border:solid black 1px;
+    text-align: center;
+    font-size: 2em;
+}
+.landing-how-wrapper{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
+
+}
+.landing-how-wrapper:hover{
+    transform: translateY(2px);
+}
+.landing-how-wrapper a{
+    color:inherit;
+    text-decoration: inherit;
+}
+
+.landing-where-wrapper{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
+}
+.landing-where-wrapper:hover{
+    transform: translateY(2px);
+}
+.landing-where-wrapper a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.landing-news-feed-wrapper{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    overflow-y: scroll;
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
+    background-color:#f8f8ff;
+}
+.landing-news-feed-wrapper a{
+    color: inherit;
+    text-decoration: inherit;
+}
+.users-items-wrapper{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    border:solid black 1px;
+}
+.article-container{
+    margin-bottom:5px;
+}
+@media(min-width:1300px){
+    .main-landing-container{
+        grid-template-columns: 33vw 33vw 22vw ;
+    }
+    .landing-where-wrapper{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        position: relative;
+    }
+    .landing-how-wrapper{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        position: relative;
+    }
+    .landing-news-feed-wrapper{
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 6;
+    }
+    .users-items-wrapper{
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        border:solid black 1px;
+    }
+}
+
+
+
+@media (max-width:700px){
+    .main-landing-container{
+     display:flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: space-evenly;
+     padding:15px;
+    }
+
+
+}
