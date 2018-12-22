@@ -11,6 +11,7 @@ class material extends Component {
     //look into material ui to use a card to disply info
    async componentDidMount(){
         let {id} = this.props.match.params;
+        console.log(this.props)
         console.log(id)
         let res = await axios.get(`/api/material?id=${id}`);
         console.log(res.data);

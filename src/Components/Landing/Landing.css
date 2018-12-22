@@ -1,8 +1,8 @@
 .main-landing-container{
     display:grid;
     grid-template-columns:20px 40vw 42vw 20px ;
-    grid-template-rows:10vh 55vh  40vh 40vh ;
-    grid-gap:5px 5px;
+    grid-template-rows:10vh 55vh  50vh  ;
+    grid-gap:8px 8px;
     justify-content: center;
     background-color:#f8f8ff;
     width:100%;
@@ -56,6 +56,7 @@
     overflow-y: scroll;
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
     background-color:#f8f8ff;
+    margin:10px 0 10px 0;
 }
 .landing-news-feed-wrapper a{
     color: inherit;

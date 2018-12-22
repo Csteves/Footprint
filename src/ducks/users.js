@@ -1,19 +1,24 @@
-
+import axios from 'axios';
 const intialState ={
     id:'',
     loggedIn:false,
     isAdmin:false,
-    materialId:'',
-    userArticles:[]
+    userArticles:[],
+    news:[],
+    loading:false
 }
 
-//ACTION TYPES
+//ACTION TYPES USER
 const UPDATE_USER = 'UPDATE_USER';
-const PASS_MATERIAL_ID = 'PASS_MATERIAL_ID';
 const UPDATE_ARTICLES = 'UPDATE_ARTICLES';
 
+//ACTION TYPES NEWS
+const GET_NEWS = 'GET_NEWS';
+const GET_NEWS_PENDING = 'GET_NEWS_PENDING';
+const GET_NEWS_FULFILLED = 'GET_NEWS_FULFILLED';
 
-//ACTION BUILDER
+
+//ACTION BUILDERS USER
 export const updateUser = (userInfo) => {
     return{
         type: UPDATE_USER,
@@ -25,12 +30,7 @@ export const updateUser = (userInfo) => {
         }
     }
 }
-export const passMaterialId = (id) =>{
-    return{
-        type:PASS_MATERIAL_ID,
-        payload:id
-    }
-}
+
 
 export const updateArticles = (articles) => {
 return{
@@ -39,6 +39,14 @@ return{
 }
 }
 
+//ACTION BUILDERS NEWS
+export const getNews = () =>{
+    let news = axios.get("/api/news")
+    return{
+       type: GET_NEWS,
+       payload: news
+    }
+}
 
 export default function reducer(state = intialState, action){
     switch(action.type){
@@ -51,11 +59,14 @@ export default function reducer(state = intialState, action){
                 userArticles:action.payload.userArticles
              };
 
-        case PASS_MATERIAL_ID:
-        return {...state, materialId:action.payload};
-
         case UPDATE_ARTICLES:
         return {...state, userArticles:action.payload};
+
+        case GET_NEWS_PENDING:
+        return {...state,loading:true};
+
+        case GET_NEWS_FULFILLED:
+        return {...state, loading:false, news:action.payload.data.items}
 
         default: return {...state};
     }

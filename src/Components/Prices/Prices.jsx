@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {passMaterialId} from '../../ducks/users';
+import {passMaterialId} from '../../ducks/materials';
 import './Prices.css';
 
 
@@ -13,30 +13,20 @@ constructor(props) {
     super(props);
     this.state = {
         categories:[],
-        show:false,
-
     }
 }
     // i want to use a modal from material ui to render material.jsx
-    showModal = (id)=>{
-        this.props.passMaterialId(id);
-        this.setState({show:true,})
-    }
-    hideModal = () =>{
-        this.setState({show:false,showId:''})
+    showMaterial = (id)=>{
+        this.props.history.push(`/prices${id}`)
     }
 
     async componentDidMount(){
         let res = await axios.get('/api/materials');
-        console.log(res.data);
         this.setState({categories:res.data});
+        console.log(this.props)
     }
     render() {
-        let {categories} = this.state
-
-        if(this.state.show){
-            return(<Redirect to={`/prices${this.props.showId}`} />)
-        }
+        let {categories} = this.state;
 
         let sorted = categories.sort((a,b)=>a.id - b.id);
         let materials = sorted.map((category,index) => {
@@ -53,7 +43,7 @@ constructor(props) {
             return(
                 <div key={category.id}>
                     <div
-                    onClick={()=>this.showModal(category.id)}
+                    onClick={()=>this.showMaterial(category.id)}
                     style={backgroundStyle}
                     className='material-wrapper'>
                         <div>
@@ -80,7 +70,7 @@ constructor(props) {
 }
 function mapStateToProps(state){
     return{
-        showId:state.materialId
+        showId:state.materials.materialId
     }
 }
 export default connect(mapStateToProps,{passMaterialId})(Prices);

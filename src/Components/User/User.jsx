@@ -1,40 +1,48 @@
 import React, { Component } from 'react';
 import UserArticles from '../UsersCards/UserArticles';
-import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { updateArticles } from '../../ducks/users';
 
 class User extends Component {
     constructor(props) {
         super(props);
+        this.state = {
 
+        }
+        this.deleteArticle = this.deleteArticle.bind(this);
     }
 
-    async deleteArticle(articleId){
-        console.log(this.props);
-        // let {userArticles} = this.props;
-        // let index = userArticles.findIndex(article => article.guid === articleId);
-        // let article = userArticles.splice(index,1);
-        // let {id} = this.props.state;
-        // let{title} = article[0];
-        // let res = axios.delete(`/api/articles${id}/?title=${title}`);
-        // console.log(res.data)
+    async deleteArticle(articleId) {
+        let { userArticles } = this.props.state;
+        let index = userArticles.findIndex(article => article.id === articleId);
+        let article = userArticles.splice(index, 1);
+        let { id } = this.props.state;
+        let article_id = article[0].id;
+        let res = await axios.delete(`/api/articles${id}/?article_id=${article_id}`);
+
+        this.props.updateArticles(res.data);
     }
     render() {
-        console.log(this.props.state)
-        let {userArticles} = this.props.state;
-        let news = userArticles.map((article,index) => {
-            return(
-                <div className='article-container' key={index} >
-                <UserArticles
-                deleteArticle={this.deleteArticle}
-                title={article.title}
-                link={article.link}
-                date={article.pubDate}
-                id={article.guid}
-                />
-            </div>
-            )
-        })
+        let { userArticles, loggedIn } = this.props.state;
+        if(!loggedIn){return<Redirect to='/' />}
+        let news = !userArticles.length ?
+            <h1>You have no saved articles.</h1>
+            :
+            userArticles.map((article, index) => {
+                return (
+                    <div className='article-container' key={index} >
+                        <UserArticles
+                            deleteArticle={this.deleteArticle}
+                            title={article.title}
+                            link={article.link}
+                            date={article.pubDate}
+                            id={article.id}
+                        />
+                    </div>
+                )
+            });
         return (
             <div>
                 <h1> im a user</h1>
@@ -43,7 +51,7 @@ class User extends Component {
         );
     }
 }
-function mapStateToProps(state){
-    return{state}
+function mapStateToProps(state) {
+    return { state: state.users }
 }
-export default connect(mapStateToProps)(User);
+export default connect(mapStateToProps, { updateArticles })(User);

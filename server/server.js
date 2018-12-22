@@ -47,7 +47,8 @@ app.delete('/api/articles:id/', userCtrl.deleteArticle);
 app.put('/api/prices', materialCtrl.updatePrices);
 
 //EARTH 911 API ENDPOINTS
-app.get("/api/get", earthCtrl.getMaterials)
+app.get("/api/getMaterials", earthCtrl.getMaterials)
+app.get("/api/getFamilies", earthCtrl.getFamilies)
 
 //RSS FEED ENDPOINT
 app.get('/api/news',newsCtrl.getNews )

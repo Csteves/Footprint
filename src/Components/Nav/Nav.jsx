@@ -8,21 +8,25 @@ import {updateUser} from '../../ducks/users';
 
 class Nav extends Component {
 
-    //figure out how to make logout leave upon logout
-    // componentDidUpdate(prevProps){
-    //     let {id,loggedIn,isAdmin} = this.props.state;
-    //     if(prevProps.state.loggedIn !== this.props.state.loggedIn){
-    //         this.props.updateUser({id,isAdmin,loggedIn});
-    //     }
-    // }
+
+    async componentDidMount(){
+        let {id,isAdmin,loggedIn,userArticles} = this.props.state;
+        this.props.updateUser({
+            id,
+            isAdmin,
+            loggedIn,
+            userArticles,
+        })
+    }
     async logout(){
         let res = await axios.get(`/auth/logout`);
-        console.log(res.data)
-        this.props.updateUser({id:'',isAdmin:false,loggedIn:res.data.loggedIn})
+        console.log(this.props)
+        this.props.updateUser({id:'',isAdmin:false,loggedIn:res.data.loggedIn,userArticles:[]})
     }
     render() {
-        let {loggedIn,id} = this.props.state;
-        let isLoggedIn = loggedIn
+        let {loggedIn,id,loading} = this.props.state;
+
+        let isLoggedIn = loggedIn && !loading
                        ?  <li>
                                 <button
                                 onClick={()=>this.logout()}
@@ -30,9 +34,13 @@ class Nav extends Component {
                                 Logout
                                 </button>
                            </li>
-                       : <li></li>;
-        let usersStuff = loggedIn ? <Link to={`personal${id}`}>
-                                        <button>
+                       :  <Link to='/login' >
+                                <li>
+                                    <button>Login</button>
+                                </li>
+                            </Link>;
+        let usersStuff = loggedIn && !loading ? <Link to={`personal${id}`}>
+                                        <button className='sub-nav-users-btn' >
                                         My Things
                                         </button>
                                     </Link>
@@ -64,11 +72,7 @@ class Nav extends Component {
                 {usersStuff}
                 <ul>
                     {isLoggedIn}
-                    <Link to='/login' >
-                        <li>
-                            <button>Login</button>
-                        </li>
-                    </Link>
+
                     <Link to='/register' >
                         <li>
                             <button>Register</button>
@@ -82,7 +86,7 @@ class Nav extends Component {
 }
 function mapStateToProps(state){
     return{
-        state
+        state:state.users
     }
 }
 

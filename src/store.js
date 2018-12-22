@@ -1,5 +1,12 @@
-import { createStore } from 'redux';
-import reducer from './ducks/users';
+import { createStore,applyMiddleware,combineReducers } from 'redux';
+import reduxPromiseMiddleware from 'redux-promise-middleware';
+import users from './ducks/users';
+import materials from './ducks/materials';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-export default createStore(reducer, composeWithDevTools())
+const reducer = combineReducers({
+    users,
+    materials
+});
+
+export default createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromiseMiddleware())));

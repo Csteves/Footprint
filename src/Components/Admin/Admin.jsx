@@ -223,6 +223,6 @@ class Admin extends Component {
     }
 }
 function mapStateToProps(state){
-    return{state}
+    return{state:state.users}
 }
 export default connect(mapStateToProps)(Admin);

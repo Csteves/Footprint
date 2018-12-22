@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateArticles} from '../../ducks/users';
+import {updateArticles,getNews} from '../../ducks/users';
 import WhereCard from '../LandingCards/WhereCard';
 import HowCard from '../LandingCards/HowCard';
 import NewsCard from '../LandingCards/NewsCard';
@@ -17,25 +17,20 @@ class Landing extends Component {
         this.state={
             articles:[],
             loggedIn:props.state.loggedIn,
+
         }
         this.saveArticle = this.saveArticle.bind(this);
     }
 
     async componentDidMount(){
-        //add loading indicator
-       let res = await axios.get("/api/news");
-            console.log(res.data);
-            let newsCopy = [...res.data.items];
-            this.setState({articles:newsCopy});
+        await this.props.getNews();
     }
-    //finish save article function
 
     async saveArticle(articleId){
         //once idustry user, account for type of user
-        //Switch articles to redux state
-        let {articles} = this.state;
-        let index = articles.findIndex(article => article.guid === articleId);
-        let article = articles.splice(index,1);
+        let {news} = this.props.state;
+        let index = news.findIndex(article => article.guid === articleId);
+        let article = news.splice(index,1);
         let {id} = this.props.state
         let{title,link,pubDate} = article[0];
         let res = await axios.post('/api/articles',{id,title,link,pubDate});
@@ -44,8 +39,10 @@ class Landing extends Component {
 
 
     render() {
-        let {articles,loggedIn} = this.state;
-        let news = articles.map((article,index) =>{
+
+        let {loggedIn} = this.state;
+        let {news,loading} = this.props.state;
+        let articles = news.map((article,index) =>{
             return(
                 <div className='article-container' key={index} >
                     <NewsCard
@@ -59,6 +56,7 @@ class Landing extends Component {
                 </div>
             )
         })
+        let gotNews = loading ? <h1>loading</h1>:articles;
         return (
             <div className='main-landing-container'>
              <h1 >Step In Here,  Reduce Your Footprint Out There!</h1>
@@ -77,13 +75,13 @@ class Landing extends Component {
              </div>
              <div className='landing-news-feed-wrapper' >
              <h1>Current Recycling News</h1>
-                {news}
+                {gotNews}
              </div>
             </div>
         );
     }
 }
 function mapStateToProps(state){
-    return{state}
+    return{ state:state.users}
 }
-export default connect(mapStateToProps,{updateArticles})(Landing);
+export default connect(mapStateToProps,{updateArticles,getNews})(Landing);

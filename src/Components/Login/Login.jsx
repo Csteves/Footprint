@@ -10,8 +10,7 @@ class Login extends Component {
         this.state = {
             email:'',
             password:'',
-            isAdmin:false,
-            isLoggedIn:false
+            gotUserArticles:false
         }
         this.login = this.login.bind(this);
     }
@@ -30,16 +29,17 @@ class Login extends Component {
                 loggedIn:loggedIn,
                 userArticles:res.data
             })
-            this.setState({email:'',password:'',isAdmin:isAdmin, isLoggedIn:loggedIn});
+            this.setState({email:'',password:'',gotUserArticles:true});
 
         }
     }
 
     render() {
-        let {isAdmin, isLoggedIn} = this.state;
-        if(isAdmin && isLoggedIn){
+        let {gotUserArticles} = this.state;
+        let {isAdmin, loggedIn} = this.props.state;
+        if(isAdmin && loggedIn && gotUserArticles){
             return <Redirect to='/admin' />
-        }else if(isLoggedIn){
+        }else if(loggedIn && gotUserArticles){
             return <Redirect to='/' />
         };
 
@@ -77,5 +77,7 @@ class Login extends Component {
         );
     }
 }
-
-export default connect(null,{updateUser})( Login);
+function mapStateToProps(state){
+    return{state:state.users}
+}
+export default connect(mapStateToProps,{updateUser})( Login);
