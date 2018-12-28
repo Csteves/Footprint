@@ -3,25 +3,39 @@ import {Link} from 'react-router-dom';
 import './Nav.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {updateUser} from '../../ducks/users';
+import {updateUser,updateUserPosition} from '../../ducks/users';
+import {getMaterials,getFamilies} from '../../ducks/materials';
+import {getGeoKey} from '../../config';
 
 
 class Nav extends Component {
 
 
     async componentDidMount(){
-        let {id,isAdmin,loggedIn,userArticles} = this.props.state;
+        let {id,isAdmin,loggedIn,userArticles,zip,loading} = this.props.state;
+        if(!loading){
+            await this.props.getMaterials();
+            await this.props.getFamilies();
+        }
         this.props.updateUser({
             id,
             isAdmin,
             loggedIn,
             userArticles,
+            zip
         })
     }
     async logout(){
         let res = await axios.get(`/auth/logout`);
         console.log(this.props)
-        this.props.updateUser({id:'',isAdmin:false,loggedIn:res.data.loggedIn,userArticles:[]})
+        this.props.updateUser({
+            id:'',
+            isAdmin:false,
+            loggedIn:res.data.loggedIn,
+            userArticles:[],
+            zip:'',
+        })
+        this.props.updateUserPosition({lat:null,lng:null})
     }
     render() {
         let {loggedIn,id,loading} = this.props.state;
@@ -90,4 +104,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{updateUser})(Nav);
+export default connect(mapStateToProps,{updateUser,updateUserPosition,getMaterials,getFamilies})(Nav);

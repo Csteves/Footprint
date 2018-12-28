@@ -42,6 +42,7 @@ app.get('/api/material', materialCtrl.getMaterial);
 app.post('/api/articles', userCtrl.saveArticle);
 app.get('/api/articles', userCtrl.getArticles);
 app.delete('/api/articles:id/', userCtrl.deleteArticle);
+app.post('/api/location', userCtrl.saveLocation)
 
 //ADMIN ENDPOINTS
 app.put('/api/prices', materialCtrl.updatePrices);
@@ -49,6 +50,8 @@ app.put('/api/prices', materialCtrl.updatePrices);
 //EARTH 911 API ENDPOINTS
 app.get("/api/getMaterials", earthCtrl.getMaterials)
 app.get("/api/getFamilies", earthCtrl.getFamilies)
+app.get("/api/getLocations", earthCtrl.getLocations)
+app.get('/api/locationDetails', earthCtrl.getLocationDetails);
 
 //RSS FEED ENDPOINT
 app.get('/api/news',newsCtrl.getNews )

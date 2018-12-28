@@ -1,16 +1,22 @@
 import axios from 'axios';
 const intialState ={
     id:'',
+    zip:'',
     loggedIn:false,
     isAdmin:false,
     userArticles:[],
     news:[],
-    loading:false
+    loading:false,
+    location:{
+        lat:null,
+        lng:null
+    }
 }
 
 //ACTION TYPES USER
 const UPDATE_USER = 'UPDATE_USER';
 const UPDATE_ARTICLES = 'UPDATE_ARTICLES';
+const UPDATE_USER_POSITION = 'UPDATE_USER_POSITION'
 
 //ACTION TYPES NEWS
 const GET_NEWS = 'GET_NEWS';
@@ -26,11 +32,21 @@ export const updateUser = (userInfo) => {
             id:userInfo.id,
             isAdmin:userInfo.isAdmin,
             loggedIn:userInfo.loggedIn,
-            userArticles:userInfo.userArticles
+            userArticles:userInfo.userArticles,
+            zip:userInfo.zip,
+
         }
     }
 }
-
+export const updateUserPosition= (location) => {
+    return{
+        type:UPDATE_USER_POSITION,
+        payload:{
+            lat: location.lat,
+            lng: location.lng
+        }
+    }
+}
 
 export const updateArticles = (articles) => {
 return{
@@ -56,8 +72,11 @@ export default function reducer(state = intialState, action){
                 id:action.payload.id,
                 isAdmin:action.payload.isAdmin,
                 loggedIn:action.payload.loggedIn,
-                userArticles:action.payload.userArticles
+                userArticles:action.payload.userArticles,
+                zip:action.payload.zip
              };
+        case UPDATE_USER_POSITION:
+        return {...state,location:{lat:action.payload.lat,lng:action.payload.lng}};
 
         case UPDATE_ARTICLES:
         return {...state, userArticles:action.payload};

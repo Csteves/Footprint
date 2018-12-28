@@ -1,0 +1,12 @@
+.main-where-container{
+    position: relative;
+}
+
+.map-container{
+    width: 50vw;
+    height: 70vh;
+    min-width: 40vw;
+    min-height: 40vh;
+    position: absolute;
+    right:20px;
+}

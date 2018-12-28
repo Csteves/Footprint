@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {updateUser} from '../../ducks/users';
+import {getGeoKey} from '../../config';
 
 class Register extends Component {
     constructor(props) {
@@ -8,23 +11,37 @@ class Register extends Component {
         this.state = {
             email:'',
             password:'',
+            zip:'',
             isAdmin:false
         }
         this.register = this.register.bind(this);
     }
     async register(){
-        let {email, password} = this.state
-        let res = await axios.post('/auth/register',{email,password});
+        let {email, password,zip} = this.state
+        let res = await axios.post('/auth/register',{email,password,zip});
         console.log(res.data);
-        let {id,loggedIn,isAdmin} = res.data
+        let {id,loggedIn,isAdmin,zip_code} = res.data
         this.props.updateUser({
-            id:id,
-            loggedIn:loggedIn,
-            isAdmin:isAdmin
+            id,
+            loggedIn,
+            isAdmin,
+            zip:zip_code
         })
-        this.setState({email:'',password:'',isAdmin:isAdmin});
+        if(loggedIn && zip_code){
+            this.setUserPosition(zip_code);
+        }
+        this.setState({email:'',password:'',isAdmin, zip:''});
+        this.props.history.push('/');
     }
-
+    async setUserPosition(zip){
+        let res = await  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
+        console.log(res.data);
+        let {lat, lng} = res.data.results[0].geometry.location;
+        this.props.updateUserPosition({
+            lat,
+            lng
+        })
+    }
     render() {
         return (
             <div className='register-container'>
@@ -41,6 +58,14 @@ class Register extends Component {
                     <input
                     value={this.state.password}
                     onChange={(e)=>this.setState({password:e.target.value})}
+                    type="text"/>
+                </div>
+                <div className='zip-wrapper'>
+                <em>*Allows us to find locations near you</em>
+                    <p>Zip-code:</p>
+                    <input
+                    value={this.state.zip}
+                    onChange={(e)=>this.setState({zip:e.target.value})}
                     type="text"/>
                 </div>
                 <button
@@ -60,4 +85,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default connect(null,{updateUser})(Register);

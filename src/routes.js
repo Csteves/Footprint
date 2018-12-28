@@ -8,7 +8,7 @@ import Where from './Components/Where/Where';
 import Material from './Components/Material/material';
 import Login from './Components/Login/Login';
 import User from './Components/User/User';
-import ApiMaterial from './Components/ApiMaterial/ApiMaterial';
+// import ApiMaterial from './Components/ApiMaterial/ApiMaterial';
 
 import {Switch,Route} from 'react-router-dom'
 export default(
@@ -22,7 +22,7 @@ export default(
         <Route path='/prices' component={Prices} />
         <Route path='/prices:id' component={Material} />
         <Route path='/personal:id' component={User} />
-        <Route path='/material:id' component={ApiMaterial} />
+        {/* <Route path='/material:id' component={ApiMaterial} /> */}
     </Switch>
 )
 //need to clarify if link or nested route will be better for material component

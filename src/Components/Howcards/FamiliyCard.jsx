@@ -16,6 +16,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import MaterialModal from '../MaterialModal/MaterialModal';
 
 const styles = theme => ({
   card: {
@@ -53,10 +54,28 @@ const styles = theme => ({
 });
 
 class FamilyCard extends Component {
-  state = { expanded: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      selectedMat:{},
+      open: false,
+    };
+
+  }
+
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
+  };
+  //=============HANDLE MODAL FUNC'S
+  handleOpen = (id) => {
+    let selectedMat = this.props.familyItems.filter(material => material.material_id === id)
+    this.setState({ selectedMat:selectedMat[0],open: true});
+  };
+
+  handleClose = () => {
+    this.setState({ open: false, selectedMat:{} });
   };
 
   render() {
@@ -98,7 +117,7 @@ class FamilyCard extends Component {
         {familyItems.map(row => {
             return (
                     <TableRow
-                    onClick={()=>this.props.goToMaterial(row.material_id)}
+                    onClick={()=>this.handleOpen(row.material_id)}
                     hover
                     key={row.material_id}
                     >
@@ -114,6 +133,11 @@ class FamilyCard extends Component {
 
           </CardContent>
         </Collapse>
+        <MaterialModal
+        open={this.state.open}
+        handleClose={this.handleClose}
+        material={this.state.selectedMat}
+        />
       </Card>
     );
   }

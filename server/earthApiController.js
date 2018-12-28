@@ -25,9 +25,37 @@ module.exports={
                 }
             })
         });
-        sorted.forEach(item=>{
-            console.log(item.description)
-        })
         res.status(200).send(sorted);
+    },
+    getLocations: async (req,res) => {
+        let {lat,lng,ids} = req.query
+        console.log(req.query)
+        let idsArr = ids.split(",")
+        if(!idsArr[0]){
+            let results = await axios.get(`${baseUrl}/earth911.searchLocations?api_key=${API_KEY}&latitude=${lat}&longitude=${lng}&max_distance=25`);
+            let data = results.data.result;
+            if(data.length >31){
+                data.splice(30);
+            }
+            res.status(200).send(data)
+        }else{
+            let urlStr = `${baseUrl}/earth911.searchLocations?api_key=${API_KEY}&latitude=${lat}&longitude=${lng}&max_distance=100`;
+            idsArr.forEach(id =>{
+                let material = `&material_id=${id}`;
+                urlStr += material
+            })
+            let results = await axios.get(urlStr)
+            let data = results.data.result;
+            if(data.length >31){
+                data.splice(30);
+            }
+            res.status(200).send(data)
+        }
+    },
+    getLocationDetails: async (req, res)=>{
+        let{location_id} = req.query;
+        let results = await axios.get(`${baseUrl}/earth911.getLocationDetails?api_key=${API_KEY}&location_id=${location_id}`)
+        let data = results.data.result;
+        res.status(200).send(data)
     }
 }

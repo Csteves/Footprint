@@ -8,18 +8,17 @@ import FamilyCard from '../Howcards/FamiliyCard';
 class How extends Component {
     constructor(props) {
         super(props);
-        this.goToMaterial = this.goToMaterial.bind(this)
+        // this.goToMaterial = this.goToMaterial.bind(this)
     }
-    // going to need to get materials and families
-    //sort materials per family with material ids per family
+
     async componentDidMount(){
-     await this.props.getMaterials();
-     await this.props.getFamilies();
-     console.log(this.props);
+    //  await this.props.getMaterials();
+    //  await this.props.getFamilies();
+    //  console.log(this.props);
     }
-    goToMaterial(id){
-        this.props.history.push(`/material${id}`);
-    }
+    // goToMaterial(id){
+    //     this.props.history.push(`/material${id}`);
+    // }
     render() {
         let{families,materials} = this.props.state;
         let items = []

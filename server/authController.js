@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
     register: async (req,res) =>{
-        let {email, password} = req.body;
+        let {email, password, zip} = req.body;
         let db = req.app.get('db');
         let results = await db.get_user([email]);
         let userExists = results[0];
@@ -12,7 +12,7 @@ module.exports = {
             let salt = bcrypt.genSaltSync(10);
             let hash = bcrypt.hashSync(password,salt);
             console.log("hash",hash);
-            let results = await db.create_user([email,hash]);
+            let results = await db.create_user([email,hash,zip]);
             let newUser = results[0];
             req.session.user = {email: newUser.email, id: newUser.id, isAdmin:newUser.is_admin};
             console.log(req.session.user)
@@ -20,7 +20,8 @@ module.exports = {
                 id:req.session.user.id,
                 loggedIn:true,
                 message:'Successful',
-                isAdmin:req.session.user.isAdmin
+                isAdmin:req.session.user.isAdmin,
+                zip_code:newUser.zip_code
             })
         }
     },
@@ -40,7 +41,8 @@ module.exports = {
                 id:req.session.user.id,
                 loggedIn:true,
                 message: 'Login Successful',
-                isAdmin:req.session.user.isAdmin
+                isAdmin:req.session.user.isAdmin,
+                zip_code:userExists.zip_code
             });
         }else{
             return res.status(401).send({loggedIn:false, message:'Incorrect password'});
