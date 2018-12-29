@@ -4,7 +4,9 @@ import { Map, GoogleApiWrapper,Marker,InfoWindow } from 'google-maps-react';
 import { getMapKey } from '../../config';
 import {connect} from 'react-redux'
 import Axios from 'axios';
-import Place from '@material-ui/icons/PlaceSharp'
+import './Map.css'
+
+
 
 const mapStyles = {
   width: '100%',
@@ -88,13 +90,15 @@ export class MapContainer extends Component {
      };
   render() {
     console.log(this.state.locationDetails)
+    const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234';
+    let labelIndex = 0;
     const {loading,locationDetails} = this.state;
     const {location,loggedIn}= this.props.state;
     const{locations}= this.props
     let userLocation = {};
     let saveLocation = loggedIn ? <div id='iwc' ></div>
                                 : null
-    let zoom = location.lat && location.lng ? 9 : 6;
+
     let details = locationDetails.description
                   ?
                   <div>
@@ -115,7 +119,7 @@ export class MapContainer extends Component {
                     // onReady={this.mapLoaded}
                     google={this.props.google}
                     style={mapStyles}
-                    zoom={zoom}
+                    zoom={ !loading &&location.lat && location.lng?10:6}
                     initialCenter={userLocation}
                     center={userLocation}
                     onClick={this.onMapClicked}
@@ -126,9 +130,20 @@ export class MapContainer extends Component {
                               onClick={this.onMarkerClick}
                               title={place.description}
                               name={place.location_id}
-                              // icon={{
-                              //   url:'/src/assets/user.png'
-                              // }}
+                              label={{
+                                text: labels[labelIndex++ % labels.length],
+                                color: "rgb(241, 90, 34)",
+                                fontSize: "18px",
+                                fontWeight: "bold",
+
+                              }}
+
+                              icon={{
+                                url:'/assets/place.svg',
+                                size: new this.props.google.maps.Size(75,75),
+                                scaledSize:  new this.props.google.maps.Size(65,65),
+                                labelOrigin: new this.props.google.maps.Point(35,27),
+                              }}
                               position={{
                                 lat:place.latitude,
                                 lng:place.longitude
@@ -149,6 +164,7 @@ export class MapContainer extends Component {
                               </div>
 
                               </InfoWindow>
+
                   </Map>
     return (
       <div>

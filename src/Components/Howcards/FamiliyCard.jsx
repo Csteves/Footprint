@@ -125,12 +125,10 @@ class FamilyCard extends Component {
                             {row.description}
                         </TableCell>
                     </TableRow>
-
             );
           })}
         </TableBody>
       </Table>
-
           </CardContent>
         </Collapse>
         <MaterialModal

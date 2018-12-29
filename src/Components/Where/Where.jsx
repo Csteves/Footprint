@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-
 import {getGeoKey} from '../../config';
 import {updateUserPosition} from "../../ducks/users";
-import Map from '../Map/Map'
+import Map from '../Map/Map';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import './Where.css';
+import ListCard from '../WhereCards/ListCard'
 
 
 
@@ -16,7 +18,8 @@ class Where extends Component {
             material:'',
             zip:'',
             searchIds:[],
-            locations:[]
+            locations:[],
+
         }
     }
 
@@ -77,35 +80,76 @@ class Where extends Component {
     }
     render() {
         let {location} = this.props.user;
+        let {families, materials} = this.props.materials
         let {zip,material,searchIds,locations} = this.state;
-
+        const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234';
+        let labelIndex = 0;
+        let listOfLocations = locations.map((place,index) => {
+            return(
+                <div className="location-list-container" key={index} >
+                    <ListCard
+                    location={place}
+                    labelId={labels[labelIndex++ % labels.length]}
+                    />
+                </div>
+            )
+        })
         return (
             <div className='main-where-container'>
-              <div>
-                  <div>
-                      <h6>SEARCH FOR</h6>
-                      <input
-                      onChange={(e)=>this.setState({material:e.target.value})}
-                      value={this.state.material}
-                      type="text"/>
+            <div className="main-where-search-container">
+                <div className="quick-search-bar" >
+
+                </div>
+              <div className='where-search-bar' >
+            <div className="where-header" >
+                <h1>FIND A SOLUTION TO YOUR RECYCLING NEEDS</h1>
+            </div>
+                  <div className="search-materials"  >
+                      <h6>SEARCH BY MATERIAL</h6>
+                       <TextField
+                        id="outlined-name"
+                        label="Search materials"
+                        // className={classes.textField}
+                        value={this.state.material}
+                        onChange={(e)=>this.setState({material:e.target.value})}
+                        margin="normal"
+                        variant="outlined"
+                        />
                   </div>
-                  <div>
-                      <h6>CITY / ZIP CODE</h6>
-                      <input
-                      onChange={(e)=>this.setState({zip:e.target.value})}
-                      type="text"/>
+                  <div className="search-materials">
+                      <h6>ZIP CODE</h6>
+                      <TextField
+                        id="outlined-name"
+                        label="ZIP"
+                        // className={classes.textField}
+                        value={this.state.zip}
+                        onChange={(e)=>this.setState({zip:e.target.value})}
+                        margin="normal"
+                        variant="outlined"
+                        />
                   </div>
-                  <button
+                  <Button
+                  variant="outlined"
+                  color="primary"
+                  id="where-search-btn"
                   onClick={this.handleSearch}
-                  >SEARCH</button>
+                  >
+                       SEARCH
+                  </Button>
               </div>
-              <div className='map-container'>
+            </div>
+                <div className="map-list-container">
+                    <div className="where-list-container" >
+                        {listOfLocations}
+                    </div>
+                <div className='map-container'>
                     <Map
                     location={location}
                     locations={locations}
                     />
-
+                </div>
               </div>
+
             </div>
         );
     }
