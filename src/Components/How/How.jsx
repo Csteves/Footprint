@@ -56,9 +56,6 @@ class How extends Component {
                 )
             })
         }
-
-
-
         return (
             <div className='how-main-container'>
                 {items}

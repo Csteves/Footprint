@@ -3,7 +3,7 @@
     background-color:#f8f8ff;
     display:flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     height:auto;
     width:100%;
@@ -11,65 +11,164 @@
 .main-where-search-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-}
-.map-list-container{
-    display:flex;
-    flex-direction: row;
     justify-content: space-evenly;
+}
+.where-map-list-container{
+    display: flex;
+    justify-content:flex-end;
     flex-wrap: wrap-reverse;
     width:100%;
     height:auto;
-    margin-top:100px;
+    margin-top:20px;
 }
 .map-container{
-    width: 50vw;
+    width: 60vw;
     height: 70vh;
-    min-width: 400px;
+    min-width: 530px;
     min-height: 40vh;
     position: relative;
+    margin-right:5vw;
+    /* look here */
+    /* display:none; */
 }
 .where-list-container{
     width:30vw;
     height: 70vh;
     min-width: 300px;
     overflow:scroll;
-
+    margin-right:5px;
+    /* look here */
+    /* display:none */
 }
 .where-search-bar{
-
     display:flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: wrap;
-    width:50vw;
-    min-width:400px ;
+    width:60vw;
+    min-width:530px ;
     height: auto;
+    max-height: 300px;
     background-color: rgb(238, 238, 238);
     color:#cd6b72;
-    padding-top:10px;
+    margin-right:5vw;
     position: relative;
+    border-radius: 5px;
+
 }
 .where-search-bar .search-materials input {
-    width:200px;
+    width:350px;
+}
+.search-materials{
+    margin:0 5px 0 20px;
+}
+.search-materials h6{
+    font-size: 25px;
+}
+#search-btn-wrapper{
+    width:100%;
+    text-align: right;
 }
 .where-search-bar #where-search-btn {
-
-    align-self: flex-end;
-    margin:0 0 10px 10px;
-
+    /* align-self: flex-end; */
+    /* margin:0 0 10px 10px; */
+    position: relative;
+    top: 16px;
+    font-size: 18px;
+    padding: 17px 0;
+    margin-left: 15px;
 }
 .where-header{
-    background-color:rgb(72, 82, 92);
-    width:50vw;
-    border-radius: 3px;
+    background-color:#4799c2;
+    width:60vw;
+    min-width: 530px;
+    border-radius: 5px;
     text-align: center;
+
 }
 .where-header h1{
     font-size: 28px;
     font-weight: 300;
     color:white;
-    padding:10px;
+    padding:20px;
     min-width: 400px;
+    margin:0;
+    letter-spacing: 5px;
+}
+.quick-search-bar-container{
+    width:30vw;
+    height:40vh;
+    background-color: #f8f8ff;
+}
 
+.material-typeAhead{
+    margin: 0 ;
+    padding: 0;
+    position: relative;
+    max-height:200px;
+    overflow:scroll;
+}
+
+.material-typeAhead li{
+    background: white;
+    list-style: none;
+    border-bottom: 1px solid #D8D8D8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+    width:340px;
+    margin: 0;
+    padding: 20px;
+    transition: background 0.2s;
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+
+
+}
+.search-materials{
+
+    overflow:scroll;
+}
+.material-typeAhead li:nth-child(even){
+    transform: perspective(100px) rotateX(3deg) translateY(2px) scale(1.001);
+    background: linear-gradient(to bottom,  #ffffff 0%,#EFEFEF 100%);
+}
+.material-typeAhead li:nth-child(odd){
+    transform: perspective(100px) rotateX(-3deg) translateY(3px);
+      background: linear-gradient(to top,  #ffffff 0%,#EFEFEF 100%);
+}
+
+/* WHERE SUB HEADER STYLES */
+
+.where-sub-container{
+    width:60vw;
+    min-width:530px ;
+    height: auto;
+    max-height: 200px;
+    background-color: rgb(238, 238, 238);
+    color:#cd6b72;
+    position: relative;
+    border-radius: 5px;
+    margin-right: 5vw;
+
+}
+.where-sub-head{
+    background-color:#4799c2;
+    width:100%;
+    min-width: 530px;
+    border-radius: 5px;
+    text-align: center;
+}
+.where-sub-head h3{
+    font-size: 18px;
+    font-weight: 300;
+    color:white;
+    padding:10px;
+    width: 100%;
+    letter-spacing: 3px;
+}
+.where-sub-btns{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height:70px;
 }

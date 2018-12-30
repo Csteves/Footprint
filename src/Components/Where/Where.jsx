@@ -8,7 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './Where.css';
 import ListCard from '../WhereCards/ListCard'
-
+import QuickSearchBar from './QuickSearchBar'
+import SubHeader from './SubHeader';
 
 
 class Where extends Component {
@@ -19,7 +20,8 @@ class Where extends Component {
             zip:'',
             searchIds:[],
             locations:[],
-
+            matMatchArr:[],
+            subHeadFlag:false
         }
     }
 
@@ -29,12 +31,33 @@ class Where extends Component {
             if(search && materials.length){
                 let searchParams = new URLSearchParams(search);
                 let id = searchParams.get('id');
-                let material = materials.filter(item => item.material_id == id);
+                let material = materials.filter(item => item.material_id === +id);
                 this.setState({
                     material:material[0].description
                 })
             }
     }
+
+    handleInput(value){
+        this.setState({material:value,matMatchArr:this.typeAhead(value)});
+    }
+
+
+    typeAhead(input){
+        let{materials} = this.props.materials;
+        const regex = new RegExp(input, 'gi');
+        if(materials && input !== ''){
+            return materials.filter(item =>{
+                return item.description.match(regex)
+            })
+        }else{return []}
+    }
+    handleSwap = (name)=>{
+
+    }
+    //==========================================
+    //SEARCH API FUNCTIONS
+    //==========================================
     handleSearch = () => {
         let {materials} = this.props.materials;
         let {material,zip} = this.state;
@@ -57,15 +80,14 @@ class Where extends Component {
         this.setState({searchId:ids})
     }
     async getSearchBasedLocations(lat,lng,ids){
-        let {location} = this.props.user;
         let strIds = ids.join(',') ;
         if( lat && lng){
             let res = await axios.get(`/api/getLocations?lat=${lat}&lng=${lng}&ids=${strIds}`);
-            this.setState({locations:res.data})
+            this.setState({locations:res.data,subHeadFlag:true})
         }else{
             //DEFAULT TO MAP CENTER {lat:39.4367,lng:-98.3546}
             let res = await axios.get(`/api/getLocations?lat=39.4367&lng=-98.3546&ids=${strIds}`);
-            this.setState({locations:res.data})
+            this.setState({locations:res.data,subHeadFlag:true})
         }
 
     }
@@ -78,12 +100,16 @@ class Where extends Component {
             lng
         })
     }
+    test = e =>{
+        console.log(e.currentTarget.textContent)
+    }
     render() {
         let {location} = this.props.user;
-        let {families, materials} = this.props.materials
-        let {zip,material,searchIds,locations} = this.state;
+        let {locations,matMatchArr,zip,material,subHeadFlag} = this.state;
+        let visible = subHeadFlag? 'inline' : 'none';
         const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234';
         let labelIndex = 0;
+        let matTypeAhead =[];
         let listOfLocations = locations.map((place,index) => {
             return(
                 <div className="location-list-container" key={index} >
@@ -94,51 +120,71 @@ class Where extends Component {
                 </div>
             )
         })
+        if(matMatchArr.length){
+            matTypeAhead = matMatchArr.map((item,index) =>{
+                return(<li
+                    onClick={(e)=>this.handleInput(e.currentTarget.textContent)}
+                    key={index}>
+                    {item.description}
+                    </li>)
+            })
+        }
+
         return (
             <div className='main-where-container'>
             <div className="main-where-search-container">
-                <div className="quick-search-bar" >
-
+                <div
+                className="quick-search-bar" >
+                    <QuickSearchBar/>
                 </div>
               <div className='where-search-bar' >
             <div className="where-header" >
                 <h1>FIND A SOLUTION TO YOUR RECYCLING NEEDS</h1>
             </div>
-                  <div className="search-materials"  >
-                      <h6>SEARCH BY MATERIAL</h6>
-                       <TextField
-                        id="outlined-name"
-                        label="Search materials"
-                        // className={classes.textField}
-                        value={this.state.material}
-                        onChange={(e)=>this.setState({material:e.target.value})}
-                        margin="normal"
-                        variant="outlined"
-                        />
-                  </div>
                   <div className="search-materials">
                       <h6>ZIP CODE</h6>
                       <TextField
                         id="outlined-name"
-                        label="ZIP"
-                        // className={classes.textField}
+                        label="Enter ZIP"
                         value={this.state.zip}
                         onChange={(e)=>this.setState({zip:e.target.value})}
                         margin="normal"
                         variant="outlined"
                         />
                   </div>
-                  <Button
-                  variant="outlined"
-                  color="primary"
-                  id="where-search-btn"
-                  onClick={this.handleSearch}
-                  >
-                       SEARCH
-                  </Button>
+                  <div className="search-materials"  >
+                      <h6>SEARCH BY MATERIAL</h6>
+                       <TextField
+                        autoComplete="off"
+                        id="outlined-name"
+                        label="Plastic, Electronics, Aluminum, Etc..."
+                        value={this.state.material}
+                        onChange={(e)=>this.handleInput(e.target.value)}
+                        margin="normal"
+                        variant="outlined"
+                        />
+                        <Button
+                        variant="outlined"
+                        color="primary"
+                        id="where-search-btn"
+                        onClick={this.handleSearch}
+                        size='large'
+                        >
+                            SEARCH
+                        </Button>
+                        <ul className='material-typeAhead'>
+                            {matTypeAhead}
+                        </ul>
+                  </div>
               </div>
             </div>
-                <div className="map-list-container">
+                <div style={{display:visible}} >
+                    <SubHeader
+                    handleSwap={this.handleSwap}
+                    searchCriteria={{zip,material}}
+                    />
+                </div>
+                <div className="where-map-list-container">
                     <div className="where-list-container" >
                         {listOfLocations}
                     </div>
