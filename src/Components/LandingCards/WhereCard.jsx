@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
           position:'relative'
         },
         media: {
-          height: 200,
+          height: 300,
 
         },
         content:{

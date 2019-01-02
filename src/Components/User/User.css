@@ -1,0 +1,24 @@
+.user-main-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.user-body-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    width:95%;
+    /* padding:10px;
+    margin:0 5vw 0 5vw; */
+
+}
+
+.user-article-container{
+    width:45vw;
+
+}
+.user-location-container{
+    width:45vw;
+
+}

@@ -11,7 +11,7 @@ class Login extends Component {
         this.state = {
             email:'',
             password:'',
-            gotUserArticles:false
+            gotUserCollection:false
         }
         this.login = this.login.bind(this);
     }
@@ -23,7 +23,9 @@ class Login extends Component {
         let {id,loggedIn,isAdmin,zip_code} = res.data;
         //get users saved items upon login
         if(loggedIn){
-            let res = await axios.get(`/api/articles?id=${id}`)
+            //GOING TO USE GET COLLECTION TO GET ALL USERS INFO WITH JOIN
+            let res = await axios.get(`/api/collection?id=${id}`)
+            console.log(res.data)
             //get users coordinates for use in map
             if( zip_code){
                 this.setUserPosition(zip_code);
@@ -33,9 +35,10 @@ class Login extends Component {
                 isAdmin,
                 loggedIn,
                 zip:zip_code,
-                userArticles:res.data
+                userArticles:res.data.articles,
+                userLocations:res.data.locations
             })
-            this.setState({email:'',password:'',gotUserArticles:true});
+            this.setState({email:'',password:'',gotUserCollection:true});
         }
     }
     async setUserPosition(zip){
@@ -48,11 +51,11 @@ class Login extends Component {
         })
     }
     render() {
-        let {gotUserArticles} = this.state;
+        let {gotUserCollection} = this.state;
         let {isAdmin, loggedIn} = this.props.state;
-        if(isAdmin && loggedIn && gotUserArticles){
+        if(isAdmin && loggedIn && gotUserCollection){
             return <Redirect to='/admin' />
-        }else if(loggedIn && gotUserArticles){
+        }else if(loggedIn && gotUserCollection){
             return <Redirect to='/' />
         };
 

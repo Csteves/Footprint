@@ -10,9 +10,9 @@ import {getGeoKey} from '../../config';
 
 class Nav extends Component {
 
-
+    // ADD USER LOCATIONS HERE
     async componentDidMount(){
-        let {id,isAdmin,loggedIn,userArticles,zip,loading} = this.props.state;
+        let {id,isAdmin,loggedIn,userArticles,userLocations,zip,loading} = this.props.state;
         if(!loading){
             await this.props.getMaterials();
             await this.props.getFamilies();
@@ -22,6 +22,7 @@ class Nav extends Component {
             isAdmin,
             loggedIn,
             userArticles,
+            userLocations,
             zip
         })
     }
@@ -33,6 +34,7 @@ class Nav extends Component {
             isAdmin:false,
             loggedIn:res.data.loggedIn,
             userArticles:[],
+            userLocations:[],
             zip:'',
         })
         this.props.updateUserPosition({lat:null,lng:null})

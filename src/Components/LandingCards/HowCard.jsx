@@ -19,7 +19,7 @@ import {Link} from "react-router-dom"
           height:'100%'
         },
         media: {
-          height: 200,
+          height: 300,
         },
         content:{
           paddingTop:"5px",

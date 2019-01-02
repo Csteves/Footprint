@@ -37,9 +37,10 @@ constructor(props) {
             let trendingStyle = category.price_change ? 'green' : 'red';
             //Steel based categories are based per ton
             let priceBase = 'lb' ;
-            if(category.id === '10' || category.id === '11' || category.id === '12'){
+            if(category.id === 10 || category.id === 11 || category.id === 12){
                 priceBase = 'kg'
             }
+
             return(
                 <div key={category.id}>
                     <div

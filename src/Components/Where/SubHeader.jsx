@@ -30,7 +30,7 @@ export default function SubHeader(props) {
                      variant="outlined"
                      color="primary"
                      id="where-search-btn"
-                    //  onClick={this.handleSwap}
+                     onClick={()=>props.handleSwap('list')}
                      size='large'
                     >
                     ALL LISTINGS
@@ -39,7 +39,7 @@ export default function SubHeader(props) {
                      variant="outlined"
                      color="primary"
                      id="where-search-btn"
-                    //  onClick={this.handleSwap}
+                     onClick={()=>props.handleSwap('programs')}
                      size='large'
                     >
                     PROGRAMS

@@ -42,7 +42,10 @@ app.get('/api/material', materialCtrl.getMaterial);
 app.post('/api/articles', userCtrl.saveArticle);
 app.get('/api/articles', userCtrl.getArticles);
 app.delete('/api/articles:id/', userCtrl.deleteArticle);
-app.post('/api/location', userCtrl.saveLocation)
+app.post('/api/location', userCtrl.saveLocation);
+app.delete('/api/locations:id', userCtrl.deleteLocation);
+app.get('/api/locations:id', userCtrl.getLocations)
+app.get('/api/collection', userCtrl.getCollection)
 
 //ADMIN ENDPOINTS
 app.put('/api/prices', materialCtrl.updatePrices);

@@ -7,9 +7,12 @@ import Map from '../Map/Map';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './Where.css';
-import ListCard from '../WhereCards/ListCard'
+import ListCard from '../WhereCards/ListCard';
+import FullListCard from '../WhereCards/FullListCard';
 import QuickSearchBar from './QuickSearchBar'
 import SubHeader from './SubHeader';
+import Programs from './Programs';
+import MapId from '../../mapId'
 
 
 class Where extends Component {
@@ -21,13 +24,18 @@ class Where extends Component {
             searchIds:[],
             locations:[],
             matMatchArr:[],
-            subHeadFlag:false
+            subHeadFlag:false,
+            displayFullList:false,
+            displayMap:true,
+            displayPrograms:false,
+            inputRef:{}
         }
     }
 
     componentDidMount(){
-        let {search} = this.props.location
-        let {materials} = this.props.materials
+        let {search} = this.props.location;
+        let {materials} = this.props.materials;
+        let {zip,loggedIn} = this.props.user
             if(search && materials.length){
                 let searchParams = new URLSearchParams(search);
                 let id = searchParams.get('id');
@@ -36,9 +44,11 @@ class Where extends Component {
                     material:material[0].description
                 })
             }
+            if(loggedIn && zip){this.setState({zip})}
     }
 
-    handleInput(value){
+    handleInput =(value) =>{
+        console.log('hello handleInput')
         this.setState({material:value,matMatchArr:this.typeAhead(value)});
     }
 
@@ -53,8 +63,29 @@ class Where extends Component {
         }else{return []}
     }
     handleSwap = (name)=>{
-
+        if(name === 'map'){
+            this.setState({displayMap:true,displayFullList:false,displayPrograms:false})
+        }else if(name === 'list'){
+            this.setState({displayMap:false,displayFullList:true,displayPrograms:false})
+        }else if(name === 'programs'){
+            this.setState({displayMap:false,displayFullList:false,displayPrograms:true})
+        }
     }
+
+     handleInputFocus = input => {
+         console.log('hi from outside')
+         this.setState({inputRef:input})
+       console.log(input)
+       return ()=>{
+           console.log('hi from inside')
+           console.log(input)
+            if (input) {
+                console.log('hi from way inside')
+             setTimeout(() => {input.focus()}, 100);
+           }
+        }
+    };
+
     //==========================================
     //SEARCH API FUNCTIONS
     //==========================================
@@ -100,25 +131,45 @@ class Where extends Component {
             lng
         })
     }
-    test = e =>{
-        console.log(e.currentTarget.textContent)
-    }
+
     render() {
         let {location} = this.props.user;
-        let {locations,matMatchArr,zip,material,subHeadFlag} = this.state;
-        let visible = subHeadFlag? 'inline' : 'none';
-        const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234';
-        let labelIndex = 0;
+        const listId = MapId();
+        let {
+            locations,
+            matMatchArr,
+            zip,
+            material,
+            subHeadFlag,
+            displayFullList,
+            displayMap,
+            displayPrograms
+         } = this.state;
+        let displaySubHead = subHeadFlag? 'inline' : 'none';
+        let displayListClass = displayFullList ?'where-full-list-container':'where-maplist-container';
         let matTypeAhead =[];
         let listOfLocations = locations.map((place,index) => {
-            return(
-                <div className="location-list-container" key={index} >
-                    <ListCard
-                    location={place}
-                    labelId={labels[labelIndex++ % labels.length]}
-                    />
-                </div>
-            )
+            if(displayFullList){
+                return(
+                    <div className="location-list-container" key={index} >
+                        <FullListCard
+                        location={place}
+                        labelId={listId.getId()}
+                        />
+                    </div>
+                )
+            }else if(!displayFullList && displayMap){
+                console.log('hello else if')
+                return(
+                    <div className="location-list-container" key={index} >
+                        <ListCard
+                        location={place}
+                        labelId={listId.getId()}
+                        />
+                    </div>
+                )
+            }
+
         })
         if(matMatchArr.length){
             matTypeAhead = matMatchArr.map((item,index) =>{
@@ -135,7 +186,11 @@ class Where extends Component {
             <div className="main-where-search-container">
                 <div
                 className="quick-search-bar" >
-                    <QuickSearchBar/>
+                    <QuickSearchBar
+                    handleInputFocus={this.handleInputFocus}
+                    handleInput={this.handleInput}
+                    inputRef={this.state.inputRef}
+                    />
                 </div>
               <div className='where-search-bar' >
             <div className="where-header" >
@@ -144,6 +199,7 @@ class Where extends Component {
                   <div className="search-materials">
                       <h6>ZIP CODE</h6>
                       <TextField
+                        autoComplete="off"
                         id="outlined-name"
                         label="Enter ZIP"
                         value={this.state.zip}
@@ -156,6 +212,7 @@ class Where extends Component {
                       <h6>SEARCH BY MATERIAL</h6>
                        <TextField
                         autoComplete="off"
+                        inputRef={(input)=>this.handleInputFocus(input)}
                         id="outlined-name"
                         label="Plastic, Electronics, Aluminum, Etc..."
                         value={this.state.material}
@@ -165,7 +222,6 @@ class Where extends Component {
                         />
                         <Button
                         variant="outlined"
-                        color="primary"
                         id="where-search-btn"
                         onClick={this.handleSearch}
                         size='large'
@@ -178,21 +234,38 @@ class Where extends Component {
                   </div>
               </div>
             </div>
-                <div style={{display:visible}} >
+                <div style={{display:displaySubHead}} >
                     <SubHeader
                     handleSwap={this.handleSwap}
                     searchCriteria={{zip,material}}
                     />
                 </div>
                 <div className="where-map-list-container">
-                    <div className="where-list-container" >
+                    <div
+                    //Display list style depending on list or map view
+                    className={displayListClass}
+                    style={{display: displayMap || displayPrograms ? 'none':'inline'}}
+                    >
                         {listOfLocations}
                     </div>
-                <div className='map-container'>
+                    <div
+                    className={displayListClass}
+                    >
+                       {listOfLocations}
+                    </div>
+                <div
+                style={{display: displayFullList || displayPrograms?'none':'inline'}}
+                className='map-container'>
                     <Map
                     location={location}
                     locations={locations}
                     />
+                </div>
+                <div
+                style={{display:displayMap || displayFullList ? 'none':'inline'}}
+                className='where-program-container'
+                >
+                    <Programs/>
                 </div>
               </div>
 

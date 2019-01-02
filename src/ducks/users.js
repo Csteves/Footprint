@@ -5,6 +5,7 @@ const intialState ={
     loggedIn:false,
     isAdmin:false,
     userArticles:[],
+    userLocations:[],
     news:[],
     loading:false,
     location:{
@@ -16,6 +17,7 @@ const intialState ={
 //ACTION TYPES USER
 const UPDATE_USER = 'UPDATE_USER';
 const UPDATE_ARTICLES = 'UPDATE_ARTICLES';
+const UPDATE_LOCATIONS = 'UPDATE_LOCATIONS';
 const UPDATE_USER_POSITION = 'UPDATE_USER_POSITION'
 
 //ACTION TYPES NEWS
@@ -33,6 +35,7 @@ export const updateUser = (userInfo) => {
             isAdmin:userInfo.isAdmin,
             loggedIn:userInfo.loggedIn,
             userArticles:userInfo.userArticles,
+            userLocations:userInfo.userLocations,
             zip:userInfo.zip,
 
         }
@@ -54,6 +57,12 @@ return{
     payload:articles
 }
 }
+export const updateLocations = (locations) => {
+return{
+    type:UPDATE_LOCATIONS,
+    payload:locations
+}
+}
 
 //ACTION BUILDERS NEWS
 export const getNews = () =>{
@@ -73,6 +82,7 @@ export default function reducer(state = intialState, action){
                 isAdmin:action.payload.isAdmin,
                 loggedIn:action.payload.loggedIn,
                 userArticles:action.payload.userArticles,
+                userLocations:action.payload.userLocations,
                 zip:action.payload.zip
              };
         case UPDATE_USER_POSITION:
@@ -80,6 +90,9 @@ export default function reducer(state = intialState, action){
 
         case UPDATE_ARTICLES:
         return {...state, userArticles:action.payload};
+
+        case UPDATE_LOCATIONS:
+        return {...state, userLocations:action.payload};
 
         case GET_NEWS_PENDING:
         return {...state,loading:true};

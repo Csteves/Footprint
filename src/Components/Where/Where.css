@@ -7,12 +7,15 @@
     justify-content: space-between;
     height:auto;
     width:100%;
+    padding-bottom: 25px;
 }
 .main-where-search-container{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
+/* WHERE MAP STYLES ============================================== */
+
 .where-map-list-container{
     display: flex;
     justify-content:flex-end;
@@ -31,7 +34,7 @@
     /* look here */
     /* display:none; */
 }
-.where-list-container{
+.where-maplist-container{
     width:30vw;
     height: 70vh;
     min-width: 300px;
@@ -40,6 +43,8 @@
     /* look here */
     /* display:none */
 }
+
+/* WHERE SEARCH BAR STYLES==================================== */
 .where-search-bar{
     display:flex;
     align-items: flex-start;
@@ -73,10 +78,14 @@
     /* align-self: flex-end; */
     /* margin:0 0 10px 10px; */
     position: relative;
+    color:#cd6b72;
     top: 16px;
     font-size: 18px;
     padding: 17px 0;
     margin-left: 15px;
+}
+.where-search-bar #where-search-btn:hover{
+    border-color: #cd6b72;
 }
 .where-header{
     background-color:#4799c2;
@@ -95,23 +104,20 @@
     margin:0;
     letter-spacing: 5px;
 }
-.quick-search-bar-container{
-    width:30vw;
-    height:40vh;
-    background-color: #f8f8ff;
-}
 
+/* WHERE MATERIAL SEARCH TYPE AHEAD STYLES========================== */
 .material-typeAhead{
     margin: 0 ;
     padding: 0;
     position: relative;
-    max-height:200px;
+    max-height:230px;
     overflow:scroll;
 }
 
 .material-typeAhead li{
     background: white;
     list-style: none;
+    color:#1769aa;
     border-bottom: 1px solid #D8D8D8;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
     width:340px;
@@ -137,7 +143,18 @@
       background: linear-gradient(to top,  #ffffff 0%,#EFEFEF 100%);
 }
 
-/* WHERE SUB HEADER STYLES */
+/* WHERE FULL LIST STYLES===================================== */
+.where-full-list-container{
+    width:60vw;
+    height: 70vh;
+    min-width: 530px;
+    overflow:scroll;
+    margin-right:5vw;
+    /* look here */
+    /* display:none */
+}
+
+/* WHERE SUB HEADER STYLES===================================== */
 
 .where-sub-container{
     width:60vw;
@@ -163,7 +180,7 @@
     font-weight: 300;
     color:white;
     padding:10px;
-    width: 100%;
+    width: 98%;
     letter-spacing: 3px;
 }
 .where-sub-btns{
@@ -171,4 +188,33 @@
     justify-content: space-evenly;
     align-items: center;
     height:70px;
+}
+
+
+/* QUICK SEARCH BAR STYLES ============================================= */
+.quick-search-bar-container{
+    width:30vw;
+    height:42vh;
+    min-width: 150px;
+    background-color: #f8f8ff;
+}
+.quick-search-bar-container h1{
+    background-color: #4799c2;
+    font-size: 28px;
+    font-weight: 300;
+    color:white;
+    padding:20px;
+    width:70%;
+    min-width: 200px;
+    margin:0;
+    letter-spacing: 5px;
+    border-radius: 5px;
+}
+
+.quick-search-form{
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 100%;
+    overflow:scroll;
+
 }

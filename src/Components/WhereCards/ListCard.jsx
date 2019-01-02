@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
+import {updateLocations} from '../../ducks/users'
 import axios from 'axios'
 import './ListCard.css'
 
@@ -30,25 +31,30 @@ class ListCard extends Component{
            locationDetails:{}
        }
    }
+   // CONDTIONALALY RENDER SAVE LOCATION BUTTON
+   //ADD SNACK BARS TO NOTIFY USERS WHEN SAVES OR DELETES TAKE PLACE
    componentDidMount(){
        this.getLocationDetails();
    }
     async getLocationDetails(){
     let {location_id} = this.props.location;
     let res = await axios.get(`/api/locationDetails?location_id=${location_id}`);
-    console.log(res.data)
     this.setState({locationDetails:res.data[location_id]})
     }
-    handleSave = async (details) => {
-        let{id} = this.props.state
-          console.log(details)
-          let res = await axios.post('/api/location',{details,id});
-          console.log(res.data)
+    handleSave = async () => {
+        let{id} = this.props.state.users
+        let {locationDetails} = this.state;
+        let details = locationDetails;
+        console.log(id);
+        let {distance} = this.props.location;
+        console.log(distance)
+        let res = await axios.post('/api/location',{details,id,distance});
+        console.log(res.data)
+        this.props.updateLocations(res.data.usersLocations)
        };
 
     render(){
         const { classes,location } = this.props;
-        console.log(this.props.state)
         let {address,city,province,phone,hours,postal_code} = this.state.locationDetails
         return (
             <Card
@@ -97,4 +103,4 @@ class ListCard extends Component{
       }
 
 
-export default connect(mapStateToProps)(withStyles(styles)(ListCard));
+export default connect(mapStateToProps,{updateLocations})(withStyles(styles)(ListCard));

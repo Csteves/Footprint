@@ -24,24 +24,24 @@ const styles = {
 };
 
 function UserArticles(props) {
-  const { classes } = props;
+  const { classes ,article} = props;
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.date}
+          {article.date}
         </Typography>
         <Typography variant="h5" component="h2">
-          {props.title}
+          {article.title}
         </Typography>
       </CardContent>
 
       <CardActions>
-            <Button href={props.link} className={classes.button}>
+            <Button href={article.link} className={classes.button}>
                 VIEW ARTICLE
             </Button>
             <Button
-            onClick={()=>props.deleteArticle(props.id)}
+            onClick={()=>props.deleteArticle(article.id)}
             className={classes.button}>
                 DELETE ARTICLE
             </Button>

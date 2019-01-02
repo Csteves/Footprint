@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, GoogleApiWrapper,Marker,InfoWindow } from 'google-maps-react';
 import { getMapKey } from '../../config';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {updateLocations} from '../../ducks/users'
 import Axios from 'axios';
-import './Map.css'
+import MapId from '../../mapId'
+import './Map.css';
 
 
 
 const mapStyles = {
   width: '100%',
-  height: '100%'
+  height: '100%',
+
 };
 
 export class MapContainer extends Component {
@@ -22,24 +25,22 @@ export class MapContainer extends Component {
              showingInfoWindow: false,
              activeMarker: {},
              selectedPlace: {},
-             locationDetails:{}
+             locationDetails:{},
+             distance:null
         }
     }
     componentDidMount(){
         this.setState({loading:false})
     }
- //SETUP REDUCER AND USERS THINGS TO HANDLE LOCATIONS
- //USE JOIN TO GET ALL USERS INFO AND DISPLAY IN USERS THINGS
- // setup structure of where a lil bit
- // SETUP DROPDOWN OF FAMILIES AND MATERIALS  ON WHERE VIEW
- //VISISBILITY?? USE FOR LIST VIEW OR MAP VIEW
+
     onMarkerClick = (props, marker, e) =>{
       console.log(marker)
-      this.getLocationDetails(marker.name);
+      this.getLocationDetails(marker.name.id);
       this.setState({
         selectedPlace: props,
         activeMarker: marker,
-        showingInfoWindow: true
+        showingInfoWindow: true,
+        distance:marker.name.distance
       });
     }
     async getLocationDetails(location_id){
@@ -69,7 +70,7 @@ export class MapContainer extends Component {
         const button = (
           <button
             onClick={e => {
-              this.handleSave(this.state.locationDetails)
+              this.handleSave(this.state.locationDetails,this.state.distance)
             }}
           >
             Save This Location
@@ -77,26 +78,26 @@ export class MapContainer extends Component {
         );
         ReactDOM.render(
           React.Children.only(button),
-          document.getElementById("iwc")
+          document.getElementById("info-window-save-btn")
         );
       }
     }
 
-    handleSave = async (details) => {
+    handleSave = async (details,distance) => {
       let{id} = this.props.state
         console.log(details)
-        let res = await Axios.post('/api/location',{details,id});
+        let res = await Axios.post('/api/location',{details,id,distance});
         console.log(res.data)
+        this.props.updateLocations(res.data.usersLocations)
      };
   render() {
-    console.log(this.state.locationDetails)
-    const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234';
-    let labelIndex = 0;
+    const mapId = MapId();
     const {loading,locationDetails} = this.state;
     const {location,loggedIn}= this.props.state;
     const{locations}= this.props
+    console.log('map',locations)
     let userLocation = {};
-    let saveLocation = loggedIn ? <div id='iwc' ></div>
+    let saveLocation = loggedIn ? <div id='info-window-save-btn' ></div>
                                 : null
 
     let details = locationDetails.description
@@ -108,7 +109,7 @@ export class MapContainer extends Component {
                        {`${locationDetails.city}, ${locationDetails.province}. ${locationDetails.postal_code}`}
                     </p>
                     <p>Phone: {locationDetails.phone}</p>
-                    {/* <div>{saveLocation}</div> */}
+                    <p>Distance: {this.state.distance} Miles</p>
                   </div>
                   : <div>Loading...</div>
     if(!loading){
@@ -116,7 +117,6 @@ export class MapContainer extends Component {
     }
     let map = loading ? 'Loading...'
                     :<Map
-                    // onReady={this.mapLoaded}
                     google={this.props.google}
                     style={mapStyles}
                     zoom={ !loading &&location.lat && location.lng?10:6}
@@ -129,9 +129,9 @@ export class MapContainer extends Component {
                               key={index}
                               onClick={this.onMarkerClick}
                               title={place.description}
-                              name={place.location_id}
+                              name={{id:place.location_id,distance:place.distance}}
                               label={{
-                                text: labels[labelIndex++ % labels.length],
+                                text: mapId.getId(),
                                 color: "rgb(241, 90, 34)",
                                 fontSize: "18px",
                                 fontWeight: "bold",
@@ -162,9 +162,7 @@ export class MapContainer extends Component {
                                 {details}
                                 {saveLocation}
                               </div>
-
                               </InfoWindow>
-
                   </Map>
     return (
       <div>
@@ -177,6 +175,6 @@ export class MapContainer extends Component {
 function mapStateToProps(state){
   return{state:state.users}
 }
-export default connect(mapStateToProps)(GoogleApiWrapper({
+export default connect(mapStateToProps,{updateLocations})(GoogleApiWrapper({
   apiKey: getMapKey()
 })(MapContainer));
