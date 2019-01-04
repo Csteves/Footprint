@@ -45,11 +45,8 @@ class ListCard extends Component{
         let{id} = this.props.state.users
         let {locationDetails} = this.state;
         let details = locationDetails;
-        console.log(id);
         let {distance} = this.props.location;
-        console.log(distance)
         let res = await axios.post('/api/location',{details,id,distance});
-        console.log(res.data)
         this.props.updateLocations(res.data.usersLocations)
        };
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Admin from './Components/Admin/Admin';
 import How from  './Components/How/How';
 import Landing from './Components/Landing/Landing';

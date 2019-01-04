@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -17,10 +16,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import MaterialModal from '../MaterialModal/MaterialModal';
+import getFamilyImage from './familyImages'
+import '../How/How.css'
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
+    maxWidth: "100%",
+    minWidth: 275
   },
   media: {
     height: 0,
@@ -79,16 +81,17 @@ class FamilyCard extends Component {
   };
 
   render() {
-    const { classes,familyItems } = this.props;
+    const { classes,familyItems,famId } = this.props;
+    console.log(typeof famId,famId)
     return (
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+          image={getFamilyImage(famId)}
           title="Paella dish"
         />
         <CardContent>
-          <Typography component="h1">
+          <Typography variant='h4'>
            {this.props.title}
           </Typography>
         </CardContent>
@@ -110,7 +113,10 @@ class FamilyCard extends Component {
           <Table className={classes.table}>
         <TableHead>
           <TableRow >
-            <TableCell >{this.props.title}</TableCell>
+            <TableCell
+            id='how-tablecell-head'
+             variant='head'
+             >{this.props.title}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -118,10 +124,13 @@ class FamilyCard extends Component {
             return (
                     <TableRow
                     onClick={()=>this.handleOpen(row.material_id)}
+                    style={{cursor:"pointer"}}
                     hover
                     key={row.material_id}
                     >
-                        <TableCell component="th" scope="row" style={{width:"100%"}}>
+                        <TableCell
+                        className='how-table-cell'
+                        component="th" scope="row" style={{width:"100%"}}>
                             {row.description}
                         </TableCell>
                     </TableRow>

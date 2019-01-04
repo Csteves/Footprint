@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import './Where.css'
 export default function SubHeader(props) {
     const {zip,material} = props.searchCriteria
-    const searchStr = `Locations accepting ${material} in proximity of ${zip}`;
         return (
             <div className='where-sub-container'>
                 <div className='where-sub-head' >

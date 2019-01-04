@@ -23,7 +23,6 @@ class QuickSearchSelect extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            matName:'',
             matNames:[],
             labelWidth: 0
         }
@@ -43,7 +42,7 @@ class QuickSearchSelect extends Component {
         focused();
     }
     render() {
-        const {matNames,matName} = this.state;
+        const {matNames} = this.state;
         const {classes,family} =this.props;
         let mat = matNames.map((mat,i) => {
             return(

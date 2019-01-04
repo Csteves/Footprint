@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom'
+import './MaterialModal.css'
 
 
 
@@ -30,6 +31,7 @@ class MaterialModal extends React.Component {
     return (
       <div>
         <Modal
+          className="how-modal"
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.props.open}
@@ -42,8 +44,14 @@ class MaterialModal extends React.Component {
             <Typography variant="subtitle1" id="simple-modal-description">
               {material.long_description}
             </Typography>
-            <Link to={`/where?id=${material.material_id}`}>
-              <button>Find A Location</button>
+            <Link
+            className="modal-link"
+            to={`/where?id=${material.material_id}`}>
+              <Button
+              variant='outlined'
+              size="large"
+              color="primary"
+              >Find A Location</Button>
             </Link>
           </div>
         </Modal>

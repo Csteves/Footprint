@@ -6,19 +6,7 @@ import FamilyCard from '../Howcards/FamiliyCard';
 
 
 class How extends Component {
-    constructor(props) {
-        super(props);
-        // this.goToMaterial = this.goToMaterial.bind(this)
-    }
 
-    async componentDidMount(){
-    //  await this.props.getMaterials();
-    //  await this.props.getFamilies();
-    //  console.log(this.props);
-    }
-    // goToMaterial(id){
-    //     this.props.history.push(`/material${id}`);
-    // }
     render() {
         let{families,materials} = this.props.state;
         let items = []
@@ -27,20 +15,7 @@ class How extends Component {
                 let name = family.description
                 let matCopy= [];
                 if(family.material_ids){
-                 materials.forEach((mat) =>{
-                     let found = false
-                    family.material_ids.filter((id) =>{
-                        if(!found && mat.material_id === id){
-                            // console.log("mat.id",mat.material_id,"famId",id)
-                           matCopy.push(mat);
-                            found = true;
-                            return false
-                        }else{
-                            return true
-                        }
-                    })
-                })
-
+                     matCopy = materials.filter(mat => family.material_ids.includes(mat.material_id))
                 }
                  return(
                     <div
@@ -50,6 +25,7 @@ class How extends Component {
                         goToMaterial={this.goToMaterial}
                         familyItems={matCopy}
                         title={name}
+                        famId={family.family_id}
                         />
                         <br/>
                     </div>
@@ -57,9 +33,16 @@ class How extends Component {
             })
         }
         return (
-            <div className='how-main-container'>
-                {items}
-            </div>
+                <div className='how-main-container'>
+            <div className="how-header" >
+                <h1>FIND THE MATERIALS THAT YOU ARE TRYING TO RECYCLE</h1>
+                </div>
+                <div className="how-body">
+                    {items}
+                </div>
+
+                </div>
+
         );
     }
 }

@@ -159,7 +159,6 @@ class Where extends Component {
                     </div>
                 )
             }else if(!displayFullList && displayMap){
-                console.log('hello else if')
                 return(
                     <div className="location-list-container" key={index} >
                         <ListCard

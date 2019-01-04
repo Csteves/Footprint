@@ -1,33 +1,85 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900);
+.prices-main-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.prices-title-wrapper{
+    min-width: 400px;
+    width:80vw;
+    background-color: #4799c2;
+    border-radius:5px;
+    padding:10px;
+    margin:15px 10px 5px 10px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.prices-title-wrapper h1{
+    font-size: 30px;
+    font-weight: 400;
+    color:white;
+    padding:20px;
+    min-width: 400px;
+    width:58vw;
+    margin:0;
+    letter-spacing: 3px;
+}
+
+
 .materials-container{
     width:100%;
     height:125vh;
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    padding-top:10vh;
+    padding-top:20px;
 }
 .material-wrapper{
-    width:250px;
-    height:250px;
+    width:30vw;
+    height:300px;
     margin:10px;
     background-position: center;
     background-size:cover;
     background-repeat:no-repeat;
-    color:whitesmoke;
     transition: 0.5s;
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
 }
 .material-wrapper:hover{
-    width:255px;
-    height: 255px;
+   transform: translateY(-5px);
+    cursor: pointer;
+}
+.prices-card-content{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    height:100%;
 
+}
+.prices-card-content h2{
+    font-size:2rem ;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    color: white;
+    padding:7px;
+}
+.prices-card-content h5{
+    padding: 5px;
+    color: white;
+    font: 20px Monaco, Mono-Space;
+    margin: 0;
+}
+.prices-card-content i{
+    font-size: 5rem;
 }
 
 .red{
-    color:#cd6b72;
+    color:#ff1744;
     font-size:50px;
 }
 .green{
-    color:#87d271;
+    color:#76ff03;
     font-size:50px;
 }

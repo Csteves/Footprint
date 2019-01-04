@@ -12,19 +12,7 @@ module.exports={
         let wantedIds = [1,2,3,4,5,6,7,8,9,96,95,98]
         let results = await axios.get(`${baseUrl}/earth911.getFamilies?api_key=${API_KEY}`);
         let data = results.data.result;
-        let sorted = [];
-        data.forEach(item => {
-            let found = false;
-            wantedIds.filter(id =>{
-                if(!found && item.family_id === id){
-                    sorted.push(item);
-                    found = true;
-                    return false
-                }else{
-                    return true
-                }
-            })
-        });
+        let sorted = data.filter(family => wantedIds.includes(family.family_id))
         res.status(200).send(sorted);
     },
     getLocations: async (req,res) => {

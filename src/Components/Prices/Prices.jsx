@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {passMaterialId} from '../../ducks/materials';
 import './Prices.css';
@@ -15,7 +14,7 @@ constructor(props) {
         categories:[],
     }
 }
-    // i want to use a modal from material ui to render material.jsx
+
     showMaterial = (id)=>{
         this.props.history.push(`/prices${id}`)
     }
@@ -35,7 +34,7 @@ constructor(props) {
             }
             let trending = category.price_change ?'trending_up' : "trending_down";
             let trendingStyle = category.price_change ? 'green' : 'red';
-            //Steel based categories are based per ton
+            //Steel based categories are price based per ton
             let priceBase = 'lb' ;
             if(category.id === 10 || category.id === 11 || category.id === 12){
                 priceBase = 'kg'
@@ -47,7 +46,7 @@ constructor(props) {
                     onClick={()=>this.showMaterial(category.id)}
                     style={backgroundStyle}
                     className='material-wrapper'>
-                        <div>
+                        <div className="prices-card-content">
                         <h2>{category.title}</h2>
                         <h5>Current Market Price: ${category.price}/{priceBase}</h5>
                         <i
@@ -59,13 +58,14 @@ constructor(props) {
             )
         })
         return (
-            <div>
-                <h1>prices</h1>
-                <div className='materials-container'>
+            <div className="prices-main-container">
+                <div className="prices-title-wrapper">
+                    <h1>CURRENT MARKET PRICES FOR COMMON SCRAP METALS</h1>
+                </div>
+            <div className='materials-container'>
                     {materials}
                 </div>
-
-            </div>
+        </div>
         );
     }
 }

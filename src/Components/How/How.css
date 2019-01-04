@@ -2,14 +2,47 @@
     font-size: 30px;
 }
 .how-main-container{
+   height: auto;
+   width:100%;
+    background-color:#f8f8ff;
+}
+.how-header{
+    background-color:#4799c2;
+    width:80vw;
+    min-width: 530px;
+    border-radius: 5px;
+    text-align: center;
+    margin:10px auto;
+    padding:10px
+}
+.how-header h1{
+    font-size: 28px;
+    font-weight: 300;
+    color:white;
+    padding:20px;
+    min-width: 400px;
+    margin:0;
+    letter-spacing: 5px;
+}
+.how-body{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
 }
 .family-wrapper{
     width:30vw;
     height:auto;
     min-width: 250px;
     margin-top:15px;
+    margin:5px;
+}
+
+        /* HOW FAMILY CARD STYLES============================ */
+
+.how-table-cell{
+    color:#2196f3 !important;
+    font-size:18px !important;
+}
+#how-tablecell-head{
+    font-size: 20px;
 }

@@ -5,12 +5,10 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {updateUser,updateUserPosition} from '../../ducks/users';
 import {getMaterials,getFamilies} from '../../ducks/materials';
-import {getGeoKey} from '../../config';
 
 
 class Nav extends Component {
 
-    // ADD USER LOCATIONS HERE
     async componentDidMount(){
         let {id,isAdmin,loggedIn,userArticles,userLocations,zip,loading} = this.props.state;
         if(!loading){

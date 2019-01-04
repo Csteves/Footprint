@@ -196,7 +196,7 @@
     width:30vw;
     height:42vh;
     min-width: 150px;
-    background-color: #f8f8ff;
+
 }
 .quick-search-bar-container h1{
     background-color: #4799c2;
@@ -204,8 +204,8 @@
     font-weight: 300;
     color:white;
     padding:20px;
-    width:70%;
-    min-width: 200px;
+    width:72%;
+    min-width: 244px;
     margin:0;
     letter-spacing: 5px;
     border-radius: 5px;
@@ -214,7 +214,10 @@
 .quick-search-form{
     display: flex;
     flex-wrap: wrap;
+    width:80%;
+    min-width: 282px;
     max-height: 100%;
     overflow:scroll;
-
+    background-color: rgb(238, 238, 238);
+    border-radius: 5px;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -6,9 +6,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import {connect} from 'react-redux';
 
-const styles = {
+const styles = theme=> ({
   card: {
     minWidth: 275,
   },
@@ -20,39 +23,70 @@ const styles = {
   },
   button:{
     color:'#4799c2 !important'
-  }
-};
+  },
+  close: {
+    padding: theme.spacing.unit / 2,
+  },
+});
 
-function NewsCard(props) {
-  const { classes } = props;
-  let {loggedIn} = props.state;
-   let saveButton = loggedIn ?
-                              <Button
-                              onClick={()=>props.saveArticle(props.id)}
-                              className={classes.button}>
-                                  SAVE ARTICLE
-                              </Button>
-                              :
+
+class NewsCard extends Component{
+
+    render(){
+    const { classes,open } = this.props;
+    let {loggedIn} = this.props.state;
+    let saveButton = loggedIn ?
+                                <Button
+                                onClick={()=>this.props.saveArticle(this.props.id)}
+                                className={classes.button}>
+                                    SAVE ARTICLE
+                                </Button>
+                                :
                               <div></div>;
-  return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.date}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {props.title}
-        </Typography>
-      </CardContent>
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              {this.props.date}
+            </Typography>
+            <Typography variant="h5" component="h2">
+              {this.props.title}
+            </Typography>
+          </CardContent>
 
-      <CardActions>
-            <Button href={props.link} className={classes.button}>
-                VIEW ARTICLE
-            </Button>
-            {saveButton}
-      </CardActions>
-    </Card>
-  );
+          <CardActions>
+                <Button href={this.props.link} className={classes.button}>
+                    VIEW ARTICLE
+                </Button>
+                {saveButton}
+          <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={open}
+          autoHideDuration={4000}
+          onClose={this.props.close}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.props.message}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.props.close}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+          </CardActions>
+        </Card>
+      );
+    }
 }
 
 NewsCard.propTypes = {

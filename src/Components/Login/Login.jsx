@@ -27,6 +27,7 @@ class Login extends Component {
             let res = await axios.get(`/api/collection?id=${id}`)
             console.log(res.data)
             //get users coordinates for use in map
+            //I STILL WANT TO USE JAVASCRIPTS GEOLOCATOR API
             if( zip_code){
                 this.setUserPosition(zip_code);
             }
