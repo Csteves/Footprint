@@ -25,7 +25,7 @@ const styles = theme =>({
     minWidth: 275,
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
   },
   pos: {
     marginBottom: 12,
@@ -46,6 +46,9 @@ const styles = theme =>({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  button:{
+    padding:'10px'
+  }
 
 });
 
@@ -94,6 +97,7 @@ class ListCard extends Component{
       console.log(distance)
       let res = await axios.post('/api/location',{details,id,distance});
       console.log(res.data)
+      this.props.openSnackbar(res.data.message)
       this.props.updateLocations(res.data.usersLocations)
        };
 
@@ -102,25 +106,36 @@ class ListCard extends Component{
         console.log(location);
         let {address,city,province,phone,hours,postal_code} = this.state.locationDetails;
         let {materialsAccepeted} = this.state;
+        let {loggedIn} = this.props.state.users;
         let showMore = !this.state.expanded ? 'Materials Accepted' :"";
+        let saveLocation = loggedIn ? <Button
+                                        className="full-list-save-btn"
+                                        onClick={this.handleSave}
+                                        color="primary"
+                                        >
+                                        Save This Location
+                                        </Button>
+                                    : null
         return (
             <Card
             className='list-card'
             >
 
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" >
-                    Distance: {location.distance} Miles
+                <Typography className={classes.title} color="textSecondary"
+                align="right"
+                >
+                   <span className='full-list-distance'>Distance: {location.distance} Miles</span>
                 </Typography>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h4">
                 {location.description}
                 </Typography>
-                <Typography variant='subtitle1' >
+                <Typography variant='h6' >
                     {address}
                     <br/>
                     {city} {province}, {postal_code}
                 </Typography>
-                <Typography variant='body1'>
+                <Typography variant='subtitle1'>
                     {hours}
                     <br/>
                     {phone}
@@ -128,27 +143,25 @@ class ListCard extends Component{
             </CardContent>
 
             <CardActions className={classes.actions} disableActionSpacing>
-                <Button
-                onClick={this.handleSave}
-                color="secondary"
-                >
-                Save This Location
-                </Button>
+                {saveLocation}
                 <IconButton
             className={classnames(classes.expand,classes.button, {
               [classes.expandOpen]: this.state.expanded,
             })}
             onClick={this.handleExpandClick}
+            color="primary"
             aria-expanded={this.state.expanded}
             aria-label="Show more"
           >
-          <Typography>{showMore}</Typography>
+          <Typography
+          color="primary"
+          variant='subtitle1'>{showMore}</Typography>
             <ExpandMoreIcon />
           </IconButton>
             </CardActions>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-            <List >
+            <List className="full-list-list" >
             {materialsAccepeted.map((item,i)=> {
                 return(
                   <ListItem

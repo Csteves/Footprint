@@ -47,12 +47,22 @@ class ListCard extends Component{
         let details = locationDetails;
         let {distance} = this.props.location;
         let res = await axios.post('/api/location',{details,id,distance});
+        this.props.openSnackbar(res.data.message)
         this.props.updateLocations(res.data.usersLocations)
        };
 
     render(){
         const { classes,location } = this.props;
-        let {address,city,province,phone,hours,postal_code} = this.state.locationDetails
+        let {address,city,province,phone,hours,postal_code} = this.state.locationDetails;
+        let {loggedIn} = this.props.state.users;
+        let saveLocation = loggedIn ? <Button
+                                        onClick={this.handleSave}
+                                        color="primary"
+                                        >
+                                        Save This Location
+                                        </Button>
+                                    : null
+
         return (
             <Card
             className='list-card'
@@ -81,12 +91,7 @@ class ListCard extends Component{
             </CardContent>
 
             <CardActions className='list-card-btn'>
-                <Button
-                onClick={this.handleSave}
-                color="secondary"
-                >
-                Save This Location
-                </Button>
+            {saveLocation}
             </CardActions>
             </Card>
         );

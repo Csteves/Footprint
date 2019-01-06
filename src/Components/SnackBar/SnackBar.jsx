@@ -17,20 +17,8 @@ class SnackBar extends React.Component {
     open: false,
   };
 
-  handleClick = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    this.setState({ open: false });
-  };
-
   render() {
-    const { classes, open } = this.props;
+    const { classes, open, close,message } = this.props;
     console.log(this.props)
     return (
         <Snackbar
@@ -40,13 +28,13 @@ class SnackBar extends React.Component {
           }}
           open={open}
           autoHideDuration={6000}
-          onClose={this.handleClose}
+          onClose={close}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">Note archived</span>}
+          message={<span id="message-id">{message}</span>}
           action={[
-            <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
+            <Button key="undo" color="secondary" size="small" onClick={close}>
               UNDO
             </Button>,
             <IconButton
@@ -54,7 +42,7 @@ class SnackBar extends React.Component {
               aria-label="Close"
               color="inherit"
               className={classes.close}
-              onClick={this.handleClose}
+              onClick={close}
             >
               <CloseIcon />
             </IconButton>,

@@ -66,12 +66,21 @@ class User extends Component {
             });
         return (
             <div className='user-main-container'>
-                <h1> My Saved Articles and Recycling Locations</h1>
+                <div className='how-header'>
+                    <h1> My Saved Articles and Recycling Locations</h1>
+                </div>
+
               <div className='user-body-container'>
-                <div className="user-article-container">
+                <div className="user-article-container scroll-bar">
+                <div className="user-sub-head">
+                    <h3>NEWS ARTICLES</h3>
+                </div>
                     {news}
                 </div>
-                <div className='user-location-container'>
+                <div className='user-location-container scroll-bar'>
+                <div className="user-sub-head">
+                    <h3>LOCATIONS</h3>
+                </div>
                     {locations}
                 </div>
             </div>

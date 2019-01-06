@@ -22,7 +22,7 @@
     text-align: center;
     background-color: #4799c2;
     border-radius: 5px;
-    margin:0 auto;
+    margin:15px auto 0 auto;
     padding: 10px;
 }
 .landing-head-wrapper h1{
@@ -40,6 +40,7 @@
     grid-row-end: 3;
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
     min-width: 400px;
+    max-width: 755px;
     margin-top:10px;
 }
 .landing-how-wrapper:hover{
@@ -57,6 +58,7 @@
     grid-row-end: 3;
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
     min-width: 400px;
+    max-width: 755px;
     margin-top:10px;
 }
 .landing-where-wrapper:hover{
@@ -73,17 +75,24 @@
     grid-row-start: 3;
     grid-row-end: 4;
     min-width: 400px;
-    overflow-y: scroll;
-    /* box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3); */
+    overflow-y: hidden;
+    max-width: 755px;
     background-color:#f8f8ff;
     margin:10px 0 10px 0;
     position: relative;
     border-radius: 5px;
 }
+.landing-news-feed-wrapper:hover{
+    overflow-y: scroll;
+    width: calc(100% + 10px);
+
+}
 .news-feed-title-wrapper{
     background-color: #87d271;
     width:inherit;
+    min-width: 100% !important;
     max-width: 100%;
+    overflow-x: hidden;
     margin:0;
     border-radius: 5px;
     position: sticky;
@@ -128,13 +137,14 @@
         grid-row-end: 4;
         width:22vw;
         min-width: 100%;
-
     }
     .news-feed-title-wrapper{
         width:inherit;
         max-width: 100%;
         margin:0;
+
     }
+
     .landing-news-feed-wrapper h1{
         font-size: 20px;
     }

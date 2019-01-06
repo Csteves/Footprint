@@ -3,10 +3,10 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height:8vh;
+    height:12vh;
     padding-bottom:10px;
     border-bottom: solid black 1px;
-    background-color:#f8f8ff
+    background-color:#5D6D7E  ;
 }
 nav a {
     color:inherit;
@@ -26,7 +26,7 @@ nav a {
 .sub-nav{
     display:flex;
     justify-content: flex-end;
-    background-color: aliceblue;
+    background-color: #566573  ;
     height:5vh;
     width:100%;
     position: relative;

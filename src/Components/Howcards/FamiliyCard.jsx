@@ -22,7 +22,7 @@ import '../How/How.css'
 const styles = theme => ({
   card: {
     maxWidth: "100%",
-    minWidth: 275
+    minWidth: 275,
   },
   media: {
     height: 0,
@@ -91,7 +91,10 @@ class FamilyCard extends Component {
           title="Paella dish"
         />
         <CardContent>
-          <Typography variant='h4'>
+          <Typography
+           variant='h4'
+           color="textPrimary"
+           >
            {this.props.title}
           </Typography>
         </CardContent>

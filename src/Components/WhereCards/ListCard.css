@@ -7,3 +7,18 @@
     width:100%;
     padding-top:0;
 }
+.full-list-save-btn{
+    margin-bottom: 15px !important;
+}
+
+.full-list-distance{
+    background-color:#87d271;
+    padding:5px;
+    color:black;
+    border-top-left-radius: 5px;
+}
+
+.full-list-list{
+    max-height: 300px;
+    overflow: scroll;
+}

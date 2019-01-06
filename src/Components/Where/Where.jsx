@@ -13,6 +13,7 @@ import QuickSearchBar from './QuickSearchBar'
 import SubHeader from './SubHeader';
 import Programs from './Programs';
 import MapId from '../../mapId'
+import SnackBar from '../SnackBar/SnackBar';
 
 
 class Where extends Component {
@@ -28,7 +29,9 @@ class Where extends Component {
             displayFullList:false,
             displayMap:true,
             displayPrograms:false,
-            inputRef:{}
+            inputRef:{},
+            open:false,
+            message:''
         }
     }
 
@@ -108,7 +111,7 @@ class Where extends Component {
         }else{
             this.getSearchBasedLocations(null,null,ids)
         }
-        this.setState({searchId:ids})
+        this.setState({searchId:ids, locations:[]})
     }
     async getSearchBasedLocations(lat,lng,ids){
         let strIds = ids.join(',') ;
@@ -131,6 +134,17 @@ class Where extends Component {
             lng
         })
     }
+    //SNACKBAR HANDLE OPEN AND CLOSE FUNC'S
+    handleOpen = (message) => {
+        this.setState({ open: true, message });
+      };
+
+    handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        this.setState({ open: false,message:'' });
+      };
 
     render() {
         let {location} = this.props.user;
@@ -146,13 +160,14 @@ class Where extends Component {
             displayPrograms
          } = this.state;
         let displaySubHead = subHeadFlag? 'inline' : 'none';
-        let displayListClass = displayFullList ?'where-full-list-container':'where-maplist-container';
+        let displayListClass = displayFullList ?'where-full-list-container where-scroll-bar':'where-maplist-container where-scroll-bar';
         let matTypeAhead =[];
         let listOfLocations = locations.map((place,index) => {
             if(displayFullList){
                 return(
                     <div className="location-list-container" key={index} >
                         <FullListCard
+                        openSnackbar={this.handleOpen}
                         location={place}
                         labelId={listId.getId()}
                         />
@@ -162,13 +177,13 @@ class Where extends Component {
                 return(
                     <div className="location-list-container" key={index} >
                         <ListCard
+                        openSnackbar={this.handleOpen}
                         location={place}
                         labelId={listId.getId()}
                         />
                     </div>
                 )
             }
-
         })
         if(matMatchArr.length){
             matTypeAhead = matMatchArr.map((item,index) =>{
@@ -243,12 +258,14 @@ class Where extends Component {
                     <div
                     //Display list style depending on list or map view
                     className={displayListClass}
-                    style={{display: displayMap || displayPrograms ? 'none':'inline'}}
+                    id="map-list"
+                    style={{display:!displayFullList && displayMap || !displayPrograms ? 'none':'inline'}}
                     >
                         {listOfLocations}
                     </div>
                     <div
                     className={displayListClass}
+                    id="full-list"
                     >
                        {listOfLocations}
                     </div>
@@ -267,7 +284,11 @@ class Where extends Component {
                     <Programs/>
                 </div>
               </div>
-
+                <SnackBar
+                message={this.state.message}
+                open={this.state.open}
+                close={this.handleClose}
+                />
             </div>
         );
     }

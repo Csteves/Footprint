@@ -39,7 +39,6 @@ class Landing extends Component {
     }
     openSnackBar(message){
         if(message === 'Save Sucessful'){
-            console.log('yooooo')
             this.setState({openSnack:true})
         }
     }
@@ -86,11 +85,11 @@ class Landing extends Component {
              </Link>
 
              </div>
-             <div className='landing-news-feed-wrapper' >
-             <div className='news-feed-title-wrapper'>
+             <div className='landing-news-feed-wrapper scroll-bar' >
+             <div className='news-feed-title-wrapper '>
              <h1>Current Recycling News</h1>
              </div>
-                {gotNews}
+                    {gotNews}
              </div>
             </div>
         );
