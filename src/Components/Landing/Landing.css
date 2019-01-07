@@ -2,12 +2,13 @@
 .main-landing-container{
     display:grid;
     grid-template-columns:20px 40vw 42vw 20px ;
-    grid-template-rows:10vh 55vh  35vh  ;
+    grid-template-rows:10vh 60vh  35vh  ;
     grid-gap:10px 20px;
     justify-content: center;
-    background-color:#f8f8ff;
+    background-color:#F1F5F8;
     width:100%;
     margin-bottom: 15px;
+    margin-top:30px;
 }
 
 .landing-head-wrapper {
@@ -20,18 +21,19 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: #4799c2;
+    background-color: inherit;
     border-radius: 5px;
-    margin:15px auto 0 auto;
+    margin:20px auto 0 auto;
     padding: 10px;
 }
 .landing-head-wrapper h1{
     font-size: 2.3em;
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     padding: 20px;
-    color:white;
+    color:#1F9D55;
     letter-spacing: 5px;
+
 }
 .landing-how-wrapper{
     grid-column-start: 1;
@@ -41,7 +43,7 @@
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
     min-width: 400px;
     max-width: 755px;
-    margin-top:10px;
+    margin-top:20px;
 }
 .landing-how-wrapper:hover{
     transform: translateY(2px);
@@ -59,7 +61,7 @@
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
     min-width: 400px;
     max-width: 755px;
-    margin-top:10px;
+    margin-top:20px;
 }
 .landing-where-wrapper:hover{
     transform: translateY(2px);
@@ -78,7 +80,7 @@
     overflow-y: hidden;
     max-width: 755px;
     background-color:#f8f8ff;
-    margin:10px 0 10px 0;
+    margin:20px 0 10px 0;
     position: relative;
     border-radius: 5px;
 }
@@ -88,7 +90,7 @@
 
 }
 .news-feed-title-wrapper{
-    background-color: #87d271;
+    background-color: #6CB2EB;
     width:inherit;
     min-width: 100% !important;
     max-width: 100%;

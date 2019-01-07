@@ -11,14 +11,13 @@
     min-width: 400px;
     width:60vw;
     height:70px;
-    background-color: #4799c2;
     border-radius:5px;
     margin:15px 10px 5px 10px;
 }
 .material-title h1{
-    font-size: 28px;
+    font-size: 2em;
     font-weight: 500;
-    color:white;
+    color:#1F9D55;
     padding:20px;
     min-width: 400px;
     width:58vw;

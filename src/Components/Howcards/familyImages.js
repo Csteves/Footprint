@@ -4,7 +4,7 @@ export default function getFamilyImage(id){
         return "https://images.unsplash.com/photo-1458408990864-27997f8c2984?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80";
 
         case 2:
-        return "https://cdn.pixabay.com/photo/2015/05/31/11/52/sign-791333_1280.jpg";
+        return "https://d2t6ms4cjod3h9.cloudfront.net/wp-content/uploads/2016/09/50-hyperdrive-goes-in-to-production-using-nissans-leaf-batteries.jpg";
 
         case 3:
         return "https://images.unsplash.com/photo-1527335988388-b40ee248d80c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60";

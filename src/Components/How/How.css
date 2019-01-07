@@ -7,7 +7,7 @@
     background-color:#f8f8ff;
 }
 .how-header{
-    background-color:#4799c2;
+
     width:80vw;
     min-width: 530px;
     border-radius: 5px;
@@ -16,9 +16,9 @@
     padding:10px
 }
 .how-header h1{
-    font-size: 28px;
-    font-weight: 300;
-    color:white;
+    font-size: 2em;
+    font-weight: 500;
+    color:#1F9D55;
     padding:20px;
     min-width: 400px;
     margin:0;

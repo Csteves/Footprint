@@ -59,8 +59,8 @@
     min-width:530px ;
     height: auto;
     max-height: 300px;
-    background-color: rgb(238, 238, 238);
-    color:#cd6b72;
+    background-color: #DAE1E7;
+    color:#DE751F;
     margin-right:5vw;
     position: relative;
     border-radius: 5px;
@@ -83,14 +83,14 @@
     /* align-self: flex-end; */
     /* margin:0 0 10px 10px; */
     position: relative;
-    color:#cd6b72;
+    color:#DE751F;
     top: 16px;
     font-size: 18px;
     padding: 17px 0;
     margin-left: 15px;
 }
 .where-search-bar #where-search-btn:hover{
-    border-color: #cd6b72;
+    border-color: #DE751F;
 }
 .where-header{
     background-color:#4799c2;
@@ -207,7 +207,7 @@
     min-width:530px ;
     height: auto;
     max-height: 200px;
-    background-color: rgb(238, 238, 238);
+    background-color: #DAE1E7;
     color:#cd6b72;
     position: relative;
     border-radius: 5px;
@@ -264,6 +264,6 @@
     min-width: 282px;
     max-height: 100%;
     overflow:scroll;
-    background-color: rgb(238, 238, 238);
+    background-color: #DAE1E7;
     border-radius: 5px;
 }

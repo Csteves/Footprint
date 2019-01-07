@@ -21,6 +21,9 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  label:{
+    color:"#DE751F"
+  }
 
 };
 
@@ -72,7 +75,11 @@ class ListCard extends Component{
                 <Typography className={classes.title} color="textSecondary" >
                     Distance: {location.distance} Miles
                 </Typography>
-                <Typography variant="h4" align='right' color="secondary">
+                <Typography
+                variant="h4"
+                align='right'
+                className={classes.label}
+                >
                     {this.props.labelId}
                 </Typography>
                 <Typography variant="h5" component="h2">

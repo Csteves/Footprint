@@ -5,6 +5,10 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {updateUser,updateUserPosition} from '../../ducks/users';
 import {getMaterials,getFamilies} from '../../ducks/materials';
+import HowLogo from '@material-ui/icons/ContactSupport';
+import WhereLogo from '@material-ui/icons/Public';
+import PricesLogo from '@material-ui/icons/AttachMoney';
+import{ ReactComponent as RecLogo } from '../../rec-logo.svg'
 
 
 class Nav extends Component {
@@ -53,38 +57,68 @@ class Nav extends Component {
                                     <button>Login</button>
                                 </li>
                             </Link>;
-        let usersStuff = loggedIn && !loading ? <Link to={`personal${id}`}>
-                                        <button className='sub-nav-users-btn' >
+        let usersStuff = loggedIn && !loading ? <Link
+        id='users-btn'
+        to={`personal${id}`}>
+                                        <li id='myThings-li' >
                                         My Things
-                                        </button>
+                                       </li>
                                     </Link>
                                     : <div></div>;
         return (
             <div>
                 <nav>
                     <Link to='/'>
-                        <h3>Footprint</h3>
+                    <div className='nav-title-wrapper'>
+                        <RecLogo
+                        className="nav-logo"
+                        />
+                        <h3
+                        id='nav-title'
+                        >FOOTPRINT</h3>
+                    </div>
                     </Link>
                     <div className='nav-links-wrapper'>
                         <ul>
                             <Link to='/how' >
-                                <li>How</li>
+                                <div className='nav-links'
+                                >
+                                    <HowLogo
+                                    color="inherit"
+                                    fontSize='large'/>
+                                    <li>How</li>
+                                </div>
+
                             </Link>
 
                             <Link to='/where' >
+                            <div className="nav-links">
+                                <WhereLogo
+                                color="inherit"
+                                fontSize='large'
+                                />
                                 <li>Where</li>
+                            </div>
                             </Link>
 
+
                             <Link to='/prices' >
-                                <li>prices</li>
+                            <div className='nav-links'>
+                                <PricesLogo
+                                color="inherit"
+                                fontSize='large'
+                                />
+                                <li>Prices</li>
+                            </div>
                             </Link>
                         </ul>
                     </div>
 
+
                 </nav>
                 <div className='sub-nav'>
-                {usersStuff}
                 <ul>
+                {usersStuff}
                     {isLoggedIn}
 
                     <Link to='/register' >

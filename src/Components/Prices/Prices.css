@@ -7,22 +7,22 @@
 .prices-title-wrapper{
     min-width: 400px;
     width:80vw;
-    background-color: #4799c2;
     border-radius:5px;
     padding:10px;
     margin:15px 10px 5px 10px;
     display:flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .prices-title-wrapper h1{
-    font-size: 30px;
-    font-weight: 400;
-    color:white;
+    font-size: 2em;
+    font-weight: 500;
+    color:#1F9D55;
     padding:20px;
     min-width: 400px;
-    width:58vw;
-    margin:0;
+    width:100%;
+    margin:0 ;
     letter-spacing: 3px;
 }
 

@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
           height:'100%'
         },
         media: {
-          height: 300,
+          height: 350,
         },
         content:{
           paddingTop:"5px",
@@ -41,10 +41,10 @@ import Typography from '@material-ui/core/Typography';
                 title="Contemplative Reptile"
               />
               <CardContent className={classes.content} >
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h4" component="h2">
                 Find how to recycle?
                 </Typography>
-                <Typography component="p">
+                <Typography variant='subtitle1'>
                Find out what can be recycled, what steps you need to take to prepare your items and more in our easy to use guides.
                 </Typography>
               </CardContent>

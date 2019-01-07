@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
           position:'relative'
         },
         media: {
-          height: 300,
+          height: 350,
 
         },
         content:{
@@ -44,10 +44,10 @@ import Typography from '@material-ui/core/Typography';
                 title="Contemplative Reptile"
               />
               <CardContent className={classes.content}>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h4" component="h2">
                 Find a location?
                 </Typography>
-                <Typography component="p">
+                <Typography variant="subtitle1">
                 Find locations near you that accept and recycle more than 350 products and materials, using America’s best recycling database.
                 </Typography>
               </CardContent>

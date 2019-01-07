@@ -17,7 +17,6 @@ import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {updateUser,updateUserPosition} from '../../ducks/users';
 import {getGeoKey} from '../../config';
-import './Login.css'
 
 const styles = theme => ({
   main: {
@@ -47,11 +46,8 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 3,
   },
-  subTitle:{
-      marginTop:theme.spacing.unit
-  }
 });
 
 class Login1 extends Component {
@@ -64,11 +60,6 @@ class Login1 extends Component {
         }
         this.login = this.login.bind(this);
 
-    }
-
-    handleSubmit = (event)=>{
-        event.preventDefault();
-        this.login()
     }
     async login(){
         let {email, password} = this.state
@@ -128,7 +119,7 @@ class Login1 extends Component {
               </Typography>
               <form
               className={classes.form}
-              onSubmit={this.handleSubmit}>
+              onSubmit={this.login}>
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">Email Address</InputLabel>
                   <Input
@@ -154,17 +145,6 @@ class Login1 extends Component {
                 >
                   Sign in
                 </Button>
-                <Typography className={classes.subTitle} variant="subtitle1" align='center'>Not Registered?</Typography>
-                <Link
-                id='login-link'
-                to="/register">
-                    <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    className={classes.submit}>REGISTER</Button>
-                </Link>
-
               </form>
             </Paper>
           </main>
