@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {updateArticles,getNews} from '../../ducks/users';
 import WhereCard from '../LandingCards/WhereCard';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import HowCard from '../LandingCards/HowCard';
 import NewsCard from '../LandingCards/NewsCard';
 import './Landing.css';
 
+
+const styles = theme => ({
+    progress: {
+      margin: theme.spacing.unit * 15,
+    // margin:'70px'
+    },
+  });
 
 class Landing extends Component {
     constructor(props) {
@@ -46,6 +56,7 @@ class Landing extends Component {
         this.setState({ openSnack: false });
         };
     render() {
+        const { classes } = this.props;
         let {news,loading} = this.props.state;
         let articles = news.map((article,index) =>{
             return(
@@ -65,7 +76,7 @@ class Landing extends Component {
                 </div>
             )
         })
-        let gotNews = loading ? <h1>loading</h1>:articles;
+        let gotNews = loading ?<CircularProgress size={80} className={classes.progress} />:articles;
         return (
             <div className='main-landing-container'>
             <div className="landing-head-wrapper" >
@@ -96,7 +107,11 @@ class Landing extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return{ state:state.users}
-}
-export default connect(mapStateToProps,{updateArticles,getNews})(Landing);
+    Landing.propTypes = {
+        classes: PropTypes.object.isRequired,
+    }
+
+    function mapStateToProps(state){
+        return{ state:state.users}
+    }
+export default connect(mapStateToProps,{updateArticles,getNews})(withStyles(styles)(Landing));

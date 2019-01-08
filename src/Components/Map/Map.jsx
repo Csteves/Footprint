@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Map, GoogleApiWrapper,Marker,InfoWindow } from 'google-maps-react';
 import { getMapKey } from '../../config';
 import {connect} from 'react-redux';
-import {updateLocations} from '../../ducks/users'
+import {updateLocations} from '../../ducks/users';
+import {getGeoKey} from '../../config';
 import Axios from 'axios';
 import MapId from '../../mapId'
 import './Map.css';
@@ -22,6 +23,7 @@ export class MapContainer extends Component {
         this.state = {
             loading:true,
              userLocation: props.state.location,
+             userCompanyLocation:{},
              showingInfoWindow: false,
              activeMarker: {},
              selectedPlace: {},
@@ -29,7 +31,8 @@ export class MapContainer extends Component {
              distance:null
         }
     }
-    componentDidMount(){
+    async componentDidMount(){
+
         this.setState({loading:false})
     }
 

@@ -4,6 +4,7 @@ nav {
     justify-content: space-between;
     align-items: flex-end;
     height:10vh;
+    width:auto;
     padding-bottom:10px;
     background-color:#DAE1E7  ;
 }
@@ -13,14 +14,14 @@ nav a {
 }
 .nav-links-wrapper{
     width:25%;
-    margin-right:15px;
+    margin-right:50px;
 
 }
 .nav-links-wrapper ul {
     display:flex;
     justify-content: space-between;
     list-style-type: none;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .nav-links-wrapper ul li{
     font-size:2em;

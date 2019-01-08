@@ -26,7 +26,15 @@ class Nav extends Component {
             userArticles,
             userLocations,
             zip
-        })
+        });
+        //USE TO GET LOCATION OF COMAPNY IF USER HAS COMPANY
+        // if(!this.state.loading && loggedIn && userCompany.title.length){
+        //     const{address,city,state} = userCompany;
+        //     let res = await Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},${city},${state}&key=${getGeoKey()}`)
+        //     let location = res.data.results[0].geometry.location;
+        //     console.log(location)
+        //     this.setState(state=>({...state,userCompany:location}))
+        //   }
     }
     async logout(){
         let res = await axios.get(`/auth/logout`);
@@ -37,6 +45,7 @@ class Nav extends Component {
             loggedIn:res.data.loggedIn,
             userArticles:[],
             userLocations:[],
+            userCompany:{},
             zip:'',
         })
         this.props.updateUserPosition({lat:null,lng:null})

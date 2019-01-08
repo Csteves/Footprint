@@ -4,11 +4,16 @@ const intialState ={
     zip:'',
     loggedIn:false,
     isAdmin:false,
+    userCompany:{},
     userArticles:[],
     userLocations:[],
     news:[],
     loading:false,
     location:{
+        lat:null,
+        lng:null
+    },
+    companyGeo:{
         lat:null,
         lng:null
     }
@@ -18,7 +23,9 @@ const intialState ={
 const UPDATE_USER = 'UPDATE_USER';
 const UPDATE_ARTICLES = 'UPDATE_ARTICLES';
 const UPDATE_LOCATIONS = 'UPDATE_LOCATIONS';
-const UPDATE_USER_POSITION = 'UPDATE_USER_POSITION'
+const UPDATE_USER_POSITION = 'UPDATE_USER_POSITION';
+const UPDATE_USER_COMPANY = 'UPDATE_USER_COMPANY';
+const UPDATE_COMPANY_GEO = 'UPDATE_COMPANY_GEO';
 
 //ACTION TYPES NEWS
 const GET_NEWS = 'GET_NEWS';
@@ -50,6 +57,29 @@ export const updateUserPosition= (location) => {
         }
     }
 }
+export const updateUserCompany= (company) => {
+    return{
+        type:UPDATE_USER_COMPANY,
+        payload:{
+            title:company.title,
+            address:company.address,
+            city:company.city,
+            state:company.state,
+            phone:company.phone,
+            zip:company.zip
+        }
+    }
+}
+export const updateCompanyGeo= (location) => {
+    return{
+        type:UPDATE_COMPANY_GEO,
+        payload:{
+            lat: location.lat,
+            lng: location.lng
+        }
+    }
+}
+
 
 export const updateArticles = (articles) => {
 return{
@@ -87,6 +117,12 @@ export default function reducer(state = intialState, action){
              };
         case UPDATE_USER_POSITION:
         return {...state,location:{lat:action.payload.lat,lng:action.payload.lng}};
+
+        case UPDATE_USER_COMPANY:
+        return {...state,userCompany:action.payload};
+
+        case UPDATE_COMPANY_GEO:
+        return {...state,companyGeo:{lat:action.payload.lat,lng:action.payload.lng}};
 
         case UPDATE_ARTICLES:
         return {...state, userArticles:action.payload};

@@ -15,7 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import axios from 'axios';
 import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateUser,updateUserPosition} from '../../ducks/users';
+import {updateUser,updateUserPosition,updateUserCompany} from '../../ducks/users';
 import {getGeoKey} from '../../config';
 import './Login.css'
 
@@ -40,7 +40,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -54,7 +54,7 @@ const styles = theme => ({
   }
 });
 
-class Login1 extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -74,14 +74,9 @@ class Login1 extends Component {
         let {email, password} = this.state
         let res = await axios.post('/auth/login',{email,password});
         console.log(res.data);
-        let {id,loggedIn,isAdmin,zip_code} = res.data;
+        let {id,loggedIn,isAdmin,zip_code,hasCompany,company} = res.data;
         //get users saved items upon login
         if(loggedIn){
-            //GOING TO USE GET COLLECTION TO GET ALL USERS INFO WITH JOIN
-            let res = await axios.get(`/api/collection?id=${id}`)
-            console.log(res.data)
-            //get users coordinates for use in map
-            //I STILL WANT TO USE JAVASCRIPTS GEOLOCATOR API
             if( zip_code){
                 this.setUserPosition(zip_code);
             }
@@ -90,12 +85,26 @@ class Login1 extends Component {
                 isAdmin,
                 loggedIn,
                 zip:zip_code,
-                userArticles:res.data.articles,
-                userLocations:res.data.locations
             })
             this.setState({email:'',password:'',gotUserCollection:true});
         }
+        if(hasCompany){
+          this.props.updateUserCompany(company)
+        }
     }
+
+    async getUsersThings(id){
+       let res = await axios.get(`/api/collection?id=${id}`)
+       console.log(res.data)
+       //get users coordinates for use in map
+       //I STILL WANT TO USE JAVASCRIPTS GEOLOCATOR API
+       this.props.updateUser({
+           userArticles:res.data.articles,
+           userLocations:res.data.locations,
+       })
+       this.setState({email:'',password:'',gotUserCollection:true});
+    }
+
     async setUserPosition(zip){
         let res = await  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
         console.log(res.data);
@@ -161,7 +170,7 @@ class Login1 extends Component {
                     <Button
                     fullWidth
                     variant="contained"
-                    color="secondary"
+                    color="default"
                     className={classes.submit}>REGISTER</Button>
                 </Link>
 
@@ -172,7 +181,7 @@ class Login1 extends Component {
     }
 }
 
-Login1.propTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -180,4 +189,4 @@ function mapStateToProps(state){
     return{state:state.users}
 }
 
-export default connect(mapStateToProps,{updateUser,updateUserPosition})(withStyles(styles)(Login1));
+export default connect(mapStateToProps,{updateUser,updateUserPosition,updateUserCompany})(withStyles(styles)(Login));

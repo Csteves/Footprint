@@ -31,6 +31,7 @@ massive(CONNECTION_STRING).then(db =>{
 
 //USER AUTH ENDPOINTS
 app.post('/auth/register', authCtrl.register);
+app.post('/auth/register-company', authCtrl.registerCompany);
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/logout',authCtrl.logout);
 
