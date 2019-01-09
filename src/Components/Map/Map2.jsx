@@ -37,6 +37,7 @@ export class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e) =>{
+      console.log(marker)
       this.getLocationDetails(marker.name.id);
       this.setState({
         selectedPlace: props,
@@ -47,6 +48,7 @@ export class MapContainer extends Component {
     }
     async getLocationDetails(location_id){
       let res = await Axios.get(`/api/locationDetails?location_id=${location_id}`);
+      console.log(res.data)
       this.setState({locationDetails:res.data[location_id]})
     }
 
@@ -86,17 +88,19 @@ export class MapContainer extends Component {
 
     handleSave = async (details,distance) => {
       let{id} = this.props.state
+        console.log(details)
         let res = await Axios.post('/api/location',{details,id,distance});
-        this.props.save(res.data.message)
-        this.setState({showingInfoWindow:false})
+        console.log(res.data)
         this.props.updateLocations(res.data.usersLocations)
      };
   render() {
     const mapId = MapId();
     const {loading,locationDetails} = this.state;
-    const {location,loggedIn}= this.props.state;
+    const {location,loggedIn,companyGeo,userCompany,id}= this.props.state;
     const{locations}= this.props
+    console.log('map',locations)
     let userLocation = {};
+    let userCompanyGeo = {}
     let saveLocation = loggedIn ? <div id='info-window-save-btn' ></div>
                                 : null
 
@@ -114,7 +118,34 @@ export class MapContainer extends Component {
                   : <div>Loading...</div>
     if(!loading){
       userLocation = location.lat && location.lng ?location:{lat:39.4367,lng:-98.3546};
+      // userCompanyGeo = loggedIn ? companyGeo : {};
     }
+    // let companyMarker = loggedIn && Object.keys(userCompanyGeo).length ?
+    //         <Marker
+    //         key={id}
+    //         onClick={this.onMarkerClick}
+    //         title={userCompany.title}
+    //         name={{id:id}}
+    //         label={{
+    //           text: mapId.getId(),
+    //           color: "rgb(241, 90, 34)",
+    //           fontSize: "18px",
+    //           fontWeight: "bold",
+
+    //         }}
+
+    //         icon={{
+    //           url:'/assets/place.svg',
+    //           size: new this.props.google.maps.Size(75,75),
+    //           scaledSize:  new this.props.google.maps.Size(65,65),
+    //           labelOrigin: new this.props.google.maps.Point(35,27),
+    //         }}
+    //         position={{
+    //           lat:userCompanyGeo.lat,
+    //           lng:userCompanyGeo.lng
+    //         }}
+    //       />
+    //       :null;
     let map = loading ? 'Loading...'
                     :<Map
                     google={this.props.google}

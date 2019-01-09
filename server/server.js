@@ -45,8 +45,9 @@ app.get('/api/articles', userCtrl.getArticles);
 app.delete('/api/articles:id/', userCtrl.deleteArticle);
 app.post('/api/location', userCtrl.saveLocation);
 app.delete('/api/locations:id', userCtrl.deleteLocation);
-app.get('/api/locations:id', userCtrl.getLocations)
-app.get('/api/collection', userCtrl.getCollection)
+app.get('/api/locations:id', userCtrl.getLocations);
+app.get('/api/collection', userCtrl.getCollection);
+app.get('/api/companies' ,userCtrl.getCompanies);
 
 //ADMIN ENDPOINTS
 app.put('/api/prices', materialCtrl.updatePrices);
@@ -56,6 +57,8 @@ app.get("/api/getMaterials", earthCtrl.getMaterials)
 app.get("/api/getFamilies", earthCtrl.getFamilies)
 app.get("/api/getLocations", earthCtrl.getLocations)
 app.get('/api/locationDetails', earthCtrl.getLocationDetails);
+app.get('/api/getPrograms', earthCtrl.getPrograms);
+app.get('/api/getProgramDetails', earthCtrl.getProgramDetails);
 
 //RSS FEED ENDPOINT
 app.get('/api/news',newsCtrl.getNews )

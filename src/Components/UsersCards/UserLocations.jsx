@@ -28,7 +28,6 @@ class UserArticles extends Component {
   render(){
 
     const { classes,location } = this.props;
-    console.log(location)
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -48,9 +47,6 @@ class UserArticles extends Component {
         </CardContent>
 
         <CardActions>
-              <Button href='' className={classes.button}>
-                  VIEW ARTICLE
-              </Button>
               <Button
               onClick={()=>this.props.deleteLocation(location.id)}
               className={classes.button}>

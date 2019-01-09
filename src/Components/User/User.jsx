@@ -66,9 +66,6 @@ class User extends Component {
             });
         return (
             <div className='user-main-container'>
-                {/* <div className='how-header'>
-                    <h1> My Saved Articles and Recycling Locations</h1>
-                </div> */}
 
               <div className='user-body-container'>
                 <div className="user-article-container scroll-bar">

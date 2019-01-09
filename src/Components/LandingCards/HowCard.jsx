@@ -15,7 +15,9 @@ import Typography from '@material-ui/core/Typography';
           maxWidth: "100%",
           maxHeight:'100%',
           minWidth: 250,
-          height:'100%'
+          minHeight: 500,
+          height:'100%',
+          // marginBottom:'20px'
         },
         media: {
           height: 350,

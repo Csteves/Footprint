@@ -12,11 +12,11 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import {getGeoKey} from '../../config';
 import axios from 'axios';
 import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateUser,updateUserPosition,updateUserCompany} from '../../ducks/users';
-import {getGeoKey} from '../../config';
+import {updateUser,updateUserPosition,updateUserCompany,updateCompanyGeo} from '../../ducks/users';
 import './Login.css'
 
 const styles = theme => ({
@@ -74,36 +74,46 @@ class Login extends Component {
         let {email, password} = this.state
         let res = await axios.post('/auth/login',{email,password});
         console.log(res.data);
-        let {id,loggedIn,isAdmin,zip_code,hasCompany,company} = res.data;
-        //get users saved items upon login
+        let {loggedIn,zip_code,hasCompany,company} = res.data;
         if(loggedIn){
             if( zip_code){
                 this.setUserPosition(zip_code);
             }
-            this.props.updateUser({
-                id,
-                isAdmin,
-                loggedIn,
-                zip:zip_code,
-            })
-            this.setState({email:'',password:'',gotUserCollection:true});
+            this.getUsersThings(res.data)
         }
         if(hasCompany){
+          this.getCompanyLocation(loggedIn,company)
           this.props.updateUserCompany(company)
         }
     }
 
-    async getUsersThings(id){
+    async getUsersThings(userInfo){
+      let{id,loggedIn,isAdmin,zip_code,} = userInfo;
        let res = await axios.get(`/api/collection?id=${id}`)
-       console.log(res.data)
+       console.log("get collection",res.data)
        //get users coordinates for use in map
        //I STILL WANT TO USE JAVASCRIPTS GEOLOCATOR API
        this.props.updateUser({
-           userArticles:res.data.articles,
-           userLocations:res.data.locations,
+          id,
+          isAdmin,
+          loggedIn,
+          zip:zip_code,
+          userArticles:res.data.articles,
+          userLocations:res.data.locations,
        })
        this.setState({email:'',password:'',gotUserCollection:true});
     }
+    async getCompanyLocation(loggedIn,company){
+      console.log(this.props.state)
+      let hasCompany = Object.keys(company).length;
+      if( loggedIn && hasCompany ){
+          const{address,city,state} = company;
+          let res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},${city},${state}&key=${getGeoKey()}`)
+          let location = res.data.results[0].geometry.location;
+          console.log(location)
+          this.props.updateCompanyGeo(location)
+        }
+     }
 
     async setUserPosition(zip){
         let res = await  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
@@ -133,7 +143,7 @@ class Login extends Component {
                 <LockIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Login
+                Sign In
               </Typography>
               <form
               className={classes.form}
@@ -189,4 +199,4 @@ function mapStateToProps(state){
     return{state:state.users}
 }
 
-export default connect(mapStateToProps,{updateUser,updateUserPosition,updateUserCompany})(withStyles(styles)(Login));
+export default connect(mapStateToProps,{updateUser,updateUserPosition,updateUserCompany,updateCompanyGeo})(withStyles(styles)(Login));

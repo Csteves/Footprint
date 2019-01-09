@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {getGeoKey} from '../../config';
 import {updateUserPosition} from "../../ducks/users";
+import {getPrograms} from "../../ducks/materials";
 import Map from '../Map/Map';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -50,11 +51,17 @@ class Where extends Component {
             if(loggedIn && zip){this.setState({zip})}
     }
 
+    // componentDidUpdate(prevProps){
+    //     let{lat,lng} = this.props.users.location;
+    //     if(prevProps.users.location.lat !== lat ||prevProps.users.location.lng !==lng){
+    //         this.props.getPrograms({lat,lng})
+
+    //     }
+    // }
+
     handleInput =(value) =>{
-        console.log('hello handleInput')
         this.setState({material:value,matMatchArr:this.typeAhead(value)});
     }
-
 
     typeAhead(input){
         let{materials} = this.props.materials;
@@ -76,14 +83,9 @@ class Where extends Component {
     }
 
      handleInputFocus = input => {
-         console.log('hi from outside')
          this.setState({inputRef:input})
-       console.log(input)
        return ()=>{
-           console.log('hi from inside')
-           console.log(input)
             if (input) {
-                console.log('hi from way inside')
              setTimeout(() => {input.focus()}, 100);
            }
         }
@@ -93,9 +95,10 @@ class Where extends Component {
     //SEARCH API FUNCTIONS
     //==========================================
     handleSearch = () => {
-        let {materials} = this.props.materials;
+        let {materials,famLoading,matLoading,proLoading} = this.props.materials;
         let {material,zip} = this.state;
         let ids = [];
+        //FIND MATERIAL USER HAS SEARCHED FOR
         if(material){
             let searched = materials.filter(item => item.description.toLowerCase().includes(material.toLowerCase()));
             searched.forEach(item => {
@@ -103,7 +106,7 @@ class Where extends Component {
             });
         }
         //HANDLE EITHER USER LOCATION OR ENTERED ZIP
-        if(zip){
+        if(zip ){
             this.getPosition(zip,ids);
         }else if(this.props.user.loggedIn){
             let {location} = this.props.user
@@ -128,11 +131,12 @@ class Where extends Component {
     async getPosition(zip,ids){
         let res = await  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
         let {lat, lng} = res.data.results[0].geometry.location;
-        this.getSearchBasedLocations(lat,lng,ids)
+        this.getSearchBasedLocations(lat,lng,ids);
         this.props.updateUserPosition({
             lat,
             lng
         })
+        this.props.getPrograms({lat,lng});
     }
     //SNACKBAR HANDLE OPEN AND CLOSE FUNC'S
     handleOpen = (message) => {
@@ -145,9 +149,13 @@ class Where extends Component {
         }
         this.setState({ open: false,message:'' });
       };
+      mapSave = (message)=>{
+          this.setState({open:true, message})
+      }
 
     render() {
         let {location} = this.props.user;
+        let {programs} = this.props.materials;
         const listId = MapId();
         let {
             locations,
@@ -251,7 +259,7 @@ class Where extends Component {
                 <div style={{display:displaySubHead}} >
                     <SubHeader
                     handleSwap={this.handleSwap}
-                    searchCriteria={{zip,material}}
+                    searchCriteria={{zip,material,location}}
                     />
                 </div>
                 <div className="where-map-list-container">
@@ -275,13 +283,21 @@ class Where extends Component {
                     <Map
                     location={location}
                     locations={locations}
+                    save={this.mapSave}
                     />
                 </div>
                 <div
                 style={{display:displayMap || displayFullList ? 'none':'inline'}}
-                className='where-program-container'
+                className='where-program-container where-scroll-bar'
                 >
-                    <Programs/>
+                    {programs.map((program,i) => {
+                        return(
+                            <Programs
+                            key={i}
+                            program={program}
+                            />
+                        )
+                    })}
                 </div>
               </div>
                 <SnackBar
@@ -296,4 +312,4 @@ class Where extends Component {
 function mapStateToProps(state){
     return{user:state.users, materials:state.materials}
 }
-export default connect(mapStateToProps,{updateUserPosition})(Where);
+export default connect(mapStateToProps,{updateUserPosition,getPrograms})(Where);

@@ -2,8 +2,8 @@
 .main-landing-container{
     display:grid;
     grid-template-columns:20px 40vw 42vw 20px ;
-    grid-template-rows:10vh 60vh  35vh  ;
-    grid-gap:10px 20px;
+    grid-template-rows:10vh 65vh  35vh  ;
+    grid-gap:30px 20px;
     justify-content: center;
     background-color:#F1F5F8;
     width:100%;
@@ -41,9 +41,10 @@
     grid-row-start: 2;
     grid-row-end: 3;
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
+    background-color:#F1F5F8;
     min-width: 400px;
     max-width: 755px;
-    margin-top:20px;
+    margin:20px 0 20px 0;
 }
 .landing-how-wrapper:hover{
     transform: translateY(2px);
@@ -59,9 +60,10 @@
     grid-row-start: 2;
     grid-row-end: 3;
     box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.3);
+    background-color:#F1F5F8;
     min-width: 400px;
     max-width: 755px;
-    margin-top:20px;
+    margin:20px 0 20px 0;
 }
 .landing-where-wrapper:hover{
     transform: translateY(2px);
@@ -78,7 +80,7 @@
     grid-row-end: 4;
     min-width: 400px;
     overflow-y: hidden;
-    max-width: 755px;
+    /* max-width: 755px; */
     background-color:#f8f8ff;
     margin:20px 0 10px 0;
     position: relative;

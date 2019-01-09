@@ -19,7 +19,6 @@ class SnackBar extends React.Component {
 
   render() {
     const { classes, open, close,message } = this.props;
-    console.log(this.props)
     return (
         <Snackbar
           anchorOrigin={{
@@ -27,16 +26,13 @@ class SnackBar extends React.Component {
             horizontal: 'left',
           }}
           open={open}
-          autoHideDuration={6000}
+          autoHideDuration={3000}
           onClose={close}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">{message}</span>}
           action={[
-            <Button key="undo" color="secondary" size="small" onClick={close}>
-              UNDO
-            </Button>,
             <IconButton
               key="close"
               aria-label="Close"

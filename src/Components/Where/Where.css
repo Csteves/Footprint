@@ -267,3 +267,44 @@
     background-color: #DAE1E7;
     border-radius: 5px;
 }
+
+/* ===========WHERE PROGRAMS STYLES=====================*/
+.where-program-container{
+    width:60vw;
+    height: 70vh;
+    min-width: 530px;
+    overflow: hidden;
+    margin-right:5vw;
+
+}
+.where-program-container:hover{
+    overflow-y:scroll;
+    width:calc(60vw + 10px);
+    transform: translateX(10px);
+}
+.where-scroll-bar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: #F5F5F5;
+    border-radius: 10px;
+    margin-top:5px;
+}
+.where-scroll-bar::-webkit-scrollbar
+{
+	width: 10px;
+    background-color: #F5F5F5;
+
+
+}
+.where-scroll-bar::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    border:none;
+	background-color: #f5f5f5;
+	background-image: -webkit-gradient(linear,
+									   40% 0%,
+									   75% 84%,
+									   from(#4D9C41),
+									   to(#19911D),
+									   color-stop(.6,#54DE5D))
+}

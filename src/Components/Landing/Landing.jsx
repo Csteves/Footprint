@@ -14,8 +14,9 @@ import './Landing.css';
 
 const styles = theme => ({
     progress: {
-      margin: theme.spacing.unit * 15,
-    // margin:'70px'
+    position:"absolute",
+    left:'44%',
+
     },
   });
 
@@ -31,8 +32,12 @@ class Landing extends Component {
     }
 
     async componentDidMount(){
-        await this.props.getNews();
+        const{matLoading,famLoading,proLoading} = this.props.materials.materials;
+        if(!matLoading && !famLoading && !proLoading){
+            await this.props.getNews();
+        }
     }
+
 
     async saveArticle(articleId){
         //once idustry user, account for type of user
@@ -112,6 +117,6 @@ class Landing extends Component {
     }
 
     function mapStateToProps(state){
-        return{ state:state.users}
+        return{ state:state.users,materials:state.materials}
     }
 export default connect(mapStateToProps,{updateArticles,getNews})(withStyles(styles)(Landing));

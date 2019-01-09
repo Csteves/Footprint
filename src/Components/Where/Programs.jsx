@@ -53,34 +53,42 @@ class programs extends Component{
        this.state = {
         expanded: false,
         open: false,
-        locationDetails:{},
-        materialsAccepeted:[]
+        programDetails:{},
+        materialsAccepeted:[],
+
        }
    }
-
-
-    componentDidMount(){
-
+     componentDidMount(){
+      const{program_id} = this.props.program
+      this.getDetails(program_id);
     }
 
+    componentDidUpdate(prevProps){
+      const{program_id} = this.props.program
+        if(prevProps.program.program_id !== program_id){
+          this.getDetails(program_id)
+        }
+    }
+    async getDetails(id){
+      let res = await axios.get(`/api/getProgramDetails?program_id=${id}`);
+      let materials =  res.data[id].materials.map(mat => mat.description)
+      this.setState({programDetails:res.data[id],materialsAccepeted:materials})
+    }
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
     };
 
 
-
-    handleSave = async (details) => {
-        let{id} = this.props.state
-          console.log(details)
-          let res = await axios.post('/api/location',{details,id});
-            console.log(res.data)
-       };
-
     render(){
-        const { classes} = this.props;
-        let {address,city,province,phone,hours,postal_code} = this.state.locationDetails;
-        let {materialsAccepeted} = this.state;
+        const { classes,program} = this.props;
+        const {proLoading} = this.props.state.materials;
+        let {description,address,city,province,phone,hours,postal_code,notes} = this.state.programDetails;
+        let{materialsAccepeted} = this.state;
+        let note;
+         if(!proLoading){
+           note = <Typography variant="body2" >{notes}</Typography>
+         }else{ return null}
         let showMore = !this.state.expanded ? 'Materials Accepted' :"";
         return (
             <Card
@@ -88,11 +96,11 @@ class programs extends Component{
             >
 
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" >
-                    Distance:  Miles
+                <Typography className={classes.title} color="secondary" align="right">
+                    Distance:  Miles {program.distance}
                 </Typography>
                 <Typography variant="h5" component="h2">
-
+                  {program.description}
                 </Typography>
                 <Typography variant='subtitle1' >
                     {address}
@@ -104,15 +112,10 @@ class programs extends Component{
                     <br/>
                     {phone}
                 </Typography>
+               {note}
             </CardContent>
 
             <CardActions className={classes.actions} disableActionSpacing>
-                <Button
-                onClick={this.handleSave}
-                color="secondary"
-                >
-                Save This Location
-                </Button>
                 <IconButton
             className={classnames(classes.expand,classes.button, {
               [classes.expandOpen]: this.state.expanded,
@@ -121,7 +124,7 @@ class programs extends Component{
             aria-expanded={this.state.expanded}
             aria-label="Show more"
           >
-          <Typography>{showMore}</Typography>
+          <Typography variant="subtitle2" color="primary">{showMore}</Typography>
             <ExpandMoreIcon />
           </IconButton>
             </CardActions>

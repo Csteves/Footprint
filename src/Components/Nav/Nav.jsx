@@ -12,9 +12,17 @@ import{ ReactComponent as RecLogo } from '../../rec-logo.svg'
 
 
 class Nav extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+           company:{}
+        }
+    }
+
 
     async componentDidMount(){
-        let {id,isAdmin,loggedIn,userArticles,userLocations,zip,loading} = this.props.state;
+        let {id,isAdmin,loggedIn,userCompany,userArticles,userLocations,zip,loading} = this.props.state;
+        console.log(this.props.state)
         if(!loading){
             await this.props.getMaterials();
             await this.props.getFamilies();
@@ -27,15 +35,34 @@ class Nav extends Component {
             userLocations,
             zip
         });
-        //USE TO GET LOCATION OF COMAPNY IF USER HAS COMPANY
-        // if(!this.state.loading && loggedIn && userCompany.title.length){
-        //     const{address,city,state} = userCompany;
-        //     let res = await Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},${city},${state}&key=${getGeoKey()}`)
-        //     let location = res.data.results[0].geometry.location;
-        //     console.log(location)
-        //     this.setState(state=>({...state,userCompany:location}))
-        //   }
+        // this.getCompanyLocation()
     }
+    // async componentDidUpdate(prevProps){
+    //     if(prevProps.state !== this.props.state){
+    //         let {id,isAdmin,loggedIn,userCompany,userArticles,userLocations,zip,loading} = this.props.state;
+    //         this.props.updateUser({
+    //             id,
+    //             isAdmin,
+    //             loggedIn,
+    //             userArticles,
+    //             userLocations,
+    //             zip
+    //         });
+    //     }
+    // }
+
+//     async getCompanyLocation(){
+//     const{loggedIn,userCompany} = this.props.state;
+//     console.log(this.props.state)
+//     let hasCompany = Object.keys(userCompany).length;
+//     if( loggedIn && hasCompany ){
+//         const{address,city,state} = userCompany;
+//         let res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},${city},${state}&key=${getGeoKey()}`)
+//         let location = res.data.results[0].geometry.location;
+//         console.log(location)
+//       }
+//      this.setState({company:userCompany})
+//    }
     async logout(){
         let res = await axios.get(`/auth/logout`);
         console.log(this.props)
@@ -58,19 +85,19 @@ class Nav extends Component {
                                 <button
                                 onClick={()=>this.logout()}
                                 >
-                                Logout
+                                Sign Out
                                 </button>
                            </li>
                        :  <Link to='/login' >
                                 <li>
-                                    <button>Login</button>
+                                    <button>Sign In</button>
                                 </li>
                             </Link>;
         let usersStuff = loggedIn && !loading ? <Link
         id='users-btn'
         to={`personal${id}`}>
                                         <li id='myThings-li' >
-                                        My Things
+                                        Collection
                                        </li>
                                     </Link>
                                     : <div></div>;

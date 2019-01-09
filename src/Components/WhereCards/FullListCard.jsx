@@ -25,7 +25,7 @@ const styles = theme =>({
     minWidth: 275,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
   },
   pos: {
     marginBottom: 12,
@@ -48,6 +48,10 @@ const styles = theme =>({
   },
   button:{
     padding:'10px'
+  },
+  actions:{
+    paddingBottom:2,
+    fontSize:16,
   }
 
 });
@@ -92,18 +96,14 @@ class ListCard extends Component{
       let{id} = this.props.state.users
       let {locationDetails} = this.state;
       let details = locationDetails;
-      console.log(id);
       let {distance} = this.props.location;
-      console.log(distance)
       let res = await axios.post('/api/location',{details,id,distance});
-      console.log(res.data)
       this.props.openSnackbar(res.data.message)
       this.props.updateLocations(res.data.usersLocations)
        };
 
     render(){
         const { classes,location } = this.props;
-        console.log(location);
         let {address,city,province,phone,hours,postal_code} = this.state.locationDetails;
         let {materialsAccepeted} = this.state;
         let {loggedIn} = this.props.state.users;
@@ -122,10 +122,10 @@ class ListCard extends Component{
             >
 
             <CardContent>
-                <Typography className={classes.title} color="textSecondary"
+                <Typography className={classes.title} color="secondary"
                 align="right"
                 >
-                   <span className='full-list-distance'>Distance: {location.distance} Miles</span>
+                   Distance: {location.distance} miles
                 </Typography>
                 <Typography variant="h4">
                 {location.description}

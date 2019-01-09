@@ -5,8 +5,9 @@ const intialState = {
     materials:[],
     matLoading:false,
     families:[],
-    famLoading:false
-
+    famLoading:false,
+    programs:[],
+    proLoading:false
 }
 
 
@@ -22,7 +23,11 @@ const GET_MATERIALS_FULFILLED = 'GET_MATERIALS_FULFILLED'
 
 const GET_FAMILIES = 'GET_FAMILIES';
 const GET_FAMILIES_PENDING = 'GET_FAMILIES_PENDING';
-const GET_FAMILIES_FULFILLED = 'GET_FAMILIES_FULFILLED'
+const GET_FAMILIES_FULFILLED = 'GET_FAMILIES_FULFILLED';
+
+const GET_PROGRAMS = 'GET_PROGRAMS';
+const GET_PROGRAMS_PENDING = 'GET_PROGRAMS_PENDING';
+const GET_PROGRAMS_FULFILLED = 'GET_PROGRAMS_FULFILLED';
 
 
 
@@ -49,7 +54,17 @@ export const getFamilies = ()=>{
     }
 }
 
+export const getPrograms = (location) => {
+    let programs = axios.get(`/api/getPrograms?lat=${location.lat}&lng=${location.lng}`);
+
+    return{
+        type:GET_PROGRAMS,
+        payload:programs
+    }
+}
+
 export default function reducer(state = intialState, action){
+
     switch(action.type){
 
         case PASS_MATERIAL_ID:
@@ -66,6 +81,12 @@ export default function reducer(state = intialState, action){
 
         case GET_FAMILIES_FULFILLED:
         return {...state, famLoading:false, families:action.payload.data};
+
+        case GET_PROGRAMS_PENDING:
+        return {...state, proLoading:true}
+
+        case GET_PROGRAMS_FULFILLED:
+        return {...state, proLoading:false, programs:action.payload.data};
 
         default: return {...state};
     }

@@ -91,7 +91,9 @@ class Register extends Component {
                 id,
                 loggedIn,
                 isAdmin,
-                zip:zip_code
+                zip:zip_code,
+                userArticles:[],
+                userLocations:[],
             })
             if(loggedIn && zip_code){
                 this.setUserPosition(zip_code);
@@ -111,7 +113,9 @@ class Register extends Component {
              id:res.data.id,
              loggedIn,
              isAdmin,
-             zip:zip_code
+             zip:zip_code,
+             userArticles:[],
+            userLocations:[],
          })
         let results = await axios.post('/auth/register-company',{id:res.data.id,title,address,city,state,phone,zip:company.zip});
         if(results.data.id){

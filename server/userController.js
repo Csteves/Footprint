@@ -68,12 +68,16 @@ module.exports = {
         return res.status(200).send(results);
     },
     getCollection: async (req,res) =>{
-        //FINISH UPDATING USERAS THINGS WITH A COLLECTION QUERY
         let {id} = req.query;
         let db = req.app.get('db');
         let resultsArt = await db.get_user_collection_art([id]);
         let resultsLoc = await db.get_user_locations([id]);
         return res.status(200).send({articles:resultsArt,locations:resultsLoc});
+    },
+    getCompanies: async (req, res) =>{
+        let db = req.app.get('db');
+        let results = await db.getCompanies();
+        return res.status(200).send(results)
     }
 
 }
