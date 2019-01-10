@@ -13,22 +13,18 @@ class SubHeader extends Component {
             const{proLoading,matLoading,famLoading} = this.props.state.materials
             if(!proLoading && !matLoading && !famLoading){
                 if(loggedIn){
-                    console.log('program CDM')
                     let userHasLocation = Object.keys(location).length;
                     if(userHasLocation){
                        getPrograms(location)
                     }
-                }
-               else if(zip){
+                }else if(zip){
                    let geoLocation = this.getGeo(zip);
-                    console.log("hi from CDM else zip",geoLocation)
                     if(Object.keys(geoLocation).length){
                        getPrograms(geoLocation)
                     }
                 }else{
                     let defaultZip = '67446'
                     let geoLocation = await this.getGeo(defaultZip);
-                    console.log("hi from CDM else DEFAULT",geoLocation)
                     if(Object.keys(geoLocation).length){
                         getPrograms(geoLocation)
                     }
@@ -43,25 +39,6 @@ class SubHeader extends Component {
                 return location
             }
         }
-
-        // async componentDidUpdate(prevProps){
-        //     if(prevProps.searchCriteria.zip !== this.props.searchCriteria.zip){
-        //         const{getPrograms} = this.props
-        //         const{location} = this.props.state.users
-        //         const{zip}= this.props.searchCriteria
-        //         if(zip.length === 5){
-        //             let geoLocation = await this.getGeo(zip);
-        //             if(
-        //                 Object.keys(geoLocation).length &&
-        //                 (geoLocation.lat !== location.lat ||
-        //                 geoLocation.lng !== location.lng)
-        //             ){
-        //                 console.log('CDU')
-        //                 await getPrograms(geoLocation)
-        //             }
-        //         }
-        //     }
-        // }
 
     render() {
         const {zip,material,} = this.props.searchCriteria;

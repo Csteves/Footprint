@@ -18,11 +18,19 @@ class material extends Component {
         console.log(res.data);
         this.setState({material:res.data});
     }
+    async componentDidUpdate(prevProps){
+        let{id} = this.props.match.params
+        if(prevProps.match.params.id !== id){
+            let res = await axios.get(`/api/material?id=${id}`);
+            console.log(res.data);
+            this.setState({material:res.data});
+        }
+    }
     render() {
         let {material} = this.state
         console.log('state',this.state)
         let priceBase = 'lb' ;
-            if(material.id === '10' || material.id === '11' || material.id === '12'){
+            if(material.id === 10 || material.id === 11 || material.id === 12){
                 priceBase = 'kg'
             }
         let trending = material.price_change ?'trending_up' : "trending_down";

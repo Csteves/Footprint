@@ -32,6 +32,10 @@ const GET_NEWS = 'GET_NEWS';
 const GET_NEWS_PENDING = 'GET_NEWS_PENDING';
 const GET_NEWS_FULFILLED = 'GET_NEWS_FULFILLED';
 
+const GET_NEWS_T = 'GET_NEWS_T';
+const GET_NEWS_T_PENDING = 'GET_NEWS_T_PENDING';
+const GET_NEWS_T_FULFILLED = 'GET_NEWS_T_FULFILLED';
+
 
 //ACTION BUILDERS USER
 export const updateUser = (userInfo) => {
@@ -96,9 +100,22 @@ return{
 
 //ACTION BUILDERS NEWS
 export const getNews = () =>{
-    let news = axios.get("/api/news")
+    let news = axios.get("/api/news").catch(err =>{
+        console.log(err);
+        return [];
+    });
+      return{
+          type: GET_NEWS,
+          payload: news
+        }
+}
+
+
+
+export const getNewsT = () =>{
+    let news = axios.get("/api/newsToday")
     return{
-       type: GET_NEWS,
+       type: GET_NEWS_T,
        payload: news
     }
 }
@@ -134,6 +151,12 @@ export default function reducer(state = intialState, action){
         return {...state,loading:true};
 
         case GET_NEWS_FULFILLED:
+        return {...state, loading:false, news:action.payload.data.items}
+
+        case GET_NEWS_T_PENDING:
+        return {...state,loading:true};
+
+        case GET_NEWS_T_FULFILLED:
         return {...state, loading:false, news:action.payload.data.items}
 
         default: return {...state};

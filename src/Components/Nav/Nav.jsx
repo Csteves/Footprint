@@ -8,6 +8,7 @@ import {getMaterials,getFamilies} from '../../ducks/materials';
 import HowLogo from '@material-ui/icons/ContactSupport';
 import WhereLogo from '@material-ui/icons/Public';
 import PricesLogo from '@material-ui/icons/AttachMoney';
+import Menu from '@material-ui/icons/Menu';
 import{ ReactComponent as RecLogo } from '../../rec-logo.svg'
 
 
@@ -15,17 +16,19 @@ class Nav extends Component {
     constructor(props) {
         super(props);
         this.state={
-           company:{}
+           company:{},
+           categories:[],
+           mat:{},
+           count:0,
+           toggleMenu:false
         }
     }
-
-
-    async componentDidMount(){
-        let {id,isAdmin,loggedIn,userCompany,userArticles,userLocations,zip,loading} = this.props.state;
-        console.log(this.props.state)
+         componentDidMount(){
+        let {id,isAdmin,loggedIn,userArticles,userLocations,zip,loading} = this.props.state;
         if(!loading){
-            await this.props.getMaterials();
-            await this.props.getFamilies();
+             this.props.getMaterials();
+             this.props.getFamilies();
+             this.getCategories();
         }
         this.props.updateUser({
             id,
@@ -35,34 +38,34 @@ class Nav extends Component {
             userLocations,
             zip
         });
-        // this.getCompanyLocation()
+        this.catTimer = setInterval(()=>this.mapCat(),4000)
     }
-    // async componentDidUpdate(prevProps){
-    //     if(prevProps.state !== this.props.state){
-    //         let {id,isAdmin,loggedIn,userCompany,userArticles,userLocations,zip,loading} = this.props.state;
-    //         this.props.updateUser({
-    //             id,
-    //             isAdmin,
-    //             loggedIn,
-    //             userArticles,
-    //             userLocations,
-    //             zip
-    //         });
-    //     }
-    // }
+    componentWillUnmount() {
+        clearInterval(this.catTimer);
+      }
 
-//     async getCompanyLocation(){
-//     const{loggedIn,userCompany} = this.props.state;
-//     console.log(this.props.state)
-//     let hasCompany = Object.keys(userCompany).length;
-//     if( loggedIn && hasCompany ){
-//         const{address,city,state} = userCompany;
-//         let res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},${city},${state}&key=${getGeoKey()}`)
-//         let location = res.data.results[0].geometry.location;
-//         console.log(location)
-//       }
-//      this.setState({company:userCompany})
-//    }
+      componentDidUpdate(prevprops,prevState){
+          if(prevState.mat.id !== this.state.mat.id){
+
+          }
+      }
+        async getCategories(){
+            let res = await axios.get('/api/materials');
+            this.setState({categories:res.data, mat:res.data[0]});
+        }
+
+        mapCat(){
+            let{categories,count} = this.state;
+            if(count <= 14){
+                this.setState({mat:categories[count],count:count+1})
+            }else{
+                this.setState({count:0, mat:categories[0]})
+            }
+        }
+        toggleDropdown = ()=>{
+            this.setState({toggleMenu:!this.state.toggleMenu})
+          }
+
     async logout(){
         let res = await axios.get(`/auth/logout`);
         console.log(this.props)
@@ -78,8 +81,15 @@ class Nav extends Component {
         this.props.updateUserPosition({lat:null,lng:null})
     }
     render() {
-        let {loggedIn,id,loading} = this.props.state;
 
+        let {loggedIn,id,loading} = this.props.state;
+        let{categories,count,mat} = this.state;
+        let trending = mat.price_change ?'trending_up' : "trending_down";
+        let trendingStyle = mat.price_change ? 'nav-green' : 'nav-red';
+        let priceBase = 'lb' ;
+        if(mat.id === 10 || mat.id === 11 || mat.id === 12){
+            priceBase = 'kg'
+        }
         let isLoggedIn = loggedIn && !loading
                        ?  <li>
                                 <button
@@ -114,6 +124,17 @@ class Nav extends Component {
                         >FOOTPRINT</h3>
                     </div>
                     </Link>
+                    <section>
+                        <ul className="news-list" data-length="1">
+                        <Link to={`/prices${this.state.mat.id}`} >
+                          <li className="news">
+                              <h3>{this.state.mat.title} </h3>
+                              <span>  : $ {this.state.mat.price}/{priceBase}</span>
+                              <i className={`material-icons ${trendingStyle}`} >{trending}</i>
+                          </li>
+                        </Link>
+                        </ul>
+                    </section>
                     <div className='nav-links-wrapper'>
                         <ul>
                             <Link to='/how' >
@@ -137,9 +158,10 @@ class Nav extends Component {
                             </div>
                             </Link>
 
-
                             <Link to='/prices' >
-                            <div className='nav-links'>
+                            <div
+                            className='nav-links'
+                            >
                                 <PricesLogo
                                 color="inherit"
                                 fontSize='large'
@@ -148,22 +170,46 @@ class Nav extends Component {
                             </div>
                             </Link>
                         </ul>
+
                     </div>
-
-
                 </nav>
                 <div className='sub-nav'>
                 <ul>
-                {usersStuff}
                     {isLoggedIn}
-
                     <Link to='/register' >
                         <li>
                             <button>Register</button>
                         </li>
                     </Link>
+                {usersStuff}
                 </ul>
                 </div>
+                <div
+                className="dropdown-menu-nav-links"
+                >
+                  <ul id="dropdown-ul">
+                    <Link to='/how' >
+                        <div className='dropdown-nav-links'
+                        >
+                            <li>How</li>
+                        </div>
+                    </Link>
+
+                    <Link to='/where' >
+                    <div className="dropdown-nav-links">
+                        <li>Where</li>
+                    </div>
+                    </Link>
+
+                    <Link to='/prices' >
+                    <div
+                    className='dropdown-nav-links'
+                    >
+                        <li>Prices</li>
+                    </div>
+                        </Link>
+                </ul>
+              </div>
             </div>
         );
     }

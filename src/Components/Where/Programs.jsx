@@ -8,7 +8,6 @@ import classnames from 'classnames';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -100,7 +99,7 @@ class programs extends Component{
                     Distance:  Miles {program.distance}
                 </Typography>
                 <Typography variant="h5" component="h2">
-                  {program.description}
+                  {description}
                 </Typography>
                 <Typography variant='subtitle1' >
                     {address}

@@ -22,7 +22,8 @@ import '../How/How.css'
 const styles = theme => ({
   card: {
     maxWidth: "100%",
-    minWidth: 275,
+    minWidth: 375,
+    margin: "0 5px"
   },
   media: {
     height: 0,
@@ -82,7 +83,6 @@ class FamilyCard extends Component {
 
   render() {
     const { classes,familyItems,famId } = this.props;
-    console.log(typeof famId,famId)
     return (
       <Card className={classes.card}>
         <CardMedia

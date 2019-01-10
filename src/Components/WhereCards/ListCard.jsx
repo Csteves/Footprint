@@ -31,18 +31,19 @@ class ListCard extends Component{
    constructor(props) {
        super(props);
        this.state = {
-           locationDetails:{}
+           locationDetails:{},
+           loading:false
        }
    }
-   // CONDTIONALALY RENDER SAVE LOCATION BUTTON
-   //ADD SNACK BARS TO NOTIFY USERS WHEN SAVES OR DELETES TAKE PLACE
+
    componentDidMount(){
+       this.setState({loading:true})
        this.getLocationDetails();
    }
     async getLocationDetails(){
     let {location_id} = this.props.location;
     let res = await axios.get(`/api/locationDetails?location_id=${location_id}`);
-    this.setState({locationDetails:res.data[location_id]})
+    this.setState({locationDetails:res.data[location_id],loading:false})
     }
     handleSave = async () => {
         let{id} = this.props.state.users

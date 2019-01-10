@@ -65,7 +65,7 @@ class NewsCard extends Component{
             horizontal: 'left',
           }}
           open={open}
-          autoHideDuration={4000}
+          autoHideDuration={3000}
           onClose={this.props.close}
           ContentProps={{
             'aria-describedby': 'message-id',

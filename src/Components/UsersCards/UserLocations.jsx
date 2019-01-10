@@ -26,13 +26,13 @@ const styles = {
 class UserArticles extends Component {
 
   render(){
-
+    console.log(location);
     const { classes,location } = this.props;
     return (
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
-            {location.distance}
+           Distance: {location.distance} miles
           </Typography>
           <Typography variant="h5" component="h2">
             {location.title}

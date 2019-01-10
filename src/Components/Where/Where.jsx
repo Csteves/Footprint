@@ -95,7 +95,7 @@ class Where extends Component {
     //SEARCH API FUNCTIONS
     //==========================================
     handleSearch = () => {
-        let {materials,famLoading,matLoading,proLoading} = this.props.materials;
+        let {materials} = this.props.materials;
         let {material,zip} = this.state;
         let ids = [];
         //FIND MATERIAL USER HAS SEARCHED FOR
@@ -170,7 +170,7 @@ class Where extends Component {
         let displaySubHead = subHeadFlag? 'inline' : 'none';
         let displayListClass = displayFullList ?'where-full-list-container where-scroll-bar':'where-maplist-container where-scroll-bar';
         let matTypeAhead =[];
-        let listOfLocations = locations.map((place,index) => {
+        let listOfLocations = locations ? locations.map((place,index) => {
             if(displayFullList){
                 return(
                     <div className="location-list-container" key={index} >
@@ -191,8 +191,9 @@ class Where extends Component {
                         />
                     </div>
                 )
-            }
-        })
+            }else{return <div key={index}></div> }
+        }): <div>Fetching Data...</div>
+
         if(matMatchArr.length){
             matTypeAhead = matMatchArr.map((item,index) =>{
                 return(<li
@@ -267,7 +268,7 @@ class Where extends Component {
                     //Display list style depending on list or map view
                     className={displayListClass}
                     id="map-list"
-                    style={{display:!displayFullList && displayMap || !displayPrograms ? 'none':'inline'}}
+                    style={{display:!displayFullList && (displayMap || !displayPrograms) ? 'none':'inline'}}
                     >
                         {listOfLocations}
                     </div>

@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateArticles,getNews} from '../../ducks/users';
+import {updateArticles,getNews,getNewsT} from '../../ducks/users';
 import WhereCard from '../LandingCards/WhereCard';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import HowCard from '../LandingCards/HowCard';
 import NewsCard from '../LandingCards/NewsCard';
 import './Landing.css';
 
 
-const styles = theme => ({
-    progress: {
-    position:"absolute",
-    left:'44%',
-
-    },
-  });
 
 class Landing extends Component {
     constructor(props) {
@@ -31,10 +22,10 @@ class Landing extends Component {
         this.saveArticle = this.saveArticle.bind(this);
     }
 
-    async componentDidMount(){
+        componentDidMount(){
         const{matLoading,famLoading,proLoading} = this.props.materials.materials;
         if(!matLoading && !famLoading && !proLoading){
-            await this.props.getNews();
+             this.props.getNewsT();
         }
     }
 
@@ -61,7 +52,6 @@ class Landing extends Component {
         this.setState({ openSnack: false });
         };
     render() {
-        const { classes } = this.props;
         let {news,loading} = this.props.state;
         let articles = news.map((article,index) =>{
             return(
@@ -81,7 +71,7 @@ class Landing extends Component {
                 </div>
             )
         })
-        let gotNews = loading ?<CircularProgress size={80} className={classes.progress} />:articles;
+        let gotNews = loading ?<LinearProgress variant="query" />:articles;
         return (
             <div className='main-landing-container'>
             <div className="landing-head-wrapper" >
@@ -112,11 +102,7 @@ class Landing extends Component {
     }
 }
 
-    Landing.propTypes = {
-        classes: PropTypes.object.isRequired,
-    }
-
     function mapStateToProps(state){
         return{ state:state.users,materials:state.materials}
     }
-export default connect(mapStateToProps,{updateArticles,getNews})(withStyles(styles)(Landing));
+export default connect(mapStateToProps,{updateArticles,getNews,getNewsT})(Landing);

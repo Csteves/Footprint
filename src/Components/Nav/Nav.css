@@ -3,30 +3,38 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height:10vh;
-    width:auto;
+    height:100px;
+    width:100%;
     padding-bottom:10px;
     background-color:#DAE1E7  ;
+    z-index: 3;
 }
-nav a {
+ a {
     color:inherit;
     text-decoration: none;
 }
 .nav-links-wrapper{
-    width:25%;
-    margin-right:50px;
-
+    width:auto;
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 30px;
+    height: 70%;
+    position: relative;
+    top:25px;
 }
 .nav-links-wrapper ul {
     display:flex;
     justify-content: space-between;
+    width:600px;
     list-style-type: none;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 .nav-links-wrapper ul li{
     font-size:2em;
     color:#DE751F;
-
+    border-bottom: 3px solid transparent;
+    /* margin-right:20px; */
 }
 
 .nav-links:hover{
@@ -41,21 +49,24 @@ nav a {
     border-bottom: 3px solid transparent;
 }
 
+
 .sub-nav{
-    display:flex;
-    justify-content: flex-start;
+    /* display:flex;
+    justify-content:flex-end; */
     background-color: #B8C2CC;
-    height:5vh;
+    height:45px;
     width:100%;
     position: relative;
     overflow: hidden;
+    border-bottom: #606F7B solid .5px;
 }
 .sub-nav ul{
     display:flex;
-    justify-content: flex-end;
+    justify-content:space-between;
     align-items: center;
     list-style-type: none;
     width:100%;
+    margin:0 10px;
 }
 .sub-nav ul li{
     margin-right:20px;
@@ -88,15 +99,15 @@ nav a {
     filter: saturate(150%);
   }
 #users-btn{
-    position: absolute;
-    padding:5px;
-    left:10px;
+    /* position: absolute; */
+    padding:10px;
+
     color:#3D4852;
-    text-align: center;
 }
 #users-btn:hover{
     background-color: #606F7B;
     color:#B8C2CC;
+    transition: .4s;
 }
 #myThings-li{
 margin-bottom:5px;
@@ -110,15 +121,162 @@ background-color: inherit
 }
 
 .nav-logo{
-    height:40px;
-    width:40px;
+    height:50px;
+    width:50px;
 
 }
 #nav-title{
-    font-size: 3em;
+    font-size: 3.5em;
     color:#DE751F;
 
 }
 .nav-title-wrapper:hover{
     transform: translateY(-1px);
+}
+.nav-links{
+    display: none;
+  }
+
+.dropdown-menu-nav-links{
+height:auto;
+width:100%;
+background-color: #B8C2CC;
+position: relative;
+}
+#dropdown-ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:0 20px;
+    height:45px;
+    overflow: hidden;
+}
+.dropdown-nav-links li{
+    color:#3D4852;
+    font-size: 1.8em;
+    cursor: pointer;
+    padding:10px;
+}
+.dropdown-nav-links li:hover{
+    background-color: #606F7B;
+    color:#B8C2CC;
+    transition: .4s;
+}
+
+
+/* ===========CURRENT PRICES TICKER STYLES================= */
+.nav-green{
+    color:#1F9D55;
+    font-size:40px;
+}
+.nav-red{
+    color:#ff1744;
+    font-size:40px;
+}
+section {
+    position: absolute;
+    right: 10px;
+    top:15px;
+    width: 480px;
+    height: 35px;
+    overflow: hidden;
+  }
+
+  section > ul {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  section > ul[data-length="1"] {
+    top: 40px;
+    width: 100%;
+    animation-name: news-1;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    animation-delay: .1s;
+  }
+  .news {
+    font-weight: 400;
+    height: 20px;
+    line-height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    color:#3D4852;
+    font-size: 1.5em;
+    padding: 5px;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  @keyframes news-1 {
+    0% {
+      top: 43px;
+      visibility: visible;
+    }
+    10%{
+        top:0px;
+    }
+    15%{
+        top:0px;
+    }
+   50%{
+       top:0px;
+   }
+   89%{
+       top:0px;
+   }
+
+    99% {
+      top: -45px;
+      visibility: hidden;
+    }
+    100% {
+      top: 43px;
+      visibility:hidden;
+    }
+  }
+/* ////////MEDIA KEYS STYLES///////////// */
+@media(min-width:1300px){
+    .nav-links{
+        display: flex;
+      }
+     .nav-menu-btn{
+         display:none;
+     }
+     .dropdown-menu-nav-links{
+         display:none
+     }
+     .sub-nav ul{
+        justify-content: flex-end;
+        margin-right:5px;
+    }
+    .sub-nav ul li{
+        margin-right:20px;
+    }
+    .sub-nav{
+        border:none;
+    }
+    #users-btn{
+        position: absolute;
+        padding:5px;
+        left:10px;
+        color:#3D4852;
+        text-align: center;
+    }
+
+}
+
+@media (max-width:830px){
+
+
 }

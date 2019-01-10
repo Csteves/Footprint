@@ -31,7 +31,9 @@ const styles = theme =>({
     marginBottom: 12,
   }, actions: {
     display: 'flex',
-    height:'10px'
+    height:'10px',
+    paddingBottom:2,
+    fontSize:16,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -49,11 +51,6 @@ const styles = theme =>({
   button:{
     padding:'10px'
   },
-  actions:{
-    paddingBottom:2,
-    fontSize:16,
-  }
-
 });
 
 class ListCard extends Component{

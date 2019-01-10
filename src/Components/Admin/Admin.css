@@ -1,0 +1,38 @@
+.admin-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width:50vw;
+    min-width: 500px;
+    margin-top:5px;
+}
+
+
+.update-wrap{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border:solid 1px #606F7B;
+    background-color: #B8C2CC;
+    border-radius: 5px;
+    width:80%;
+    max-width: 100%;
+    padding:10px;
+    margin:5px 0 5px 10px;
+}
+
+.update-wrap p{
+    font-size:1.5em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    padding: 0px;
+    color:#1F9D55;
+    letter-spacing: 5px;
+}
+.update-wrap input{
+    width:60%;
+    height:20px;
+    margin:3px 0;
+}

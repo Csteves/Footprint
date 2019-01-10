@@ -22,7 +22,7 @@ constructor(props) {
     async componentDidMount(){
         let res = await axios.get('/api/materials');
         this.setState({categories:res.data});
-        console.log(this.props)
+
     }
     render() {
         let {categories} = this.state;

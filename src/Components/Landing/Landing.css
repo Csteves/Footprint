@@ -2,7 +2,7 @@
 .main-landing-container{
     display:grid;
     grid-template-columns:20px 40vw 42vw 20px ;
-    grid-template-rows:10vh 65vh  35vh  ;
+    grid-template-rows:10vh 65vh  50vh  ;
     grid-gap:30px 20px;
     justify-content: center;
     background-color:#F1F5F8;
@@ -33,7 +33,6 @@
     padding: 20px;
     color:#1F9D55;
     letter-spacing: 5px;
-
 }
 .landing-how-wrapper{
     grid-column-start: 1;

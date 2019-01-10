@@ -61,4 +61,5 @@ app.get('/api/getPrograms', earthCtrl.getPrograms);
 app.get('/api/getProgramDetails', earthCtrl.getProgramDetails);
 
 //RSS FEED ENDPOINT
-app.get('/api/news',newsCtrl.getNews )
+app.get('/api/news',newsCtrl.getNews );
+app.get('/api/newsToday',newsCtrl.getNewsToday)
