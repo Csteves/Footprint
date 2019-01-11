@@ -6,7 +6,7 @@
     max-width: 100%;
 }
 .prices-title-wrapper{
-    min-width: 400px;
+    min-width: 350px;
     width:80vw;
     border-radius:5px;
     padding:10px;
@@ -21,7 +21,7 @@
     font-weight: 500;
     color:#1F9D55;
     padding:20px;
-    min-width: 400px;
+    min-width: 350px;
     width:100%;
     margin:0 ;
     letter-spacing: 3px;

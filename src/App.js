@@ -12,11 +12,6 @@ class App extends Component {
     }
   }
 
-//  async componentDidMount(){
-//     let res = await axios.get(`/api/get`)
-//     // let data = JSON.parse(res.data);
-//     console.log(res.data);
-//   }
   render() {
     return (
       <div className="App">
