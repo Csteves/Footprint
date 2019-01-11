@@ -104,10 +104,9 @@ nav {
 #users-btn:hover{
     background-color: #606F7B;
     color:#B8C2CC;
-    transition: .4s;
+    /* transition: .1s; */
 }
 #myThings-li{
-/* margin-bottom:5px; */
 color:inherit;
 background-color: inherit
 }

@@ -190,13 +190,13 @@
         display:none;
     }
     .landing-how-wrapper{
-        min-width: 300px;
+        min-width: 350px;
         margin-top:0;
     }
     .landing-where-wrapper{
-        min-width:300px;
+        min-width:350px;
     }
     .landing-news-feed-wrapper{
-        min-width:300px;
+        min-width:350px;
     }
 }

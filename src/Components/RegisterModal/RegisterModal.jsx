@@ -32,9 +32,24 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    [theme.breakpoints.only('xs')]: {
+      width: 350,
+      left:"6%",
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      width: theme.spacing.unit * 50,
+      left:"25%"
+    },
+    [theme.breakpoints.up('md')]: {
+      top:'10%',
+      left:"35%",
+      width: theme.spacing.unit * 60,
+    },
+
   },
   main: {
     width: 'auto',
+    minWidth:350,
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -104,7 +119,7 @@ class RegisterModal extends React.Component {
     })
 
     return (
-      <div>
+      <div >
         <Modal
           className="how-modal"
           aria-labelledby="simple-modal-title"

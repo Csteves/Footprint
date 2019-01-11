@@ -51,13 +51,6 @@ class Where extends Component {
             if(loggedIn && zip){this.setState({zip})}
     }
 
-    // componentDidUpdate(prevProps){
-    //     let{lat,lng} = this.props.users.location;
-    //     if(prevProps.users.location.lat !== lat ||prevProps.users.location.lng !==lng){
-    //         this.props.getPrograms({lat,lng})
-
-    //     }
-    // }
 
     handleInput =(value) =>{
         this.setState({material:value,matMatchArr:this.typeAhead(value)});
@@ -114,7 +107,7 @@ class Where extends Component {
         }else{
             this.getSearchBasedLocations(null,null,ids)
         }
-        this.setState({searchId:ids, locations:[]})
+        this.setState({searchId:ids, locations:[],matMatchArr:[]})
     }
     async getSearchBasedLocations(lat,lng,ids){
         let strIds = ids.join(',') ;
@@ -274,11 +267,12 @@ class Where extends Component {
                     //Display list style depending on list or map view
                     className={displayListClass}
                     id="map-list"
-                    style={{display:!displayFullList && (displayMap || !displayPrograms) ? 'none':'inline'}}
+                    style={{display:!displayFullList && displayMap && !displayPrograms ? 'inline':'none'}}
                     >
                         {listOfLocations}
                     </div>
                     <div
+                    style={{display:displayFullList && !displayMap && !displayPrograms ? 'inline':'none'}}
                     className={displayListClass}
                     id="full-list"
                     >
