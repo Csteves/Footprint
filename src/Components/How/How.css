@@ -1,15 +1,12 @@
-.title{
-    font-size: 30px;
-}
+
 .how-main-container{
    height: auto;
    width:100%;
     background-color:#f8f8ff;
 }
 .how-header{
-
     width:80vw;
-    min-width: 530px;
+    min-width: 350px;
     border-radius: 5px;
     text-align: center;
     margin:10px auto;
@@ -20,7 +17,7 @@
     font-weight: 500;
     color:#1F9D55;
     padding:20px;
-    min-width: 400px;
+    min-width: 350px;
     margin:0;
     letter-spacing: 5px;
 }
@@ -32,7 +29,7 @@
 .family-wrapper{
     width:30vw;
     height:auto;
-    min-width: 375px;
+    min-width: 350px;
     margin-top:15px;
     margin:5px;
 }
@@ -45,4 +42,32 @@
 }
 #how-tablecell-head{
     font-size: 20px;
+}
+@media(max-width:1000px){
+    .how-header{
+        width: 100%;
+
+    }
+    .how-header h1{
+        font-size: 1.5em;
+        letter-spacing: 1px;
+    }
+}
+
+@media(max-width:500px){
+    .how-body{
+        display: block;
+
+    }
+    .how-header{
+        margin:0 auto;
+        padding:10px 0;
+    }
+    .how-header h1{
+        margin:5px auto;
+        padding:0;
+    }
+    .family-wrapper{
+        margin:0 auto;
+    }
 }

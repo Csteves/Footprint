@@ -4,30 +4,34 @@
     align-items: center;
     width:100%;
     height:100vh;
+    max-width: 100%;
+    min-width: 100%;
     /* background-color:#f8f8ff; */
     text-align: center;
 }
 .material-title{
-    min-width: 400px;
     width:60vw;
     height:70px;
+    min-width: 350px;
     border-radius:5px;
     margin:15px 10px 5px 10px;
+
 }
 .material-title h1{
     font-size: 2em;
     font-weight: 500;
     color:#1F9D55;
     padding:20px;
-    min-width: 400px;
     width:58vw;
+    min-width: 350px;
     margin:0;
     letter-spacing: 5px;
 }
 .material-body-wrapper{
     width:60vw;
-    height:70vh;
-    min-width: 400px;
+    height:auto;
+    min-width: 350px;
+    max-width: 600px;
     background-color: #fff;
     border-radius:5px;
     box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
@@ -37,15 +41,16 @@
 }
 .material-img-wrapper{
     width:100%;
-    height:60%;
-
+    height:50%;
 }
 .material-img-wrapper img{
     max-width: 100%;
     max-height: 100%;
     height:100%;
     width:100%;
-    border-radius: 5px;
+    min-height: 300px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .material-content-head{
     display:flex;
@@ -63,10 +68,57 @@
     font-size: 18px;
     max-height: 100%;
     overflow:scroll;
-    line-height: 1em;
+    line-height: 1.5em;
 }
 .material-body-content h4{
  font-size:20px;
  font-weight: 500;
  padding-bottom:10px;
+}
+
+@media(max-width:1000px){
+    .main-material-container{
+        height:auto;
+    }
+    .material-title h1{
+        font-size:1.8em;
+
+    }
+    .material-title{
+        margin:auto;
+    }
+    .material-body-wrapper{
+        margin: 0;
+    }
+    .material-content-head{
+        display:block;
+    }
+    .material-content-head h3{
+        font-size:1.3em;
+        letter-spacing: 1px;
+    }
+}
+@media(max-width:700px){
+    .material-content-head{
+        display: block;
+    }
+    .material-content-head i{
+        float: right;
+    }
+    .material-title{
+        margin: auto;
+        padding: 10px 0;
+    }
+    .material-title h1{
+        letter-spacing: 1px;
+    }
+
+}
+@media(max-width:500px){
+    .main-material-container{
+        margin: auto;
+    }
+    .material-title h1{
+        padding:10px 0;
+    }
 }

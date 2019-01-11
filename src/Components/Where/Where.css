@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+
 }
 /* WHERE MAP STYLES ============================================== */
 
@@ -56,9 +57,8 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     width:60vw;
-    min-width:530px ;
-    height: auto;
-    max-height: 300px;
+    min-width:350px ;
+    height: 350px;
     background-color: #DAE1E7;
     color:#DE751F;
     margin-right:5vw;
@@ -75,10 +75,10 @@
 .search-materials h6{
     font-size: 25px;
 }
-#search-btn-wrapper{
+/* #search-btn-wrapper{
     width:100%;
     text-align: right;
-}
+} */
 .where-search-bar #where-search-btn {
     /* align-self: flex-end; */
     /* margin:0 0 10px 10px; */
@@ -88,6 +88,7 @@
     font-size: 18px;
     padding: 17px 0;
     margin-left: 15px;
+    /* min-width: 350px; */
 }
 .where-search-bar #where-search-btn:hover{
     border-color: #DE751F;
@@ -95,7 +96,7 @@
 .where-header{
     background-color:#4799c2;
     width:60vw;
-    min-width: 530px;
+    min-width: 350px;
     border-radius: 5px;
     text-align: center;
 
@@ -105,7 +106,8 @@
     font-weight: 300;
     color:white;
     padding:20px;
-    min-width: 400px;
+    min-width: 350px;
+    max-width: 100%;
     margin:0;
     letter-spacing: 5px;
 }
@@ -307,4 +309,78 @@
 									   from(#4D9C41),
 									   to(#19911D),
 									   color-stop(.6,#54DE5D))
+}
+@media(max-width:1000px){
+    .main-where-search-container{
+        display: block;
+        margin:0 auto;
+    }
+    .quick-search-bar{
+        display: none;
+    }
+    .main-where-container{
+        align-items: center;
+    }
+    .where-search-bar{
+        width:80%;
+        margin:10px auto;
+        height:400px;
+    }
+    .where-header{
+        width:100%;
+    }
+    .where-header h1{
+        font-size:1.3em;
+    }
+    .where-sub-container{
+        width:80vw;
+        margin:0 auto;
+    }
+
+    .where-maplist-container{
+        display:none;
+    }
+}
+
+@media(max-width:500px){
+    .main-where-search-container{
+        min-width: 350px;
+        max-width: 100%;
+    }
+    .where-search-bar{
+        margin:0;
+        width:100%;
+        position: relative;
+        flex-wrap:wrap;
+        max-height:400px;
+    }
+    .where-header{
+        display: none;
+    }
+
+    .search-materials{
+        margin:8px 0 0 8px;
+        display: block;
+
+
+        /* position: relative; */
+    }
+    .search-materials h6{
+        font-size:1.2em;
+    }
+    .where-search-bar .search-materials input{
+        width:250px;
+    }
+    .where-search-bar #where-search-btn {
+       position: relative;
+       right:10px;
+       height: 60px;
+       margin-bottom: 15px;
+    }
+    #search-materials{
+       max-height:200px;
+    }
+    .material-typeAhead li{
+        width:300px;
+    }
 }

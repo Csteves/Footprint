@@ -22,7 +22,7 @@ import '../How/How.css'
 const styles = theme => ({
   card: {
     maxWidth: "100%",
-    minWidth: 375,
+    minWidth: 350,
     margin: "0 5px"
   },
   media: {

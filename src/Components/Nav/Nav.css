@@ -5,6 +5,7 @@ nav {
     align-items: flex-end;
     height:100px;
     width:100%;
+    min-width: 350px;
     padding-bottom:10px;
     background-color:#DAE1E7  ;
     z-index: 3;
@@ -26,7 +27,7 @@ nav {
 .nav-links-wrapper ul {
     display:flex;
     justify-content: space-between;
-    width:600px;
+    width:40vw;
     list-style-type: none;
     /* margin-right: 10px; */
 }
@@ -51,8 +52,6 @@ nav {
 
 
 .sub-nav{
-    /* display:flex;
-    justify-content:flex-end; */
     background-color: #B8C2CC;
     height:45px;
     width:100%;
@@ -62,7 +61,7 @@ nav {
 }
 .sub-nav ul{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items: center;
     list-style-type: none;
     width:100%;
@@ -99,9 +98,7 @@ nav {
     filter: saturate(150%);
   }
 #users-btn{
-    /* position: absolute; */
-    padding:10px;
-
+    /* padding:10px; */
     color:#3D4852;
 }
 #users-btn:hover{
@@ -110,7 +107,7 @@ nav {
     transition: .4s;
 }
 #myThings-li{
-margin-bottom:5px;
+/* margin-bottom:5px; */
 color:inherit;
 background-color: inherit
 }
@@ -140,6 +137,7 @@ background-color: inherit
 .dropdown-menu-nav-links{
 height:auto;
 width:100%;
+min-width: 350px;
 background-color: #B8C2CC;
 position: relative;
 }
@@ -173,14 +171,6 @@ position: relative;
     color:#ff1744;
     font-size:40px;
 }
-section {
-    position: absolute;
-    right: 10px;
-    top:15px;
-    width: 480px;
-    height: 35px;
-    overflow: hidden;
-  }
 
   section > ul {
     position: absolute;
@@ -246,7 +236,7 @@ section {
     }
   }
 /* ////////MEDIA KEYS STYLES///////////// */
-@media(min-width:1300px){
+@media(min-width:1000px){
     .nav-links{
         display: flex;
       }
@@ -273,10 +263,57 @@ section {
         color:#3D4852;
         text-align: center;
     }
+    section {
+        position: absolute;
+        right: 10px;
+        top:15px;
+        width: 480px;
+        height: 35px;
+        overflow: hidden;
+      }
 
 }
 
-@media (max-width:830px){
+@media (max-width:999px){
+    section {
+        display: none;
+        position: absolute;
+        right: 10px;
+        top:65px;
+        width: 480px;
+        height: 35px;
+        overflow: hidden;
+      }
 
+}
 
+@media (max-width:500px){
+
+    .sub-nav{
+        height: auto;
+        border: none;
+        min-width: 350px;
+    }
+    .sub-nav ul{
+        display: block;
+    }
+    #dropdown-ul{
+        display: block;
+        overflow: visible;
+        margin-left:12px;
+        width:94%;
+    }
+    .dropdown-menu-nav-links{
+        height: 150px;
+    }
+    .nav-logo{
+        height:40px;
+        width:40px;
+
+    }
+    #nav-title{
+        font-size: 2.7em;
+        color:#DE751F;
+
+    }
 }

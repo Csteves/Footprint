@@ -10,14 +10,28 @@ import './MaterialModal.css'
 
 
 const styles = theme => ({
+
   paper: {
     position: 'absolute',
     top:'30%',
-    left:"30%",
-    width: theme.spacing.unit * 50,
+    // left:"30%",
+    // width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
+    [theme.breakpoints.only('xs')]: {
+      width:300,
+      left:"5%",
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      width:350,
+      left:"20%"
+    },
+    [theme.breakpoints.up('md')]: {
+      top:'30%',
+      left:"30%",
+      width: theme.spacing.unit * 50,
+    },
   },
 });
 

@@ -8,7 +8,6 @@ import {getMaterials,getFamilies} from '../../ducks/materials';
 import HowLogo from '@material-ui/icons/ContactSupport';
 import WhereLogo from '@material-ui/icons/Public';
 import PricesLogo from '@material-ui/icons/AttachMoney';
-import Menu from '@material-ui/icons/Menu';
 import{ ReactComponent as RecLogo } from '../../rec-logo.svg'
 
 
@@ -112,7 +111,7 @@ class Nav extends Component {
                                     </Link>
                                     : <div></div>;
         return (
-            <div>
+            <div >
                 <nav>
                     <Link to='/'>
                     <div className='nav-title-wrapper'>

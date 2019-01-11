@@ -215,7 +215,7 @@ class Where extends Component {
                     inputRef={this.state.inputRef}
                     />
                 </div>
-              <div className='where-search-bar' >
+             <div className='where-search-bar' >
             <div className="where-header" >
                 <h1>FIND A SOLUTION TO YOUR RECYCLING NEEDS</h1>
             </div>
@@ -231,7 +231,10 @@ class Where extends Component {
                         variant="outlined"
                         />
                   </div>
-                  <div className="search-materials"  >
+                  <div
+                  className="search-materials"
+                  id="search-materials"
+                  >
                       <h6>SEARCH BY MATERIAL</h6>
                        <TextField
                         autoComplete="off"
@@ -257,7 +260,10 @@ class Where extends Component {
                   </div>
               </div>
             </div>
-                <div style={{display:displaySubHead}} >
+                <div
+                 style={{display:displaySubHead}}
+                 id="sub-head-wrap"
+                 >
                     <SubHeader
                     handleSwap={this.handleSwap}
                     searchCriteria={{zip,material,location}}
@@ -288,7 +294,7 @@ class Where extends Component {
                     />
                 </div>
                 <div
-                style={{display:displayMap || displayFullList ? 'none':'inline'}}
+                style={{display:displayMap || displayFullList ? 'none':'block'}}
                 className='where-program-container where-scroll-bar'
                 >
                     {programs.map((program,i) => {
