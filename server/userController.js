@@ -8,7 +8,7 @@ module.exports = {
             let articles = await db.get_user_articles([id]);
             return res.status(200).send({message:"Save Sucessful",usersArticles:articles});
         }else{
-            return res.status(200).send('Save Unsucessful')
+            return res.status(200).send({message:'Save Unsucessful'})
         }
     },
     getArticles: async (req,res) =>{

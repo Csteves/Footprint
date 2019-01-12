@@ -56,7 +56,7 @@ class User extends Component {
             :
             userLocations.map((location, index) => {
                 return (
-                    <div className='user-locations-container' key={index} >
+                    <div className='user-article-container' key={index} >
                         <UserLocations
                             deleteLocation={this.deleteLocation}
                             location={location}
@@ -74,7 +74,7 @@ class User extends Component {
                 </div>
                     {news}
                 </div>
-                <div className='user-location-container scroll-bar'>
+                <div className='user-article-container scroll-bar'>
                 <div className="user-sub-head">
                     <h3>LOCATIONS</h3>
                 </div>

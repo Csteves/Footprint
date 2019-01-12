@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import {handleOpen} from '../../ducks/users'
 import './Admin.css'
 
 class Admin extends Component {
@@ -40,7 +41,8 @@ class Admin extends Component {
            return alert('Please enter a valid price')
         }else{
            let res = await axios.put('/api/prices',{newPrice,name});
-           console.log(res.data)
+           this.props.handleOpen(res.data.message)
+           this.setState({[name]:''})
         }
 
     }
@@ -61,6 +63,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.bare_bright}
                         onChange={(e)=>this.setState({bare_bright:e.target.value})}
                         type="text"/>
                         <Button
@@ -82,6 +85,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.num_one_copper}
                         onChange={(e)=>this.setState({num_one_copper:e.target.value})}
                         type="text"/>
                         <Button
@@ -103,6 +107,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.thhn_wire}
                         onChange={(e)=>this.setState({thhn_wire:e.target.value})}
                         type="text"/>
                         <Button
@@ -123,6 +128,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.ins_copper_wire}
                         onChange={(e)=>this.setState({ins_copper_wire:e.target.value})}
                         type="text"/>
                         <Button
@@ -143,6 +149,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.brass}
                         onChange={(e)=>this.setState({brass:e.target.value})}
                         type="text"/>
                         <Button
@@ -163,6 +170,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.alum_cans}
                         onChange={(e)=>this.setState({alum_cans:e.target.value})}
                         type="text"/>
                         <Button
@@ -183,6 +191,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.sheet_alum}
                         onChange={(e)=>this.setState({sheet_alum:e.target.value})}
                         type="text"/>
                         <Button
@@ -203,6 +212,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.cast_alum}
                         onChange={(e)=>this.setState({cast_alum:e.target.value})}
                         type="text"/>
                         <Button
@@ -223,6 +233,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.alum_break}
                         onChange={(e)=>this.setState({alum_break:e.target.value})}
                         type="text"/>
                         <Button
@@ -243,6 +254,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.light_iron}
                         onChange={(e)=>this.setState({light_iron:e.target.value})}
                         type="text"/>
                         <Button
@@ -263,6 +275,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.heavy_iron}
                         onChange={(e)=>this.setState({heavy_iron:e.target.value})}
                         type="text"/>
                         <Button
@@ -283,6 +296,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.vehicles}
                         onChange={(e)=>this.setState({vehicles:e.target.value})}
                         type="text"/>
                         <Button
@@ -303,6 +317,7 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.stain_steel}
                         onChange={(e)=>this.setState({stain_steel:e.target.value})}
                         type="text"/>
                         <Button
@@ -323,13 +338,14 @@ class Admin extends Component {
                         label="Enter current price"
                         margin="normal"
                         variant="outlined"
-                        onChange={(e)=>this.setState({lead:e.target.value})}
+                        value={this.state.soft_lead}
+                        onChange={(e)=>this.setState({soft_lead:e.target.value})}
                         type="text"/>
                         <Button
                         color="primary"
                         variant="outlined"
                         size='large'
-                        onClick={() => this.updatePrice('lead')}
+                        onClick={() => this.updatePrice('soft_lead')}
                         >
                         Update Price
                         </Button>
@@ -343,6 +359,7 @@ class Admin extends Component {
                         label="Enter ZIP"
                         margin="normal"
                         variant="outlined"
+                        value={this.state.batteries}
                         onChange={(e)=>this.setState({batteries:e.target.value})}
                         type="text"/>
                         <Button
@@ -363,4 +380,4 @@ class Admin extends Component {
 function mapStateToProps(state){
     return{state:state.users}
 }
-export default connect(mapStateToProps)(Admin);
+export default connect(mapStateToProps,{handleOpen})(Admin);

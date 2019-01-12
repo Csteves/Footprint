@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateUser,updateUserPosition,updateUserCompany} from '../../ducks/users';
+import {updateUser,updateUserPosition,updateUserCompany,handleOpen} from '../../ducks/users';
 import {getGeoKey} from '../../config';
 import RegisterModal from '../RegisterModal/RegisterModal'
 import Avatar from '@material-ui/core/Avatar';
@@ -90,7 +90,6 @@ class Register extends Component {
             this.registerCompany(company);
         }else {
             let res = await axios.post('/auth/register',{email,password,zip});
-            console.log(res.data);
             let {id,loggedIn,isAdmin,zip_code} = res.data
             this.props.updateUser({
                 id,
@@ -112,7 +111,6 @@ class Register extends Component {
          const {email, password,zip} = this.state;
          let{title,address,city,state,phone} = company
          let res = await axios.post('/auth/register',{email,password,zip,hasCompany:true});
-         console.log(res.data);
          let {loggedIn,isAdmin,zip_code} = res.data;
          this.props.updateUser({
              id:res.data.id,
@@ -123,8 +121,9 @@ class Register extends Component {
             userLocations:[],
          })
         let results = await axios.post('/auth/register-company',{id:res.data.id,title,address,city,state,phone,zip:company.zip});
-        if(results.data.id){
-            let{title,address,city,state,phone} = results.data;
+        this.props.handleOpen(results.data.message)
+        if(results.data.company.id){
+            let{title,address,city,state,phone} = results.data.company;
             this.props.updateUserCompany({title,address,city,state,phone,zip:results.data.zip})
         }
         if(loggedIn && zip_code){
@@ -137,12 +136,13 @@ class Register extends Component {
 
     async setUserPosition(zip){
         let res = await  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
-        console.log(res.data);
-        let {lat, lng} = res.data.results[0].geometry.location;
-        this.props.updateUserPosition({
-            lat,
-            lng
-        })
+        if(res.data.results.length){
+          let {lat, lng} = res.data.results[0].geometry.location;
+          this.props.updateUserPosition({
+              lat,
+              lng
+          })
+        }else{this.props.handleOpen('Invalid Zip Code')};
     }
 
     render(){
@@ -221,4 +221,4 @@ Register.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(null,{updateUser,updateUserPosition,updateUserCompany})(withStyles(styles)(Register));
+export default connect(null,{updateUser,updateUserPosition,updateUserCompany,handleOpen})(withStyles(styles)(Register));

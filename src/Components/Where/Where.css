@@ -1,6 +1,6 @@
 .main-where-container{
     position: relative;
-    background-color:#f8f8ff;
+    background-color:#F1F5F8;
     display:flex;
     flex-direction: column;
     align-items: flex-end;
@@ -269,7 +269,9 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-
+.quick-search-form:hover{
+    overflow-y: scroll;
+}
 /* ===========WHERE PROGRAMS STYLES=====================*/
 .where-program-container{
     width:60vw;
@@ -421,6 +423,7 @@
     .material-typeAhead li{
        max-height: 300px;
        overflow-y:scroll;
+       width: 75%;
     }
 
     .where-map-list-container{
@@ -442,7 +445,7 @@
         margin:0;
         width:100%;
         min-width: 300px;
-        left:0;
+        left:5px;
     }
     .where-sub-btns{
         flex-direction: column;

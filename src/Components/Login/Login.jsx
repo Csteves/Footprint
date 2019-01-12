@@ -16,7 +16,7 @@ import {getGeoKey} from '../../config';
 import axios from 'axios';
 import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateUser,updateUserPosition,updateUserCompany,updateCompanyGeo} from '../../ducks/users';
+import {updateUser,updateUserPosition,updateUserCompany,updateCompanyGeo,handleClose,handleOpen} from '../../ducks/users';
 import './Login.css'
 
 const styles = theme => ({
@@ -81,12 +81,13 @@ class Login extends Component {
         let {email, password} = this.state
         let res = await axios.post('/auth/login',{email,password});
         console.log(res.data);
-        let {loggedIn,zip_code,hasCompany,company} = res.data;
+        let {loggedIn,zip_code,hasCompany,company,message} = res.data;
         if(loggedIn){
             if( zip_code){
                 this.setUserPosition(zip_code);
             }
             this.getUsersThings(res.data)
+            this.props.handleOpen(message)
         }
         if(hasCompany){
           this.getCompanyLocation(loggedIn,company)
@@ -111,25 +112,26 @@ class Login extends Component {
        this.setState({email:'',password:'',gotUserCollection:true});
     }
     async getCompanyLocation(loggedIn,company){
-      console.log(this.props.state)
       let hasCompany = Object.keys(company).length;
       if( loggedIn && hasCompany ){
           const{address,city,state} = company;
           let res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address},${city},${state}&key=${getGeoKey()}`)
-          let location = res.data.results[0].geometry.location;
-          console.log(location)
-          this.props.updateCompanyGeo(location)
+          if(res.data.results.length){
+            let location = res.data.results[0].geometry.location;
+            this.props.updateCompanyGeo(location)
+          }else{this.props.handleOpen('Invalid Zip Code')};
         }
      }
 
     async setUserPosition(zip){
         let res = await  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
-        console.log(res.data);
-        let {lat, lng} = res.data.results[0].geometry.location;
-        this.props.updateUserPosition({
-            lat,
-            lng
-        })
+        if(res.data.results.length){
+          let {lat, lng} = res.data.results[0].geometry.location;
+          this.props.updateUserPosition({
+              lat,
+              lng
+          })
+       }else{this.props.handleOpen('Invalid Zip Code')};
     }
 
     render(){
@@ -206,4 +208,4 @@ function mapStateToProps(state){
     return{state:state.users}
 }
 
-export default connect(mapStateToProps,{updateUser,updateUserPosition,updateUserCompany,updateCompanyGeo})(withStyles(styles)(Login));
+export default connect(mapStateToProps,{updateUser,updateUserPosition,updateUserCompany,updateCompanyGeo,handleClose,handleOpen})(withStyles(styles)(Login));

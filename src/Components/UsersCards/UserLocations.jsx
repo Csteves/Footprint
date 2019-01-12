@@ -9,8 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 
 const styles = {
-  card: {
+
+  locationCard: {
     minWidth: 275,
+
   },
   title: {
     fontSize: 14,
@@ -29,7 +31,7 @@ class UserArticles extends Component {
     console.log(location);
     const { classes,location } = this.props;
     return (
-      <Card className={classes.card}>
+      <Card className={classes.locationCard}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
            Distance: {location.distance} miles

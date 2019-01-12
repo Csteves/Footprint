@@ -3,8 +3,10 @@ import {Link} from 'react-router-dom';
 import './Nav.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {updateUser,updateUserPosition} from '../../ducks/users';
+import {updateUser,updateUserPosition,handleClose,handleOpen} from '../../ducks/users';
 import {getMaterials,getFamilies} from '../../ducks/materials';
+
+import SnackBar from '../SnackBar/SnackBar';
 import HowLogo from '@material-ui/icons/ContactSupport';
 import WhereLogo from '@material-ui/icons/Public';
 import PricesLogo from '@material-ui/icons/AttachMoney';
@@ -67,7 +69,7 @@ class Nav extends Component {
 
     async logout(){
         let res = await axios.get(`/auth/logout`);
-        console.log(this.props)
+        this.props.handleOpen("Logged out")
         this.props.updateUser({
             id:'',
             isAdmin:false,
@@ -209,6 +211,11 @@ class Nav extends Component {
                         </Link>
                 </ul>
               </div>
+              <SnackBar
+                message={this.props.state.message}
+                open={this.props.state.open}
+                close={()=>this.props.handleClose()}
+            />
             </div>
         );
     }
@@ -219,4 +226,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{updateUser,updateUserPosition,getMaterials,getFamilies})(Nav);
+export default connect(mapStateToProps,{updateUser,updateUserPosition,getMaterials,getFamilies,handleClose,handleOpen})(Nav);

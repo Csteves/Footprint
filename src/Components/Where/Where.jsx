@@ -31,6 +31,7 @@ class Where extends Component {
             displayMap:true,
             displayPrograms:false,
             inputRef:{},
+
             open:false,
             message:''
         }
@@ -142,6 +143,7 @@ class Where extends Component {
         }
         this.setState({ open: false,message:'' });
       };
+
       mapSave = (message)=>{
           this.setState({open:true, message})
       }
@@ -247,7 +249,9 @@ class Where extends Component {
                         >
                             SEARCH
                         </Button>
-                        <ul className='material-typeAhead'>
+                        <ul
+                        style={{display:matMatchArr.length ? "inline" : "none"}}
+                        className='material-typeAhead'>
                             {matTypeAhead}
                         </ul>
                   </div>

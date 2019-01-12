@@ -9,9 +9,9 @@ module.exports = {
         if(currentPrice){
             let result = await db.update_price([newPrice,priceChange,name]);
             let updated = result[0];
-            return res.status(200).send({updatedPrice:updated.price,message:'Updated successfully'});
+            return res.status(200).send({updatedPrice:updated.price,message:`Updated ${name} Successfully`});
         }else{
-            return res.status(200).send('Could not find material')
+            return res.status(200).send({message:'Could not find material'})
         }
     },
     getAllMaterials: async (req,res) => {
@@ -20,7 +20,7 @@ module.exports = {
         if(results[0]){
             return res.status(200).send(results)
         }else{
-            return res.status(200).send("Could not retrieve materials list")
+            return res.status(200).send({message:"Could not retrieve materials list"})
         }
     },
     getMaterial: async (req,res) =>{

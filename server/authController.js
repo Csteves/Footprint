@@ -8,19 +8,17 @@ module.exports = {
         let results = await db.get_user([email]);
         let userExists = results[0];
         if(userExists){
-            return res.status(200).send('Email already in use.')
+            return res.status(200).send({message:'Email already in use.'})
         }else{
             let salt = bcrypt.genSaltSync(10);
             let hash = bcrypt.hashSync(password,salt);
-            console.log("hash",hash);
             let results = await db.create_user([email,hash,zip,hasCompany]);
             let newUser = results[0];
             req.session.user = {email: newUser.email, id: newUser.id, isAdmin:newUser.is_admin};
-            console.log(req.session.user)
             res.status(200).send({
                 id:req.session.user.id,
                 loggedIn:true,
-                message:'Successful',
+                message:'Successfully registered',
                 isAdmin:req.session.user.isAdmin,
                 zip_code:newUser.zip_code,
                 hasCompany:newUser.has_company
@@ -30,19 +28,15 @@ module.exports = {
     registerCompany: async (req,res) => {
         const{id,title,address,city,state,zip,phone} = req.body;
         const mats = "todo";
-        console.log('hi from company ')
         let db = req.app.get('db');
         let results = await db.get_company([id]);
         let companyExists = results[0];
         if(companyExists){
-            return res.status(200).send('Company already listed.')
+            return res.status(200).send({message:'Company already listed'})
         }else{
-            console.log('hi from company else')
             let results = await db.create_company([id,title,address,city,state,zip,phone,mats]);
-            console.log(results)
             let company = results[0];
-            console.log(company)
-            res.status(200).send(company);
+            res.status(200).send({company,message:"Successfully Registered"});
         }
     },
 

@@ -16,7 +16,9 @@ const intialState ={
     companyGeo:{
         lat:null,
         lng:null
-    }
+    },
+    open:false,
+    message:''
 }
 
 //ACTION TYPES USER
@@ -26,6 +28,11 @@ const UPDATE_LOCATIONS = 'UPDATE_LOCATIONS';
 const UPDATE_USER_POSITION = 'UPDATE_USER_POSITION';
 const UPDATE_USER_COMPANY = 'UPDATE_USER_COMPANY';
 const UPDATE_COMPANY_GEO = 'UPDATE_COMPANY_GEO';
+
+// ACTION TYPES SNACKBAR
+
+const HANDLE_OPEN = 'HANDLE_OPEN';
+const HANDLE_CLOSE = "HANDLE_CLOSE";
 
 //ACTION TYPES NEWS
 const GET_NEWS = 'GET_NEWS';
@@ -98,6 +105,19 @@ return{
 }
 }
 
+export const handleOpen = (message) =>{
+    return{
+        type:HANDLE_OPEN,
+        payload:message
+    }
+}
+export const handleClose = (message) =>{
+    return{
+        type:HANDLE_CLOSE,
+        payload:message
+    }
+}
+
 //ACTION BUILDERS NEWS
 export const getNews = () =>{
     let news = axios.get("/api/news").catch(err =>{
@@ -146,6 +166,12 @@ export default function reducer(state = intialState, action){
 
         case UPDATE_LOCATIONS:
         return {...state, userLocations:action.payload};
+
+        case HANDLE_OPEN:
+        return {...state, open:true, message:action.payload}
+
+        case HANDLE_CLOSE:
+        return {...state, open:false, message:""}
 
         case GET_NEWS_PENDING:
         return {...state,loading:true};

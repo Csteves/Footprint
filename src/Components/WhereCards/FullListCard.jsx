@@ -52,6 +52,11 @@ const styles = theme =>({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  fullListActions:{
+    margin:"2px 0",
+    height:4,
+
+  },
   button:{
     padding:'10px',
     marginBottom:25,
@@ -115,7 +120,7 @@ class ListCard extends Component{
                                         onClick={this.handleSave}
                                         color="primary"
                                         >
-                                        Save Location
+                                        Save
                                         </Button>
                                     : null
         return (
@@ -144,7 +149,7 @@ class ListCard extends Component{
                 </Typography>
             </CardContent>
 
-            <CardActions className={classes.actions} disableActionSpacing>
+            <CardActions className={classes.fullListActions} disableActionSpacing>
                 {saveLocation}
                 <IconButton
             className={classnames(classes.expand,classes.button, {

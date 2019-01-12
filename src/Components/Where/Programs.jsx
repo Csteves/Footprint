@@ -43,6 +43,9 @@ const styles = theme =>({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  programActions:{
+    height:"4px"
+  }
 
 });
 
@@ -114,7 +117,7 @@ class programs extends Component{
                {note}
             </CardContent>
 
-            <CardActions className={classes.actions} disableActionSpacing>
+            <CardActions className={classes.programActions} disableActionSpacing>
                 <IconButton
             className={classnames(classes.expand,classes.button, {
               [classes.expandOpen]: this.state.expanded,

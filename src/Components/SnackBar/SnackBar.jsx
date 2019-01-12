@@ -21,8 +21,8 @@ class SnackBar extends React.Component {
     return (
         <Snackbar
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            vertical: 'top',
+            horizontal: 'center',
           }}
           open={open}
           autoHideDuration={3000}
