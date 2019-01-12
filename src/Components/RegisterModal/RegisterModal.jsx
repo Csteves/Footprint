@@ -33,8 +33,8 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     [theme.breakpoints.only('xs')]: {
-      width: 350,
-      left:"6%",
+      width: 300,
+      left:"3%",
     },
     [theme.breakpoints.between('sm', 'md')]: {
       width: theme.spacing.unit * 50,

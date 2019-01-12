@@ -21,8 +21,12 @@ import axios from 'axios'
 import './ListCard.css'
 
 const styles = theme =>({
+  root:{
+    minHeight:"100%",
+  },
   card: {
     minWidth: 275,
+
   },
   title: {
     fontSize: 16,
@@ -49,7 +53,8 @@ const styles = theme =>({
     transform: 'rotate(180deg)',
   },
   button:{
-    padding:'10px'
+    padding:'10px',
+    marginBottom:25,
   },
 });
 
@@ -110,7 +115,7 @@ class ListCard extends Component{
                                         onClick={this.handleSave}
                                         color="primary"
                                         >
-                                        Save This Location
+                                        Save Location
                                         </Button>
                                     : null
         return (

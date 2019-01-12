@@ -12,7 +12,7 @@
 .material-title{
     width:60vw;
     height:70px;
-    min-width: 350px;
+    min-width: 300px;
     border-radius:5px;
     margin:15px 10px 5px 10px;
 
@@ -23,14 +23,14 @@
     color:#1F9D55;
     padding:20px;
     width:58vw;
-    min-width: 350px;
+    min-width: 300px;
     margin:0;
     letter-spacing: 5px;
 }
 .material-body-wrapper{
     width:60vw;
     height:auto;
-    min-width: 350px;
+    min-width: 300px;
     max-width: 600px;
     background-color: #fff;
     border-radius:5px;

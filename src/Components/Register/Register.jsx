@@ -25,7 +25,7 @@ const styles = theme => ({
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
-    minWidth:350,
+    minWidth:300,
     [theme.breakpoints.down('xs')]: {
       margin:0,
 

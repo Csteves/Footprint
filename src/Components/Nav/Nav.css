@@ -5,7 +5,7 @@ nav {
     align-items: flex-end;
     height:100px;
     width:100%;
-    min-width: 350px;
+    min-width: 300px;
     padding-bottom:10px;
     background-color:#DAE1E7  ;
     z-index: 3;
@@ -136,7 +136,7 @@ background-color: inherit
 .dropdown-menu-nav-links{
 height:auto;
 width:100%;
-min-width: 350px;
+min-width: 300px;
 background-color: #B8C2CC;
 position: relative;
 }
@@ -276,12 +276,7 @@ position: relative;
 @media (max-width:999px){
     section {
         display: none;
-        position: absolute;
-        right: 10px;
-        top:65px;
-        width: 480px;
-        height: 35px;
-        overflow: hidden;
+
       }
 
 }
@@ -291,7 +286,7 @@ position: relative;
     .sub-nav{
         height: auto;
         border: none;
-        min-width: 350px;
+        min-width: 300px;
     }
     .sub-nav ul{
         display: block;

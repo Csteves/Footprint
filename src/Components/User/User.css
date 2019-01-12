@@ -91,13 +91,13 @@
     }
     .user-article-container{
         width:100%;
-        min-width: 350px;
+        min-width: 300px;
         max-height: 50vh;
 
     }
     .user-location-container{
         width:100%;
-        min-width: 350px;
+        min-width: 300px;
         max-height: 50vh;
         margin-top:30px;
     }
@@ -115,7 +115,7 @@
 @media(max-width:500px){
     .user-main-container{
         display: block;
-        min-width: 350px;
+        min-width: 300px;
     }
     .user-body-container{
         display: block;
@@ -125,13 +125,13 @@
     .user-article-container h3{
         font-size:1.3em;
         max-width: 100%;
-        min-width: 350px;
+        min-width: 300px;
         padding:20px 0 ;
     }
     .user-location-container h3{
         font-size:1.3em;
         max-width: 100%;
-        min-width: 350px;
+        min-width: 300px;
         padding:20px 0 ;
     }
 

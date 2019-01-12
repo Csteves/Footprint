@@ -6,7 +6,7 @@
 }
 .how-header{
     width:80vw;
-    min-width: 350px;
+    min-width: 300px;
     border-radius: 5px;
     text-align: center;
     margin:10px auto;
@@ -17,7 +17,7 @@
     font-weight: 500;
     color:#1F9D55;
     padding:20px;
-    min-width: 350px;
+    min-width: 300px;
     margin:0;
     letter-spacing: 5px;
 }
@@ -29,7 +29,7 @@
 .family-wrapper{
     width:30vw;
     height:auto;
-    min-width: 350px;
+    min-width: 300px;
     margin-top:15px;
     margin:5px;
 }

@@ -6,7 +6,7 @@
     max-width: 100%;
 }
 .prices-title-wrapper{
-    min-width: 350px;
+    min-width: 300px;
     width:80vw;
     border-radius:5px;
     padding:10px;
@@ -21,7 +21,7 @@
     font-weight: 500;
     color:#1F9D55;
     padding:20px;
-    min-width: 350px;
+    min-width: 300px;
     width:100%;
     margin:0 ;
     letter-spacing: 3px;
@@ -40,7 +40,7 @@
     width:30vw;
     height:300px;
     margin:10px;
-    min-width: 350px;
+    min-width: 300px;
     background-position: center;
     background-size:cover;
     background-repeat:no-repeat;
@@ -101,7 +101,7 @@
 @media(max-width:500px){
     .materials-container{
         display: block;
-        min-width: 350px;
+        min-width: 300px;
     }
 
 }

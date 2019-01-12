@@ -7,6 +7,7 @@
     justify-content: space-between;
     height:auto;
     width:100%;
+    min-width: 100%;
     padding-bottom: 25px;
     margin-top:15px;
 }
@@ -115,7 +116,6 @@
     max-height:100vh;
     overflow:scroll;
     z-index: 1;
-
 }
 
 .material-typeAhead li{
@@ -140,10 +140,13 @@
 }
 .search-materials{
     overflow:scroll;
+
 }
 .material-typeAhead::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
+     width: 1px;
+     background: transparent;
+     /* make scrollbar
+     transparent */
 }
 
 .material-typeAhead li:nth-child(even){
@@ -181,8 +184,6 @@
 {
 	width: 10px;
     background-color: #F5F5F5;
-
-
 }
 .where-scroll-bar::-webkit-scrollbar-thumb
 {
@@ -295,7 +296,6 @@
 	width: 10px;
     background-color: #F5F5F5;
 
-
 }
 .where-scroll-bar::-webkit-scrollbar-thumb
 {
@@ -339,7 +339,7 @@
     .map-container{
         max-width: 100%;
         width:100%;
-        min-width: 350px;
+        min-width: 300px;
         left:16px;
     }
     .where-maplist-container{
@@ -355,12 +355,12 @@
     }
     .where-full-list-container{
         width:100%;
-        min-width: 330px;
+        min-width: 300px;
         margin: 5px auto;
     }
     .where-program-container{
         width:100%;
-        min-width: 330px;
+        min-width: 300px;
         margin: 5px auto;
     }
     .where-full-list-container:hover{
@@ -377,17 +377,20 @@
 }
 
 @media(max-width:500px){
+
     .main-where-search-container{
-        min-width: 350px;
+        min-width: 300px;
         max-width: 100%;
     }
     .where-search-bar{
         margin:0;
         width:100%;
+        min-width: 300px;
         position: relative;
         flex-wrap:wrap;
         max-height:400px;
         margin-top:5px;
+        overflow-y:scroll;
     }
     .where-header{
         display: none;
@@ -396,6 +399,8 @@
     .search-materials{
         margin:24px 0 0 16px;
         display: block;
+        overflow-y:scroll;
+        width:100%
     }
     .search-materials h6{
         font-size:1.2em;
@@ -414,7 +419,8 @@
        max-height:200px;
     }
     .material-typeAhead li{
-       display: none;
+       max-height: 300px;
+       overflow-y:scroll;
     }
 
     .where-map-list-container{
@@ -429,12 +435,13 @@
         margin: 20px 0 10px 0;
         height: 300px;
         display: block;
+        min-width: 300px;
     }
 
     .map-container{
         margin:0;
         width:100%;
-        min-width: 350px;
+        min-width: 300px;
         left:0;
     }
     .where-sub-btns{
