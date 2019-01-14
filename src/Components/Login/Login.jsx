@@ -80,7 +80,6 @@ class Login extends Component {
     async login(){
         let {email, password} = this.state
         let res = await axios.post('/auth/login',{email,password});
-        console.log(res.data);
         let {loggedIn,zip_code,hasCompany,company,message} = res.data;
         if(loggedIn){
             if( zip_code){
@@ -98,7 +97,6 @@ class Login extends Component {
     async getUsersThings(userInfo){
       let{id,loggedIn,isAdmin,zip_code,} = userInfo;
        let res = await axios.get(`/api/collection?id=${id}`)
-       console.log("get collection",res.data)
        //get users coordinates for use in map
        //I STILL WANT TO USE JAVASCRIPTS GEOLOCATOR API
        this.props.updateUser({

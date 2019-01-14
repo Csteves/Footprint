@@ -89,7 +89,7 @@ class Nav extends Component {
         let trendingStyle = mat.price_change ? 'nav-green' : 'nav-red';
         let priceBase = 'lb' ;
         if(mat.id === 10 || mat.id === 11 || mat.id === 12){
-            priceBase = 'kg'
+            priceBase = 't'
         }
         let isLoggedIn = loggedIn && !loading
                        ?  <li>

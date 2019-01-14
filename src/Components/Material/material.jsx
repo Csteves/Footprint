@@ -31,7 +31,7 @@ class material extends Component {
         console.log('state',this.state)
         let priceBase = 'lb' ;
             if(material.id === 10 || material.id === 11 || material.id === 12){
-                priceBase = 'kg'
+                priceBase = 't'
             }
         let trending = material.price_change ?'trending_up' : "trending_down";
         let trendingStyle = material.price_change ? 'green' : 'red';

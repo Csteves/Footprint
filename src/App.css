@@ -1,8 +1,9 @@
 body{
-    background-color:#F1F5F8;
+    background-color:#F1F5F8!important;
     width:100vw;
     min-width: 100vw;
     max-width: 100vw;
+    /* overflow:hidden; */
 }
 .App{
     background-color: #F1F5F8 !important;

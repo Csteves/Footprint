@@ -37,7 +37,7 @@ constructor(props) {
             //Steel based categories are price based per ton
             let priceBase = 'lb' ;
             if(category.id === 10 || category.id === 11 || category.id === 12){
-                priceBase = 'kg'
+                priceBase = 't'
             }
 
             return(

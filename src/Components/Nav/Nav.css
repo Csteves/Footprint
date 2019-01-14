@@ -129,9 +129,7 @@ background-color: inherit
 .nav-title-wrapper:hover{
     transform: translateY(-1px);
 }
-.nav-links{
-    display: none;
-  }
+
 
 .dropdown-menu-nav-links{
 height:auto;
@@ -277,6 +275,12 @@ position: relative;
     section {
         display: none;
 
+      }
+      .nav-links{
+          display:none;
+      }
+      .nav-links-wrapper{
+          display: none;
       }
 
 }

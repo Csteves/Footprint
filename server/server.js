@@ -3,12 +3,13 @@ const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
 
-
+const email = require('./emailController');
 const authCtrl = require('./authController');
 const earthCtrl = require('./earthApiController');
 const materialCtrl = require('./materialsController');
 const newsCtrl = require('./newsFeed.controller');
 const userCtrl = require('./userController');
+
 
 
 const app = express();
@@ -29,6 +30,7 @@ massive(CONNECTION_STRING).then(db =>{
         console.log('running on port: ' + PORT)
     })
 })
+
 
 //USER AUTH ENDPOINTS
 app.post('/auth/register', authCtrl.register);
@@ -64,3 +66,7 @@ app.get('/api/getProgramDetails', earthCtrl.getProgramDetails);
 //RSS FEED ENDPOINT
 app.get('/api/news',newsCtrl.getNews );
 app.get('/api/newsToday',newsCtrl.getNewsToday)
+
+//EMAIL ENDPOINTS
+app.post('/api/email',email.sendEmail);
+

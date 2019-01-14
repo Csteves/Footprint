@@ -1,8 +1,14 @@
+#admin{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
 .admin-container{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     width:50vw;
     min-width: 300px;
     margin-top:5px;
@@ -21,6 +27,7 @@
     max-width: 100%;
     padding:10px;
     margin:5px 0 5px 10px;
+    min-width: 300px;
 }
 
 .update-wrap p{

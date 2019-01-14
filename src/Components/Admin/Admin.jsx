@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import {handleOpen} from '../../ducks/users'
+import {handleOpen} from '../../ducks/users';
+import EmailForm from './EmailForm'
 import './Admin.css'
 
 class Admin extends Component {
@@ -23,7 +24,7 @@ class Admin extends Component {
             light_iron:'',
             heavy_iron:'',
             vehicles:'',
-            stainless_steel:'',
+            stain_steel:'',
             soft_lead:'',
             batteries:''
         }
@@ -52,7 +53,8 @@ class Admin extends Component {
             return <Redirect to='/' />
         }
         return (
-            <div>
+            <div id="admin">
+                    <EmailForm/>
                 <div className='admin-container'>
                     <div className="update-wrap">
                         <p>#1 Bare Bright Copper Wire</p>
