@@ -67,7 +67,7 @@ class EmailForm extends Component {
         super(props);
         this.state = {
            sender:'',
-           user:'',
+           receiver:'',
            subject:'',
            message:''
         }
@@ -79,9 +79,11 @@ class EmailForm extends Component {
         this.sendEmail()
     }
     sendEmail = async()=>{
-        const {sender,user,subject,message} = this.state;
-        let res = await axios.post('/api/email',{sender,user,subject,message});
+        const {sender,receiver,subject,message} = this.state;
+        let res = await axios.post('/api/email',{sender,receiver,subject,message});
         console.log(res.data)
+        this.props.handleOpen(res.data.message);
+        this.setState({sender:'',receiver:'',subject:'',message:''})
     }
 
 
@@ -105,20 +107,20 @@ class EmailForm extends Component {
                     <InputLabel htmlFor="name">From: Name</InputLabel>
                     <Input
                     onChange={(e)=>this.setState({sender:e.target.value})}
-                    name="name" type="text" id="name" autoComplete="none" />
+                    name="name" type="text" id="name" autoComplete="none" value={this.state.sender} />
                   </FormControl>
 
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">To: Email Address</InputLabel>
                   <Input
-                  onChange={(e)=>this.setState({user:e.target.value})}
-                  id="email" name="email" autoComplete="email" autoFocus />
+                  onChange={(e)=>this.setState({receiver:e.target.value})}
+                  id="email" name="email" autoComplete="email" value={this.state.receiver} autoFocus />
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="subject">Subject</InputLabel>
                   <Input
                    onChange={(e)=>this.setState({subject:e.target.value})}
-                  name="subject" type="text" id="subject" autoComplete="none" />
+                  name="subject" type="text" id="subject" value={this.state.subject} autoComplete="none" />
                   </FormControl>
 
                   <FormControl margin="normal" required fullWidth>
@@ -126,13 +128,13 @@ class EmailForm extends Component {
                   <TextField
                    className={classes.textField}
                    onChange={(e)=>this.setState({message:e.target.value})}
-                  name="message" type="text" label="Message" id="outlined-multiline-flexible" autoComplete="none"  multiline
+                  name="message" type="text" label="Message" value={this.state.message} id="outlined-multiline-flexible" autoComplete="none"  multiline
                    variant="outlined" margin="normal" />
                   </FormControl>
 
 
                 <FormControlLabel
-                  control={<Checkbox onChange={()=>null} value='industry' checked='true' color="primary" />}
+                  control={<Checkbox onChange={()=>null} value='industry'  color="primary" />}
                   label="Send to all users?"
                 />
                 <Button

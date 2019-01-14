@@ -13,13 +13,13 @@ const transporter = nodemailer.createTransport( {
 
 module.exports = {
     sendEmail: async (req, res) =>{
-        const {sender,user,subject,message} = req.body;
+        const {sender,receiver,subject,message} = req.body;
         let mailOptions = {
-            from: `Support Team <recycle@foot-print.net>`, // sender address
-            to: user, // list of receivers
+            from: `Foot-print.net <recycle@foot-print.net>`, // sender address
+            to: receiver, // list of receivers
             subject: subject, // Subject line
             text: message, // plain text body
-            html: template(sender,user,subject,message) // html body
+            html: template(sender,receiver,subject,message) // html body
           };
 
           let info = await transporter.sendMail(mailOptions)
@@ -35,13 +35,13 @@ module.exports = {
 
 }
 
-const template = function (sender,user,subject,message){
+const template = function (sender,receiver,subject,message){
     return ( `
-    <p>@${user}</p>
-    <h3>${subject}</h3>
-    <h3>Message</h3>
+    <h2>${subject}</h2>
+    <h4>Message:</h4>
     <p>${message}</p>
-    <p> Thank you for joining <a href="foot-print.net">Footprint!</a></p>
+    <p> Thank you for joining <a href="https://foot-print.net">Foot-print.net!</a></p>
+    <p>Regards,</p>
     <p>${sender}</p>
     `)
 }

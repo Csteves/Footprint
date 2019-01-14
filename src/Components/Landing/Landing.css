@@ -2,7 +2,7 @@
 .main-landing-container{
     display:grid;
     grid-template-columns:20px 40vw 42vw 20px ;
-    grid-template-rows:10vh 65vh  50vh  ;
+    grid-template-rows:10vh 65vh  5vh  ;
     grid-gap:30px 20px;
     justify-content: center;
     background-color:#F1F5F8;
@@ -80,7 +80,7 @@
     min-width: 300px;
     overflow-y: hidden;
     /* max-width: 755px; */
-    background-color:#f8f8ff;
+    background-color:#F1F5F8;
     margin:20px 0 10px 0;
     position: relative;
     border-radius: 5px;
