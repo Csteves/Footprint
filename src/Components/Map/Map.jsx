@@ -4,6 +4,7 @@ import { Map, GoogleApiWrapper,Marker,InfoWindow } from 'google-maps-react';
 import { getMapKey } from '../../config';
 import {connect} from 'react-redux';
 import {updateLocations} from '../../ducks/users';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Axios from 'axios';
 import MapId from '../../mapId'
 import './Map.css';
@@ -115,7 +116,7 @@ export class MapContainer extends Component {
     if(!loading){
       userLocation = location.lat && location.lng ?location:{lat:39.4367,lng:-98.3546};
     }
-    let map = loading ? 'Loading...'
+    let map = loading ? <LinearProgress variant="query" />
                     :<Map
                     google={this.props.google}
                     style={mapStyles}

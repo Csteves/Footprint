@@ -1,0 +1,1 @@
+SELECT email FROM footprint_users;

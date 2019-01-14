@@ -80,5 +80,16 @@ module.exports = {
     logout: (req,res)=>{
         req.session.destroy();
         return res.status(200).send({loggedIn:false, message:'Logout successful'});
+    },
+    getUsers: async (req,res) =>{
+        const db = req.app.get('db');
+        let result = await db.get_emails();
+        console.log(result)
+        res.status(200).send(result);
+        // if(result.length){
+        //     res.status(200).send(result)
+        // }else{
+        //     res.status(200).send({message:'Unable to fetch user emails'})
+        // }
     }
 }

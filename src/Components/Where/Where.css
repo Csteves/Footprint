@@ -72,6 +72,8 @@
 }
 .search-materials{
     margin:0 5px 0 20px;
+    z-index: 1;
+    max-height: 80vh;
 }
 .search-materials h6{
     font-size: 25px;
@@ -132,6 +134,7 @@
     justify-content: space-between;
     text-transform: capitalize;
     cursor: pointer;
+
 }
 .material-typeAhead li:hover{
     font-size:110%;

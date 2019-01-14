@@ -31,7 +31,7 @@ module.exports = {
               res.status(200).send({message:'Unable to send email'})
           }
 
-    }
+    },
 
 }
 

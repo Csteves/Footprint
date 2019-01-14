@@ -20,7 +20,7 @@ class Nav extends Component {
            company:{},
            categories:[],
            mat:{},
-           count:0,
+           count:1,
            toggleMenu:false
         }
     }
@@ -45,11 +45,11 @@ class Nav extends Component {
         clearInterval(this.catTimer);
       }
 
-      componentDidUpdate(prevprops,prevState){
-          if(prevState.mat.id !== this.state.mat.id){
+    //   componentDidUpdate(prevprops,prevState){
+    //       if(prevState.mat.id !== this.state.mat.id){
 
-          }
-      }
+    //       }
+    //   }
         async getCategories(){
             let res = await axios.get('/api/materials');
             this.setState({categories:res.data, mat:res.data[0]});
@@ -60,7 +60,7 @@ class Nav extends Component {
             if(count <= 14){
                 this.setState({mat:categories[count],count:count+1})
             }else{
-                this.setState({count:0, mat:categories[0]})
+                this.setState({count:1, mat:categories[0]})
             }
         }
         toggleDropdown = ()=>{
@@ -84,7 +84,7 @@ class Nav extends Component {
     render() {
 
         let {loggedIn,id,loading} = this.props.state;
-        let{categories,count,mat} = this.state;
+        let{count,mat} = this.state;
         let trending = mat.price_change ?'trending_up' : "trending_down";
         let trendingStyle = mat.price_change ? 'nav-green' : 'nav-red';
         let priceBase = 'lb' ;

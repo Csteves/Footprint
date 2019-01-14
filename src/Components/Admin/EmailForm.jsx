@@ -14,8 +14,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Mail from '@material-ui/icons/Email';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField'
 import withStyles from '@material-ui/core/styles/withStyles';
+import Select from '@material-ui/core/Select';
 import axios from 'axios';
 
 const styles = theme => ({
@@ -25,6 +27,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     minWidth:300,
+    height:"auto",
     [theme.breakpoints.down('xs')]: {
       margin:0,
 
@@ -49,6 +52,7 @@ const styles = theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing.unit,
+
   },
   submit: {
     marginTop: theme.spacing.unit * 2,
@@ -60,6 +64,10 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
+  userSelect:{
+    margin:theme.spacing.unit *2,
+    marginTop:theme.spacing.unit *6
+  }
 });
 
 class EmailForm extends Component {
@@ -69,11 +77,26 @@ class EmailForm extends Component {
            sender:'',
            receiver:'',
            subject:'',
-           message:''
+           message:'',
+           users:[],
+           getUsers:false
         }
 
     }
+    componentDidMount(){
+      this.allUsers();
 
+    }
+
+    componentDidUpdate(prevProps, prevState){
+      if(prevState.getUsers !== this.state.getUsers){
+        if(this.state.getUsers){
+          this.allUsers();
+        }else{
+          this.setState({receiver:''})
+        }
+      }
+    }
     handleSubmit = (event)=>{
         event.preventDefault();
         this.sendEmail()
@@ -81,15 +104,30 @@ class EmailForm extends Component {
     sendEmail = async()=>{
         const {sender,receiver,subject,message} = this.state;
         let res = await axios.post('/api/email',{sender,receiver,subject,message});
-        console.log(res.data)
         this.props.handleOpen(res.data.message);
         this.setState({sender:'',receiver:'',subject:'',message:''})
+    }
+    async allUsers(){
+      let res = await axios.get('/api/users');
+      let emails = [];
+      res.data.forEach(item =>{
+        emails.push(item.email);
+      })
+      if(this.state.getUsers){
+        this.setState({receiver:emails.join(', ')});
+      }else{
+        this.setState({users:emails,receiver:''})
+      }
     }
 
 
     render(){
         const { classes } = this.props;
-
+        // let users = this.state.users.map((user,i) =>{
+        //   return(
+        //     <MenuItem key="i">{user}</MenuItem>
+        //   )
+        // })
         return (
           <main className={classes.main}>
             <CssBaseline />
@@ -107,14 +145,15 @@ class EmailForm extends Component {
                     <InputLabel htmlFor="name">From: Name</InputLabel>
                     <Input
                     onChange={(e)=>this.setState({sender:e.target.value})}
-                    name="name" type="text" id="name" autoComplete="none" value={this.state.sender} />
+                    name="name" type="text" id="name" autoComplete="none" value={this.state.sender}
+                    autoFocus />
                   </FormControl>
 
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="email">To: Email Address</InputLabel>
                   <Input
                   onChange={(e)=>this.setState({receiver:e.target.value})}
-                  id="email" name="email" autoComplete="email" value={this.state.receiver} autoFocus />
+                  id="email" name="email" autoComplete="email" value={this.state.receiver}  />
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="subject">Subject</InputLabel>
@@ -132,9 +171,24 @@ class EmailForm extends Component {
                    variant="outlined" margin="normal" />
                   </FormControl>
 
+                  {/* <FormControl margin="normal">
+                  <InputLabel htmlFor="users">Users</InputLabel>
+                  <Select
+                  value=""
+                  autoWidth={true}
+                  onChange={(e) => this.setState({reciever:e.target.value})}
+                  className={classes.userSelect}
+                    inputProps={{
+                      name: 'users',
+                      id: 'users',
+                    }}
+                    onChange={(e)=>this.setState({reciever:e.target.value})}
+                  > {users} </Select>
+                  </FormControl> */}
+
 
                 <FormControlLabel
-                  control={<Checkbox onChange={()=>null} value='industry'  color="primary" />}
+                  control={<Checkbox onChange={()=> this.setState({getUsers:!this.state.getUsers})} value='users'  color="primary" />}
                   label="Send to all users?"
                 />
                 <Button

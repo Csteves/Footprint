@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateArticles,getNews,getNewsT} from '../../ducks/users';
+import {updateArticles,getNews,getNewsT,handleOpen} from '../../ducks/users';
 import WhereCard from '../LandingCards/WhereCard';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import HowCard from '../LandingCards/HowCard';
@@ -38,19 +38,11 @@ class Landing extends Component {
         let {id} = this.props.state
         let{title,link,pubDate} = article[0];
         let res = await axios.post('/api/articles',{id,title,link,pubDate});
-        console.log(res.data)
-        this.openSnackBar(res.data.message)
+        this.props.handleOpen(res.data.message)
         this.setState(state =>({...state,message:res.data.message}))
         this.props.updateArticles(res.data.usersArticles);
     }
-    openSnackBar(message){
-        if(message === 'Save Sucessful'){
-            this.setState({openSnack:true})
-        }
-    }
-    handleClose = () => {
-        this.setState({ openSnack: false });
-        };
+
     render() {
         let {news,loading} = this.props.state;
         let articles = news.map((article,index) =>{
@@ -105,4 +97,4 @@ class Landing extends Component {
     function mapStateToProps(state){
         return{ state:state.users,materials:state.materials}
     }
-export default connect(mapStateToProps,{updateArticles,getNews,getNewsT})(Landing);
+export default connect(mapStateToProps,{updateArticles,getNews,getNewsT,handleOpen})(Landing);
