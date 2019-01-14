@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {updateArticles,getNews,getNewsT,handleOpen} from '../../ducks/users';
+import {updateArticles,getNews,handleOpen} from '../../ducks/users';
 import WhereCard from '../LandingCards/WhereCard';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import HowCard from '../LandingCards/HowCard';
@@ -23,10 +23,7 @@ class Landing extends Component {
     }
 
         componentDidMount(){
-        const{matLoading,famLoading,proLoading} = this.props.materials.materials;
-        if(!matLoading && !famLoading && !proLoading){
-             this.props.getNewsT();
-        }
+
     }
 
 
@@ -97,4 +94,4 @@ class Landing extends Component {
     function mapStateToProps(state){
         return{ state:state.users,materials:state.materials}
     }
-export default connect(mapStateToProps,{updateArticles,getNews,getNewsT,handleOpen})(Landing);
+export default connect(mapStateToProps,{updateArticles,getNews,handleOpen})(Landing);

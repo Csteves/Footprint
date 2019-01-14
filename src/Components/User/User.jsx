@@ -68,13 +68,13 @@ class User extends Component {
             <div className='user-main-container'>
 
               <div className='user-body-container'>
-                <div className="user-article-container scroll-bar">
+                <div id='user-article' className="user-article-container scroll-bar">
                 <div className="user-sub-head">
                     <h3>NEWS ARTICLES</h3>
                 </div>
                     {news}
                 </div>
-                <div className='user-article-container scroll-bar'>
+                <div id="user-location" className='user-article-container scroll-bar'>
                 <div className="user-sub-head">
                     <h3>LOCATIONS</h3>
                 </div>

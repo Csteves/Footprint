@@ -84,12 +84,11 @@ module.exports = {
     getUsers: async (req,res) =>{
         const db = req.app.get('db');
         let result = await db.get_emails();
-        console.log(result)
-        res.status(200).send(result);
-        // if(result.length){
-        //     res.status(200).send(result)
-        // }else{
-        //     res.status(200).send({message:'Unable to fetch user emails'})
-        // }
+
+        if(result.length){
+            res.status(200).send(result)
+        }else{
+            res.status(200).send({message:'Unable to fetch user emails'})
+        }
     }
 }

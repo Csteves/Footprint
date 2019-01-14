@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import './Nav.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {updateUser,updateUserPosition,handleClose,handleOpen} from '../../ducks/users';
+import {updateUser,updateUserPosition,handleClose,handleOpen,getNewsT} from '../../ducks/users';
 import {getMaterials,getFamilies} from '../../ducks/materials';
 
 import SnackBar from '../SnackBar/SnackBar';
@@ -25,6 +25,10 @@ class Nav extends Component {
         }
     }
          componentDidMount(){
+        const{matLoading,famLoading,proLoading} = this.props.materials.materials;
+        if(!matLoading && !famLoading && !proLoading){
+                this.props.getNewsT();
+        }
         let {id,isAdmin,loggedIn,userArticles,userLocations,zip,loading} = this.props.state;
         if(!loading){
              this.props.getMaterials();
@@ -222,8 +226,9 @@ class Nav extends Component {
 }
 function mapStateToProps(state){
     return{
-        state:state.users
+        state:state.users,
+        materials: state.materials
     }
 }
 
-export default connect(mapStateToProps,{updateUser,updateUserPosition,getMaterials,getFamilies,handleClose,handleOpen})(Nav);
+export default connect(mapStateToProps,{updateUser,updateUserPosition,getMaterials,getFamilies,handleClose,handleOpen,getNewsT})(Nav);

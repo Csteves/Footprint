@@ -32,6 +32,7 @@
 
 }
 
+
 .user-article-container{
     width:44vw;
     max-height:75vh;
@@ -40,6 +41,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
 .user-article-container:hover{
     overflow-y: scroll;
     /* overflow-x: hidden; */
@@ -102,6 +104,12 @@
         overflow-y: scroll;
         width: calc(100% + 10px);
         transform: translateX(-10px)
+    }
+    #user-article{
+        margin-top:15px;
+    }
+    #user-location{
+        margin-top:15px;
     }
 }
 @media(max-width:500px){
