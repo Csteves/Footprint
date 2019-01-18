@@ -23,8 +23,6 @@ module.exports = {
           };
 
           let info = await transporter.sendMail(mailOptions)
-          console.log("Message sent: %s", info.messageId);
-          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
           if(info.messageId){
               res.status(200).send({message:"Email sent successfully"})
           }else{

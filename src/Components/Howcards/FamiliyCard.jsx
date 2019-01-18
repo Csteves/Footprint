@@ -31,7 +31,7 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex',
-    height:'10px'
+    height: '10px'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -46,12 +46,12 @@ const styles = theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  content:{
-      maxHeight:'250px',
-      overflowY: "scroll",
+  content: {
+    maxHeight: '250px',
+    overflowY: "scroll",
   },
-  button:{
-      marginBottom:'30px'
+  button: {
+    marginBottom: '30px'
   }
 
 });
@@ -61,7 +61,7 @@ class FamilyCard extends Component {
     super(props);
     this.state = {
       expanded: false,
-      selectedMat:{},
+      selectedMat: {},
       open: false,
     };
 
@@ -74,15 +74,15 @@ class FamilyCard extends Component {
   //=============HANDLE MODAL FUNC'S
   handleOpen = (id) => {
     let selectedMat = this.props.familyItems.filter(material => material.material_id === id)
-    this.setState({ selectedMat:selectedMat[0],open: true});
+    this.setState({ selectedMat: selectedMat[0], open: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false, selectedMat:{} });
+    this.setState({ open: false, selectedMat: {} });
   };
 
   render() {
-    const { classes,familyItems,famId } = this.props;
+    const { classes, familyItems, famId } = this.props;
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -92,15 +92,15 @@ class FamilyCard extends Component {
         />
         <CardContent>
           <Typography
-           variant='h4'
-           color="textPrimary"
-           >
-           {this.props.title}
+            variant='h4'
+            color="textPrimary"
+          >
+            {this.props.title}
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton
-            className={classnames(classes.expand,classes.button, {
+            className={classnames(classes.expand, classes.button, {
               [classes.expandOpen]: this.state.expanded,
             })}
             onClick={this.handleExpandClick}
@@ -113,40 +113,40 @@ class FamilyCard extends Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
 
           <CardContent className={classes.content}>
-          <Table className={classes.table}>
-        <TableHead>
-          <TableRow >
-            <TableCell
-            id='how-tablecell-head'
-             variant='head'
-             >{this.props.title}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {familyItems.map(row => {
-            return (
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow >
+                  <TableCell
+                    id='how-tablecell-head'
+                    variant='head'
+                  >{this.props.title}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {familyItems.map(row => {
+                  return (
                     <TableRow
-                    onClick={()=>this.handleOpen(row.material_id)}
-                    style={{cursor:"pointer"}}
-                    hover
-                    key={row.material_id}
+                      onClick={() => this.handleOpen(row.material_id)}
+                      style={{ cursor: "pointer" }}
+                      hover
+                      key={row.material_id}
                     >
-                        <TableCell
+                      <TableCell
                         className='how-table-cell'
-                        component="th" scope="row" style={{width:"100%"}}>
-                            {row.description}
-                        </TableCell>
+                        component="th" scope="row" style={{ width: "100%" }}>
+                        {row.description}
+                      </TableCell>
                     </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </CardContent>
         </Collapse>
         <MaterialModal
-        open={this.state.open}
-        handleClose={this.handleClose}
-        material={this.state.selectedMat}
+          open={this.state.open}
+          handleClose={this.handleClose}
+          material={this.state.selectedMat}
         />
       </Card>
     );

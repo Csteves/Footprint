@@ -15,14 +15,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CategoryIcon from '@material-ui/icons/Category';
-import {connect} from 'react-redux';
-import {updateLocations} from '../../ducks/users'
+import { connect } from 'react-redux';
+import { updateLocations } from '../../ducks/users'
 import axios from 'axios'
 import './ListCard.css'
 
-const styles = theme =>({
-  root:{
-    minHeight:"100%",
+const styles = theme => ({
+  root: {
+    minHeight: "100%",
   },
   card: {
     minWidth: 275,
@@ -35,9 +35,9 @@ const styles = theme =>({
     marginBottom: 12,
   }, actions: {
     display: 'flex',
-    height:'10px',
-    paddingBottom:2,
-    fontSize:16,
+    height: '10px',
+    paddingBottom: 2,
+    fontSize: 16,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -52,107 +52,106 @@ const styles = theme =>({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  fullListActions:{
-    margin:"2px 0",
-    height:4,
+  fullListActions: {
+    margin: "2px 0",
+    height: 4,
 
   },
-  button:{
-    padding:'10px',
-    marginBottom:25,
+  button: {
+    padding: '10px',
+    marginBottom: 25,
   },
 });
 
-class ListCard extends Component{
-   constructor(props) {
-       super(props);
-       this.state = {
-        expanded: false,
-        open: false,
-        locationDetails:{},
-        materialsAccepeted:[]
-       }
-   }
-
-    //FIX SAVE FUNCIONALITY- CONDTIONALALY RENDER AND HANDLESAVE FUNC IS BROKE ,add distance too
-    componentDidMount(){
-       this.getLocationDetails();
+class ListCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      open: false,
+      locationDetails: {},
+      materialsAccepeted: []
     }
+  }
 
+  componentDidMount() {
+    this.getLocationDetails();
+  }
 
-    handleExpandClick = () => {
-        this.setState(state => ({ expanded: !state.expanded }));
-    };
-    async getLocationDetails(){
-    let {location_id} = this.props.location;
+  handleExpandClick = () => {
+    this.setState(state => ({ expanded: !state.expanded }));
+  };
+  async getLocationDetails() {
+    let { location_id } = this.props.location;
     let res = await axios.get(`/api/locationDetails?location_id=${location_id}`);
     this.getMaterialsAccepted(res.data[location_id].materials)
-    this.setState({locationDetails:res.data[location_id]})
-    }
-    getMaterialsAccepted(materialsArr){
-        let{materials} = this.props.state.materials
-        let ids = [];
-        let materialsAccepeted =[]
-        materialsArr.forEach(item => ids.push(item.material_id));
-        materials.filter(item => ids.includes(item.material_id))
-        .forEach(item => materialsAccepeted.push(item.description))
-        this.setState({materialsAccepeted})
-    }
+    this.setState({ locationDetails: res.data[location_id] })
+  }
 
-    handleSave = async () => {
-      let{id} = this.props.state.users
-      let {locationDetails} = this.state;
-      let details = locationDetails;
-      let {distance} = this.props.location;
-      let res = await axios.post('/api/location',{details,id,distance});
-      this.props.openSnackbar(res.data.message)
-      this.props.updateLocations(res.data.usersLocations)
-       };
+  getMaterialsAccepted(materialsArr) {
+    let { materials } = this.props.state.materials
+    let ids = [];
+    let materialsAccepeted = []
+    materialsArr.forEach(item => ids.push(item.material_id));
+    materials.filter(item => ids.includes(item.material_id))
+      .forEach(item => materialsAccepeted.push(item.description))
+    this.setState({ materialsAccepeted })
+  }
 
-    render(){
-        const { classes,location } = this.props;
-        let {address,city,province,phone,hours,postal_code} = this.state.locationDetails;
-        let {materialsAccepeted} = this.state;
-        let {loggedIn} = this.props.state.users;
-        let showMore = !this.state.expanded ? 'Materials Accepted' :"";
-        let saveLocation = loggedIn ? <Button
-                                        className="full-list-save-btn"
-                                        onClick={this.handleSave}
-                                        color="primary"
-                                        >
-                                        Save
+  handleSave = async () => {
+    let { id } = this.props.state.users
+    let { locationDetails } = this.state;
+    let details = locationDetails;
+    let { distance } = this.props.location;
+    let res = await axios.post('/api/location', { details, id, distance });
+    this.props.openSnackbar(res.data.message)
+    this.props.updateLocations(res.data.usersLocations)
+  };
+
+  render() {
+    const { classes, location } = this.props;
+    let { address, city, province, phone, hours, postal_code } = this.state.locationDetails;
+    let { materialsAccepeted } = this.state;
+    let { loggedIn } = this.props.state.users;
+    let showMore = !this.state.expanded ? 'Materials Accepted' : "";
+    let saveLocation = loggedIn ? <Button
+      className="full-list-save-btn"
+      onClick={this.handleSave}
+      color="primary"
+    >
+      Save
                                         </Button>
-                                    : null
-        return (
-            <Card
-            className='list-card'
-            >
+      : null
+    return (
+      <Card
+        className='list-card'
+      >
 
-            <CardContent>
-                <Typography className={classes.title} color="secondary"
-                align="right"
-                >
-                   Distance: {location.distance} miles
+        <CardContent>
+          <Typography className={classes.title} color="secondary"
+            align="right"
+          >
+            Distance: {location.distance} miles
                 </Typography>
-                <Typography variant="h4">
-                {location.description}
-                </Typography>
-                <Typography variant='h6' >
-                    {address}
-                    <br/>
-                    {city} {province}, {postal_code}
-                </Typography>
-                <Typography variant='subtitle1'>
-                    {hours}
-                    <br/>
-                    {phone}
-                </Typography>
-            </CardContent>
+          <Typography variant="h4">
+            {location.description}
+          </Typography>
+          <Typography variant='h6' >
+            {address}
+            <br />
+            {city} {province}, {postal_code}
+          </Typography>
+          <Typography variant='subtitle1'>
+            {hours}
+            <br />
+            {phone}
+          </Typography>
+        </CardContent>
 
-            <CardActions className={classes.fullListActions} disableActionSpacing>
-                {saveLocation}
-                <IconButton
-            className={classnames(classes.expand,classes.button, {
+        <CardActions className={classes.fullListActions} disableActionSpacing>
+          {saveLocation}
+          <IconButton
+            className={classnames(classes.expand, classes.button, {
               [classes.expandOpen]: this.state.expanded,
             })}
             onClick={this.handleExpandClick}
@@ -160,42 +159,42 @@ class ListCard extends Component{
             aria-expanded={this.state.expanded}
             aria-label="Show more"
           >
-          <Typography
-          color="primary"
-          variant='subtitle1'>{showMore}</Typography>
+            <Typography
+              color="primary"
+              variant='subtitle1'>{showMore}</Typography>
             <ExpandMoreIcon />
           </IconButton>
-            </CardActions>
-            <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
+        </CardActions>
+        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <CardContent>
             <List className="full-list-list" >
-            {materialsAccepeted.map((item,i)=> {
-                return(
+              {materialsAccepeted.map((item, i) => {
+                return (
                   <ListItem
-                  key={i}
+                    key={i}
                   >
-                   <ListItemIcon>
+                    <ListItemIcon>
                       <CategoryIcon />
                     </ListItemIcon>
-                            <ListItemText
-                              primary={item}
-                            />
-                    </ListItem>
-                     )
-                   })}
-                </List>
-            </CardContent>
-            </Collapse>
-            </Card>
-        );
-    }
-    }
-      ListCard.propTypes = {
-        classes: PropTypes.object.isRequired,
-      };
-      function mapStateToProps(state){
-        return{state}
-      }
+                    <ListItemText
+                      primary={item}
+                    />
+                  </ListItem>
+                )
+              })}
+            </List>
+          </CardContent>
+        </Collapse>
+      </Card>
+    );
+  }
+}
+ListCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+function mapStateToProps(state) {
+  return { state }
+}
 
 
-export default connect(mapStateToProps,{updateLocations})(withStyles(styles)(ListCard));
+export default connect(mapStateToProps, { updateLocations })(withStyles(styles)(ListCard));

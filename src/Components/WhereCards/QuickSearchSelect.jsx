@@ -5,80 +5,79 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 const styles = theme => ({
     formControl: {
-      margin: theme.spacing.unit,
-      minWidth: 175,
-      width:'10vw',
+        margin: theme.spacing.unit,
+        minWidth: 175,
+        width: '10vw',
 
     },
     selectEmpty: {
-      marginTop: theme.spacing.unit*2 ,
+        marginTop: theme.spacing.unit * 2,
     },
-  });
+});
 
 class QuickSearchSelect extends Component {
     constructor(props) {
         super(props);
-        this.state ={
-            matNames:[],
+        this.state = {
+            matNames: [],
             labelWidth: 0
         }
     }
-    componentDidMount(){
-        const {family} = this.props;
-        const {materials} = this.props.state;
+    componentDidMount() {
+        const { family } = this.props;
+        const { materials } = this.props.state;
         let matArr = materials.filter(mat => family.material_ids.includes(mat.material_id));
-        this.setState({matNames:matArr})
+        this.setState({ matNames: matArr })
     }
 
 
-    handleInput =(e) =>{
-        console.log(this.props)
+    handleInput = (e) => {
         this.props.handleInput(e.target.value);
-        let focused =this.props.handleInputFocus(this.props.inputRef);
+        let focused = this.props.handleInputFocus(this.props.inputRef);
         focused();
     }
     render() {
-        const {matNames} = this.state;
-        const {classes,family} =this.props;
-        let mat = matNames.map((mat,i) => {
-            return(
+        const { matNames } = this.state;
+        const { classes, family } = this.props;
+        let mat = matNames.map((mat, i) => {
+            return (
                 <MenuItem
-                key={i}
-                value={mat.description}
+                    key={i}
+                    value={mat.description}
                 >{mat.description}</MenuItem>
             )
         })
         return (
             <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="quick-search-select">{family.description}</InputLabel>
-          <Select
-            value=''
-            autoWidth={true}
-            onChange={this.handleInput}
-            inputProps={{
-                name: 'matName',
-                id: 'quick-search-select',
-            }}
-            >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {mat}
-          </Select>
-          </FormControl>
+                <InputLabel htmlFor="quick-search-select">{family.description}</InputLabel>
+                <Select
+                    value=''
+                    autoWidth={true}
+                    onChange={this.handleInput}
+                    inputProps={{
+                        name: 'matName',
+                        id: 'quick-search-select',
+                    }}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    {mat}
+                </Select>
+            </FormControl>
         );
     }
 }
-  QuickSearchSelect.propTypes = {
+QuickSearchSelect.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
+};
 
-  function mapState(state){
-      return{state:state.materials}
-  }
+function mapState(state) {
+    return { state: state.materials }
+}
 
 export default connect(mapState)(withStyles(styles)(QuickSearchSelect));

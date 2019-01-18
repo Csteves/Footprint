@@ -17,32 +17,32 @@ class SnackBar extends React.Component {
   };
 
   render() {
-    const { classes, open, close,message } = this.props;
+    const { classes, open, close, message } = this.props;
     return (
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          open={open}
-          autoHideDuration={3000}
-          onClose={close}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{message}</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={close}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={close}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{message}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={close}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
     );
   }
 }

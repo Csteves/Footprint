@@ -1,24 +1,24 @@
 import axios from 'axios';
-const intialState ={
-    id:'',
-    zip:'',
-    loggedIn:false,
-    isAdmin:false,
-    userCompany:{},
-    userArticles:[],
-    userLocations:[],
-    news:[],
-    loading:false,
-    location:{
-        lat:null,
-        lng:null
+const intialState = {
+    id: '',
+    zip: '',
+    loggedIn: false,
+    isAdmin: false,
+    userCompany: {},
+    userArticles: [],
+    userLocations: [],
+    news: [],
+    loading: false,
+    location: {
+        lat: null,
+        lng: null
     },
-    companyGeo:{
-        lat:null,
-        lng:null
+    companyGeo: {
+        lat: null,
+        lng: null
     },
-    open:false,
-    message:''
+    open: false,
+    message: ''
 }
 
 //ACTION TYPES USER
@@ -46,45 +46,45 @@ const GET_NEWS_T_FULFILLED = 'GET_NEWS_T_FULFILLED';
 
 //ACTION BUILDERS USER
 export const updateUser = (userInfo) => {
-    return{
+    return {
         type: UPDATE_USER,
-        payload:{
-            id:userInfo.id,
-            isAdmin:userInfo.isAdmin,
-            loggedIn:userInfo.loggedIn,
-            userArticles:userInfo.userArticles,
-            userLocations:userInfo.userLocations,
-            zip:userInfo.zip,
+        payload: {
+            id: userInfo.id,
+            isAdmin: userInfo.isAdmin,
+            loggedIn: userInfo.loggedIn,
+            userArticles: userInfo.userArticles,
+            userLocations: userInfo.userLocations,
+            zip: userInfo.zip,
 
         }
     }
 }
-export const updateUserPosition= (location) => {
-    return{
-        type:UPDATE_USER_POSITION,
-        payload:{
+export const updateUserPosition = (location) => {
+    return {
+        type: UPDATE_USER_POSITION,
+        payload: {
             lat: location.lat,
             lng: location.lng
         }
     }
 }
-export const updateUserCompany= (company) => {
-    return{
-        type:UPDATE_USER_COMPANY,
-        payload:{
-            title:company.title,
-            address:company.address,
-            city:company.city,
-            state:company.state,
-            phone:company.phone,
-            zip:company.zip
+export const updateUserCompany = (company) => {
+    return {
+        type: UPDATE_USER_COMPANY,
+        payload: {
+            title: company.title,
+            address: company.address,
+            city: company.city,
+            state: company.state,
+            phone: company.phone,
+            zip: company.zip
         }
     }
 }
-export const updateCompanyGeo= (location) => {
-    return{
-        type:UPDATE_COMPANY_GEO,
-        payload:{
+export const updateCompanyGeo = (location) => {
+    return {
+        type: UPDATE_COMPANY_GEO,
+        payload: {
             lat: location.lat,
             lng: location.lng
         }
@@ -93,98 +93,97 @@ export const updateCompanyGeo= (location) => {
 
 
 export const updateArticles = (articles) => {
-return{
-    type:UPDATE_ARTICLES,
-    payload:articles
-}
-}
-export const updateLocations = (locations) => {
-return{
-    type:UPDATE_LOCATIONS,
-    payload:locations
-}
-}
-
-export const handleOpen = (message) =>{
-    return{
-        type:HANDLE_OPEN,
-        payload:message
+    return {
+        type: UPDATE_ARTICLES,
+        payload: articles
     }
 }
-export const handleClose = (message) =>{
-    return{
-        type:HANDLE_CLOSE,
-        payload:message
+export const updateLocations = (locations) => {
+    return {
+        type: UPDATE_LOCATIONS,
+        payload: locations
+    }
+}
+
+export const handleOpen = (message) => {
+    return {
+        type: HANDLE_OPEN,
+        payload: message
+    }
+}
+export const handleClose = (message) => {
+    return {
+        type: HANDLE_CLOSE,
+        payload: message
     }
 }
 
 //ACTION BUILDERS NEWS
-export const getNews = () =>{
-    let news = axios.get("/api/news").catch(err =>{
-        console.log(err);
+export const getNews = () => {
+    let news = axios.get("/api/news").catch(err => {
         return [];
     });
-      return{
-          type: GET_NEWS,
-          payload: news
-        }
-}
-
-
-
-export const getNewsT = () =>{
-    let news = axios.get("/api/newsToday")
-    return{
-       type: GET_NEWS_T,
-       payload: news
+    return {
+        type: GET_NEWS,
+        payload: news
     }
 }
 
-export default function reducer(state = intialState, action){
-    switch(action.type){
+
+
+export const getNewsT = () => {
+    let news = axios.get("/api/newsToday")
+    return {
+        type: GET_NEWS_T,
+        payload: news
+    }
+}
+
+export default function reducer(state = intialState, action) {
+    switch (action.type) {
         case UPDATE_USER:
-        return {
+            return {
                 ...state,
-                id:action.payload.id,
-                isAdmin:action.payload.isAdmin,
-                loggedIn:action.payload.loggedIn,
-                userArticles:action.payload.userArticles,
-                userLocations:action.payload.userLocations,
-                zip:action.payload.zip
-             };
+                id: action.payload.id,
+                isAdmin: action.payload.isAdmin,
+                loggedIn: action.payload.loggedIn,
+                userArticles: action.payload.userArticles,
+                userLocations: action.payload.userLocations,
+                zip: action.payload.zip
+            };
         case UPDATE_USER_POSITION:
-        return {...state,location:{lat:action.payload.lat,lng:action.payload.lng}};
+            return { ...state, location: { lat: action.payload.lat, lng: action.payload.lng } };
 
         case UPDATE_USER_COMPANY:
-        return {...state,userCompany:action.payload};
+            return { ...state, userCompany: action.payload };
 
         case UPDATE_COMPANY_GEO:
-        return {...state,companyGeo:{lat:action.payload.lat,lng:action.payload.lng}};
+            return { ...state, companyGeo: { lat: action.payload.lat, lng: action.payload.lng } };
 
         case UPDATE_ARTICLES:
-        return {...state, userArticles:action.payload};
+            return { ...state, userArticles: action.payload };
 
         case UPDATE_LOCATIONS:
-        return {...state, userLocations:action.payload};
+            return { ...state, userLocations: action.payload };
 
         case HANDLE_OPEN:
-        return {...state, open:true, message:action.payload}
+            return { ...state, open: true, message: action.payload }
 
         case HANDLE_CLOSE:
-        return {...state, open:false, message:""}
+            return { ...state, open: false, message: "" }
 
         case GET_NEWS_PENDING:
-        return {...state,loading:true};
+            return { ...state, loading: true };
 
         case GET_NEWS_FULFILLED:
-        return {...state, loading:false, news:action.payload.data.items}
+            return { ...state, loading: false, news: action.payload.data.items }
 
         case GET_NEWS_T_PENDING:
-        return {...state,loading:true};
+            return { ...state, loading: true };
 
         case GET_NEWS_T_FULFILLED:
-        return {...state, loading:false, news:action.payload.data.items}
+            return { ...state, loading: false, news: action.payload.data.items }
 
-        default: return {...state};
+        default: return { ...state };
     }
 }

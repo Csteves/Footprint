@@ -22,34 +22,34 @@ import '../Register/Register.css'
 const styles = theme => ({
   paper: {
     position: 'absolute',
-    top:'10%',
-    left:"35%",
+    top: '10%',
+    left: "35%",
     width: theme.spacing.unit * 60,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
-    margin:"0 auto",
+    margin: "0 auto",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     [theme.breakpoints.only('xs')]: {
       width: 300,
-      left:"3%",
+      left: "3%",
     },
     [theme.breakpoints.between('sm', 'md')]: {
       width: theme.spacing.unit * 50,
-      left:"25%"
+      left: "25%"
     },
     [theme.breakpoints.up('md')]: {
-      top:'10%',
-      left:"35%",
+      top: '10%',
+      left: "35%",
       width: theme.spacing.unit * 60,
     },
 
   },
   main: {
     width: 'auto',
-    minWidth:350,
+    minWidth: 350,
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -70,52 +70,52 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 2,
   },
-  subTitle:{
-      marginTop:theme.spacing.unit
+  subTitle: {
+    marginTop: theme.spacing.unit
   },
-  stateZip:{
-    width:theme.spacing.unit * 20,
+  stateZip: {
+    width: theme.spacing.unit * 20,
   }
 });
 
 class RegisterModal extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-           title:'',
-           address:'',
-           phone:'',
-           city:'',
-           state:'',
-           zip:'',
-           materialsAccepted:''
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      address: '',
+      phone: '',
+      city: '',
+      state: '',
+      zip: '',
+      materialsAccepted: ''
 
-        }
     }
-    handleSubmit = (event)=>{
-        const{title,address,city,phone,state,zip} = this.state
-        event.preventDefault();
-        this.props.submit({
-            title,
-            address,
-            city,
-            phone,
-            state,
-            zip
-        })
-    }
+  }
+  handleSubmit = (event) => {
+    const { title, address, city, phone, state, zip } = this.state
+    event.preventDefault();
+    this.props.submit({
+      title,
+      address,
+      city,
+      phone,
+      state,
+      zip
+    })
+  }
 
   render() {
     const { classes } = this.props;
-    let selectSt = states.map((st,i)=>{
-        return(
-            <MenuItem
-            key={i}
-            value={st}
-            >
-            {st}
-            </MenuItem>
-        )
+    let selectSt = states.map((st, i) => {
+      return (
+        <MenuItem
+          key={i}
+          value={st}
+        >
+          {st}
+        </MenuItem>
+      )
     })
 
     return (
@@ -127,9 +127,9 @@ class RegisterModal extends React.Component {
           open={this.props.open}
           onClose={this.props.close}
         >
-        <main>
+          <main>
 
-          <CssBaseline />
+            <CssBaseline />
             <Paper className={classes.paper}>
               <Avatar className={classes.avatar}>
                 <AccountIcon />
@@ -138,57 +138,57 @@ class RegisterModal extends React.Component {
                 Company Details
               </Typography>
               <form
-              className={classes.form}
-              onSubmit={this.handleSubmit}>
+                className={classes.form}
+                onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="title">Company Title</InputLabel>
                   <Input
-                  onChange={(e)=>this.setState({title:e.target.value})}
-                  id="title" name="title"  autoFocus />
+                    onChange={(e) => this.setState({ title: e.target.value })}
+                    id="title" name="title" autoFocus />
                 </FormControl>
 
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="address" autoComplete="off" > Address</InputLabel>
                   <Input
-                  onChange={(e)=>this.setState({address:e.target.value})}
-                  id="address" name="address" autoComplete="off" />
+                    onChange={(e) => this.setState({ address: e.target.value })}
+                    id="address" name="address" autoComplete="off" />
                 </FormControl>
 
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="city" autoComplete="off" >City</InputLabel>
                   <Input
-                  onChange={(e)=>this.setState({city:e.target.value})}
-                  id="city" name="city" autoComplete="off" />
+                    onChange={(e) => this.setState({ city: e.target.value })}
+                    id="city" name="city" autoComplete="off" />
                 </FormControl>
 
                 <div className="state-and-zip">
-                    <FormControl margin="normal" className={classes.stateZip} required >
-                        <InputLabel htmlFor="state">State</InputLabel>
+                  <FormControl margin="normal" className={classes.stateZip} required >
+                    <InputLabel htmlFor="state">State</InputLabel>
                     <Select
-                    value={this.state.state}
-                        onChange={(e)=>this.setState({state:e.target.value})}
+                      value={this.state.state}
+                      onChange={(e) => this.setState({ state: e.target.value })}
                     >
-                        {selectSt}
+                      {selectSt}
                     </Select>
-                    </FormControl>
+                  </FormControl>
 
-                    <FormControl margin="normal" required >
-                        <InputLabel htmlFor="zip">Zip Code</InputLabel>
-                        <Input
-                        onChange={(e)=>this.setState({zip:e.target.value})}
-                        name="zip" type="text" id="zip" autoComplete="off" />
-                    </FormControl>
+                  <FormControl margin="normal" required >
+                    <InputLabel htmlFor="zip">Zip Code</InputLabel>
+                    <Input
+                      onChange={(e) => this.setState({ zip: e.target.value })}
+                      name="zip" type="text" id="zip" autoComplete="off" />
+                  </FormControl>
                 </div>
 
                 <FormControl margin="normal" required fullWidth>
                   <InputLabel htmlFor="phone">Phone</InputLabel>
                   <Input
-                   onChange={(e)=>this.setState({phone:e.target.value})}
-                  name="phone" type="tel" id="password" autoComplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+                    onChange={(e) => this.setState({ phone: e.target.value })}
+                    name="phone" type="tel" id="password" autoComplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
                   <span>
-                      <Typography color="textSecondary" >Format: 123-456-7890</Typography>
+                    <Typography color="textSecondary" >Format: 123-456-7890</Typography>
                   </span>
-                  </FormControl>
+                </FormControl>
 
                 <Button
                   type="submit"
@@ -201,7 +201,7 @@ class RegisterModal extends React.Component {
                 </Button>
               </form>
             </Paper>
-        </main>
+          </main>
         </Modal>
       </div>
     );

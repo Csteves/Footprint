@@ -13,20 +13,20 @@ const userCtrl = require('./userController');
 
 
 const app = express();
-const {PORT,CONNECTION_STRING,SECRET} = process.env
+const { PORT, CONNECTION_STRING, SECRET } = process.env
 
 // TOP LEVEL MIDDLEWARE
-app.use( express.static( `${__dirname}/../build` ) )
+app.use(express.static(`${__dirname}/../build`))
 app.use(express.json());
 app.use(session({
-    secret:SECRET,
-    resave:true,
-    saveUninitialized:false
+    secret: SECRET,
+    resave: true,
+    saveUninitialized: false
 }));
 
-massive(CONNECTION_STRING).then(db =>{
-    app.set('db',db);
-    app.listen(PORT, ()=>{
+massive(CONNECTION_STRING).then(db => {
+    app.set('db', db);
+    app.listen(PORT, () => {
         console.log('running on port: ' + PORT)
     })
 })
@@ -36,8 +36,8 @@ massive(CONNECTION_STRING).then(db =>{
 app.post('/auth/register', authCtrl.register);
 app.post('/auth/register-company', authCtrl.registerCompany);
 app.post('/auth/login', authCtrl.login)
-app.get('/auth/logout',authCtrl.logout);
-app.get('/api/users',authCtrl.getUsers);
+app.get('/auth/logout', authCtrl.logout);
+app.get('/api/users', authCtrl.getUsers);
 
 //RETREIVE MATERIAL CATEGORIES
 app.get('/api/materials', materialCtrl.getAllMaterials);
@@ -51,7 +51,7 @@ app.post('/api/location', userCtrl.saveLocation);
 app.delete('/api/locations:id', userCtrl.deleteLocation);
 app.get('/api/locations:id', userCtrl.getLocations);
 app.get('/api/collection', userCtrl.getCollection);
-app.get('/api/companies' ,userCtrl.getCompanies);
+app.get('/api/companies', userCtrl.getCompanies);
 
 //ADMIN ENDPOINTS
 app.put('/api/prices', materialCtrl.updatePrices);
@@ -65,9 +65,9 @@ app.get('/api/getPrograms', earthCtrl.getPrograms);
 app.get('/api/getProgramDetails', earthCtrl.getProgramDetails);
 
 //RSS FEED ENDPOINT
-app.get('/api/news',newsCtrl.getNews );
-app.get('/api/newsToday',newsCtrl.getNewsToday)
+app.get('/api/news', newsCtrl.getNews);
+app.get('/api/newsToday', newsCtrl.getNewsToday)
 
 //EMAIL ENDPOINTS
-app.post('/api/email',email.sendEmail);
+app.post('/api/email', email.sendEmail);
 

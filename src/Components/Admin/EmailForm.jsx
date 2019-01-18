@@ -123,11 +123,7 @@ class EmailForm extends Component {
 
     render(){
         const { classes } = this.props;
-        // let users = this.state.users.map((user,i) =>{
-        //   return(
-        //     <MenuItem key="i">{user}</MenuItem>
-        //   )
-        // })
+
         return (
           <main className={classes.main}>
             <CssBaseline />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateArticles, updateLocations } from '../../ducks/users';
@@ -26,18 +26,15 @@ class User extends Component {
         this.props.updateArticles(res.data);
     }
 
-     deleteLocation = async (locationId) =>{
-        const {id} = this.props.state;
-        console.log(this.props.state)
-        console.log(id)
+    deleteLocation = async (locationId) => {
+        const { id } = this.props.state;
         let res = await axios.delete(`/api/locations${id}/?locationId=${locationId}`);
-        console.log(res.data)
         this.props.updateLocations(res.data)
     }
 
     render() {
-        let { userArticles, loggedIn,userLocations } = this.props.state;
-        if(!loggedIn){return<Redirect to='/' />}
+        let { userArticles, loggedIn, userLocations } = this.props.state;
+        if (!loggedIn) { return <Redirect to='/' /> }
         let news = !userArticles.length ?
             <h1>You have no saved articles.</h1>
             :
@@ -67,25 +64,25 @@ class User extends Component {
         return (
             <div className='user-main-container'>
 
-              <div className='user-body-container'>
-                <div id='user-article' className="user-article-container scroll-bar">
-                <div className="user-sub-head">
-                    <h3>NEWS ARTICLES</h3>
-                </div>
-                    {news}
-                </div>
-                <div id="user-location" className='user-article-container scroll-bar'>
-                <div className="user-sub-head">
-                    <h3>LOCATIONS</h3>
-                </div>
-                    {locations}
+                <div className='user-body-container'>
+                    <div id='user-article' className="user-article-container scroll-bar">
+                        <div className="user-sub-head">
+                            <h3>NEWS ARTICLES</h3>
+                        </div>
+                        {news}
+                    </div>
+                    <div id="user-location" className='user-article-container scroll-bar'>
+                        <div className="user-sub-head">
+                            <h3>LOCATIONS</h3>
+                        </div>
+                        {locations}
+                    </div>
                 </div>
             </div>
-        </div>
         );
     }
 }
 function mapStateToProps(state) {
     return { state: state.users }
 }
-export default connect(mapStateToProps, { updateArticles,updateLocations })(User);
+export default connect(mapStateToProps, { updateArticles, updateLocations })(User);

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,9 +8,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-const styles = theme=> ({
+const styles = theme => ({
   card: {
     minWidth: 275,
   },
@@ -20,8 +20,8 @@ const styles = theme=> ({
   pos: {
     marginBottom: 12,
   },
-  button:{
-    color:'#4799c2 !important'
+  button: {
+    color: '#4799c2 !important'
   },
   close: {
     padding: theme.spacing.unit / 2,
@@ -29,48 +29,48 @@ const styles = theme=> ({
 });
 
 
-class NewsCard extends Component{
+class NewsCard extends Component {
 
-    render(){
-    const { classes,open } = this.props;
-    let {loggedIn} = this.props.state;
+  render() {
+    const { classes, open } = this.props;
+    let { loggedIn } = this.props.state;
     let saveButton = loggedIn ?
-                                <Button
-                                onClick={()=>this.props.saveArticle(this.props.id)}
-                                className={classes.button}>
-                                    SAVE ARTICLE
+      <Button
+        onClick={() => this.props.saveArticle(this.props.id)}
+        className={classes.button}>
+        SAVE ARTICLE
                                 </Button>
-                                :
-                              <div></div>;
-      return (
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {this.props.date}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {this.props.title}
-            </Typography>
-          </CardContent>
+      :
+      <div></div>;
+    return (
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {this.props.date}
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {this.props.title}
+          </Typography>
+        </CardContent>
 
-          <CardActions>
-                <Button href={this.props.link} className={classes.button}>
-                    VIEW ARTICLE
+        <CardActions>
+          <Button href={this.props.link} className={classes.button}>
+            VIEW ARTICLE
                 </Button>
-                {saveButton}
+          {saveButton}
 
-          </CardActions>
-        </Card>
-      );
-    }
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
 NewsCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-function mapStateToProps(state){
-  return{
-    state:state.users
+function mapStateToProps(state) {
+  return {
+    state: state.users
   }
 }
 export default connect(mapStateToProps)(withStyles(styles)(NewsCard));
