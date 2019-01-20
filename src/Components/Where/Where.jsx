@@ -87,7 +87,8 @@ class Where extends Component {
     //==========================================
     //SEARCH API FUNCTIONS
     //==========================================
-    handleSearch = () => {
+    handleSearch = (event) => {
+        event.preventDefault();
         let { materials } = this.props.materials;
         let { material, zip } = this.state;
         let ids = [];
@@ -213,17 +214,24 @@ class Where extends Component {
                         <div className="where-header" >
                             <h1>FIND A SOLUTION TO YOUR RECYCLING NEEDS</h1>
                         </div>
+
+                        <form
+                        id="search-form"
+                        onSubmit={this.handleSearch}>
                         <div className="search-materials">
                             <h6>ZIP CODE</h6>
+
                             <TextField
                                 autoComplete="off"
                                 id="outlined-name"
                                 label="Enter ZIP"
+                                inputProps={{ title:"Enter a proper zip code", pattern:"[0-9]{5}",minLength:'5'}}
                                 value={this.state.zip}
                                 onChange={(e) => this.setState({ zip: e.target.value })}
                                 margin="normal"
                                 variant="outlined"
                             />
+
                         </div>
                         <div
                             className="search-materials"
@@ -241,19 +249,21 @@ class Where extends Component {
                                 variant="outlined"
                             />
                             <Button
+                            type="submit"
                                 variant="outlined"
                                 id="where-search-btn"
-                                onClick={this.handleSearch}
                                 size='large'
                             >
                                 SEARCH
                         </Button>
+
                             <ul
                                 style={{ display: matMatchArr.length ? "inline" : "none" }}
                                 className='material-typeAhead'>
                                 {matTypeAhead}
                             </ul>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <div

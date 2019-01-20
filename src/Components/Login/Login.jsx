@@ -67,7 +67,9 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      gotUserCollection: false
+      gotUserCollection: false,
+      notValidPassword:false,
+      notValidEmail:false
     }
     this.login = this.login.bind(this);
 
@@ -81,19 +83,33 @@ class Login extends Component {
     let { email, password } = this.state
     let res = await axios.post('/auth/login', { email, password });
     let { loggedIn, zip_code, hasCompany, company, message } = res.data;
+    this.handleLoginResponse(message);
     if (loggedIn) {
       if (zip_code) {
         this.setUserPosition(zip_code);
       }
       this.getUsersThings(res.data)
-      this.props.handleOpen(message)
     }
     if (hasCompany) {
       this.getCompanyLocation(loggedIn, company)
       this.props.updateUserCompany(company)
     }
   }
+  handleLoginResponse(message){
+    switch(message){
+      case 'Login Successful':
+      break;
 
+      case 'Incorrect password':
+      this.setState({notValidPassword:true})
+      break;
+
+      case 'Email not found':
+      this.setState({notValidEmail:true})
+      break
+    }
+    this.props.handleOpen(message);
+  }
   async getUsersThings(userInfo) {
     let { id, loggedIn, isAdmin, zip_code, } = userInfo;
     let res = await axios.get(`/api/collection?id=${id}`)
@@ -158,14 +174,14 @@ class Login extends Component {
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input
-                onChange={(e) => this.setState({ email: e.target.value })}
-                id="email" name="email" autoComplete="email" autoFocus />
+                onChange={(e) => this.setState({ email: e.target.value,notValidEmail:false })}
+                id="email" error={this.state.notValidEmail}  type="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input
-                onChange={(e) => this.setState({ password: e.target.value })}
-                name="password" type="password" id="password" autoComplete="current-password" />
+                onChange={(e) => this.setState({ password: e.target.value, notValidPassword:false})}
+                name="password" error={this.state.notValidPassword} type="password" id="password" autoComplete="current-password" />
             </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

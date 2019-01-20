@@ -85,12 +85,14 @@ class Register extends Component {
 
   async register(company) {
     const { email, password, zip } = this.state;
-    let hasCompany = Object.keys(company).length;
-    if (hasCompany) {
-      this.registerCompany(company);
-    } else {
-      let res = await axios.post('/auth/register', { email, password, zip });
-      let { id, loggedIn, isAdmin, zip_code } = res.data
+    if(company){
+      if (Object.keys(company).length) {
+        this.registerCompany(company);
+      }
+    }else {
+      let res = await axios.post('/auth/register', { email, password, zip, hasCompany:false });
+      let { id, loggedIn, isAdmin, zip_code, message } = res.data;
+      this.props.handleOpen(message);
       this.props.updateUser({
         id,
         loggedIn,
@@ -101,11 +103,10 @@ class Register extends Component {
       })
       if (loggedIn && zip_code) {
         this.setUserPosition(zip_code);
+        this.setState({ email: '', password: '', isAdmin, zip: '' });
+        this.props.history.push('/');
       }
-      this.setState({ email: '', password: '', isAdmin, zip: '' });
-      this.props.history.push('/');
     }
-
   }
   registerCompany = async (company) => {
     const { email, password, zip } = this.state;
@@ -165,20 +166,21 @@ class Register extends Component {
               <InputLabel htmlFor="email">Email Address</InputLabel>
               <Input
                 onChange={(e) => this.setState({ email: e.target.value })}
-                id="email" name="email" autoComplete="email" autoFocus />
+               type="email" id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input
                 onChange={(e) => this.setState({ password: e.target.value })}
-                name="password" type="password" id="password" autoComplete="current-password" />
+                name="password" inputProps={{minLength:'5'}} type="password" id="password" autoComplete="current-password" />
+
             </FormControl>
 
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="zip">Zip Code</InputLabel>
               <Input
                 onChange={(e) => this.setState({ zip: e.target.value })}
-                name="zip" type="text" id="zip" autoComplete="none" />
+                name="zip" inputProps={{pattern:"[0-9]{5}"}} type="text" id="zip" autoComplete="none" />
             </FormControl>
 
             <FormControlLabel

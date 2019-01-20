@@ -176,7 +176,7 @@ class RegisterModal extends React.Component {
                     <InputLabel htmlFor="zip">Zip Code</InputLabel>
                     <Input
                       onChange={(e) => this.setState({ zip: e.target.value })}
-                      name="zip" type="text" id="zip" autoComplete="off" />
+                      name="zip" inputProps={{pattern:"[0-9]{5}"}} type="text" id="zip" autoComplete="off" />
                   </FormControl>
                 </div>
 
@@ -184,7 +184,7 @@ class RegisterModal extends React.Component {
                   <InputLabel htmlFor="phone">Phone</InputLabel>
                   <Input
                     onChange={(e) => this.setState({ phone: e.target.value })}
-                    name="phone" type="tel" id="password" autoComplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+                    name="phone" type="tel" id="password" autoComplete="off" inputProps={{pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}"}} />
                   <span>
                     <Typography color="textSecondary" >Format: 123-456-7890</Typography>
                   </span>

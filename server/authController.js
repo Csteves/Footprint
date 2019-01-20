@@ -46,6 +46,7 @@ module.exports = {
         let result = await db.get_user([email]);
         let userExists = result[0];
         if (!userExists) {
+
             return res.status(200).send({ loggedIn: false, message: 'Email not found' });
         }
         let verified = bcrypt.compareSync(password, userExists.hash);
@@ -74,7 +75,8 @@ module.exports = {
                 });
             }
         } else {
-            return res.status(401).send({ loggedIn: false, message: 'Incorrect password' });
+            console.log('hello')
+            return res.status(200).send({ loggedIn: false, message: 'Incorrect password' });
         }
     },
     logout: (req, res) => {
