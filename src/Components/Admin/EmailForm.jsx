@@ -66,7 +66,10 @@ const styles = theme => ({
   },
   userSelect:{
     margin:theme.spacing.unit *2,
-    marginTop:theme.spacing.unit *6
+    marginTop:theme.spacing.unit *6,
+    width:'100%',
+    display:'block',
+    float:'left'
   }
 });
 
@@ -167,26 +170,26 @@ class EmailForm extends Component {
                    variant="outlined" margin="normal" />
                   </FormControl>
 
-                  {/* <FormControl margin="normal">
-                  <InputLabel htmlFor="users">Users</InputLabel>
-                  <Select
-                  value=""
-                  autoWidth={true}
-                  onChange={(e) => this.setState({reciever:e.target.value})}
-                  className={classes.userSelect}
-                    inputProps={{
-                      name: 'users',
-                      id: 'users',
-                    }}
-                    onChange={(e)=>this.setState({reciever:e.target.value})}
-                  > {users} </Select>
-                  </FormControl> */}
-
 
                 <FormControlLabel
                   control={<Checkbox onChange={()=> this.setState({getUsers:!this.state.getUsers})} value='users'  color="primary" />}
                   label="Send to all users?"
                 />
+
+                  <FormControl margin="normal"
+                  fullWidth
+                  >
+                  <InputLabel htmlFor="users">Select A User</InputLabel>
+                  <Select
+                   onChange={(e)=>this.setState({receiver:e.target.value})}
+                  name="users" type="text" id="subject" value={this.state.receiver}  >
+                  {this.state.users ? this.state.users.map((user,i) =>(
+                      <MenuItem key={i} value={user}> {user}</MenuItem>
+                  )):null
+                  }
+                 </Select>
+                  </FormControl>
+
                 <Button
                   type="submit"
                   fullWidth
