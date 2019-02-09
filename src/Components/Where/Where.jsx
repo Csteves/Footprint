@@ -52,6 +52,15 @@ class Where extends Component {
         if (loggedIn && zip) { this.setState({ zip }) }
     }
 
+    async componentDidUpdate(prevProps,prevState){
+        if(prevState.zip !== this.props.user.zip && this.props.user.loggedIn){
+            let res = await axios.get("/auth/user");
+            let {zip_code,} = res.data;
+            this.setState({zip:zip_code})
+        }
+    }
+
+
     handleInput = (value) => {
         this.setState({ material: value, matMatchArr: this.typeAhead(value) });
     }

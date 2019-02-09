@@ -38,6 +38,7 @@ app.post('/auth/register-company', authCtrl.registerCompany);
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/logout', authCtrl.logout);
 app.get('/api/users', authCtrl.getUsers);
+app.get('/auth/user', authCtrl.getUser)
 
 //RETREIVE MATERIAL CATEGORIES
 app.get('/api/materials', materialCtrl.getAllMaterials);

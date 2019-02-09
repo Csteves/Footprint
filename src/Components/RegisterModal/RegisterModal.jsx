@@ -9,7 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import AccountIcon from '@material-ui/icons/AccountCircle';
+import CloseIcon from '@material-ui/icons/Close';
+import CompanyIcon from '@material-ui/icons/LocationCity'
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -75,6 +76,11 @@ const styles = theme => ({
   },
   stateZip: {
     width: theme.spacing.unit * 20,
+  },
+  closeBtn:{
+    position:'relative',
+    left:'48%',
+    bottom:'24px'
   }
 });
 
@@ -128,11 +134,13 @@ class RegisterModal extends React.Component {
           onClose={this.props.close}
         >
           <main>
-
             <CssBaseline />
             <Paper className={classes.paper}>
+            <Button
+            className={classes.closeBtn}
+            onClick={this.props.close}><CloseIcon/></Button>
               <Avatar className={classes.avatar}>
-                <AccountIcon />
+                <CompanyIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
                 Company Details

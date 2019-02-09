@@ -24,27 +24,46 @@ class Nav extends Component {
             toggleMenu: false
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
+        this.catTimer = setInterval(() => this.mapCat(), 4000)
         const { matLoading, famLoading, proLoading } = this.props.materials.materials;
+        let { loading } = this.props.state;
         if (!matLoading && !famLoading && !proLoading) {
             this.props.getNewsT();
         }
-        let { id, isAdmin, loggedIn, userArticles, userLocations, zip, loading } = this.props.state;
         if (!loading) {
             this.props.getMaterials();
             this.props.getFamilies();
             this.getCategories();
         }
-        this.props.updateUser({
+        let res = await axios.get("/auth/user");
+        let {id,isAdmin,loggedIn,zip_code,} = res.data;
+        let{userArticles,userLocations} = this.props.state;
+         this.props.updateUser({
             id,
             isAdmin,
             loggedIn,
             userArticles,
             userLocations,
-            zip
+            zip:zip_code
         });
-        this.catTimer = setInterval(() => this.mapCat(), 4000)
     }
+    async componentDidUpdate(prevProps,prevState){
+        if(prevProps.state.loggedIn !== this.props.state.loggedIn){
+            let res = await axios.get("/auth/user");
+            let {id,isAdmin,loggedIn,zip_code,} = res.data;
+            let{userArticles,userLocations} = this.props.state;
+             this.props.updateUser({
+                id,
+                isAdmin,
+                loggedIn,
+                userArticles,
+                userLocations,
+                zip:zip_code
+            });
+            }
+    }
+
     componentWillUnmount() {
         clearInterval(this.catTimer);
     }
@@ -62,6 +81,7 @@ class Nav extends Component {
             this.setState({ count: 1, mat: categories[0] })
         }
     }
+
     toggleDropdown = () => {
         this.setState({ toggleMenu: !this.state.toggleMenu })
     }

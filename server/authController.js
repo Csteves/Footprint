@@ -14,7 +14,7 @@ module.exports = {
             let hash = bcrypt.hashSync(password, salt);
             let results = await db.create_user([email, hash, zip, hasCompany]);
             let newUser = results[0];
-            req.session.user = { email: newUser.email, id: newUser.id, isAdmin: newUser.is_admin };
+            req.session.user = { email: newUser.email, id: newUser.id, isAdmin: newUser.is_admin,zip:newUser.zip_code};
             res.status(200).send({
                 id: req.session.user.id,
                 loggedIn: true,
@@ -51,7 +51,7 @@ module.exports = {
         }
         let verified = bcrypt.compareSync(password, userExists.hash);
         if (verified) {
-            req.session.user = { email: userExists.email, id: userExists.id, isAdmin: userExists.is_admin };
+            req.session.user = { email: userExists.email, id: userExists.id, isAdmin: userExists.is_admin,zip:userExists.zip_code };
             if (!userExists.has_company) {
                 return res.status(200).send({
                     id: req.session.user.id,
@@ -92,5 +92,24 @@ module.exports = {
         } else {
             res.status(200).send({ message: 'Unable to fetch user emails' })
         }
+    },
+    getUser: async (req, res) => {
+        if (!req.session.user) {
+            return res.status(200).send({ message: 'Not logged in!' });
+        }
+        const email = req.session.user.email;
+        const db = req.app.get('db');
+        const user = await db.get_user([email]);
+        const userExists = user[0]
+        if (!userExists) {
+            return res.status(200).send({ message: 'Cannot find User.' });
+        }
+        req.session.user = { email: userExists.email, id: userExists.id, isAdmin: userExists.is_admin,zip:userExists.zip_code };
+        return res.status(200).send({
+            id:req.session.user.id,
+            isAdmin:req.session.user.isAdmin,
+            loggedIn:true,
+            zip_code:req.session.user.zip
+        })
     }
 }

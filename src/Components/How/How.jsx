@@ -35,7 +35,7 @@ class How extends Component {
         return (
             <div className='how-main-container'>
                 <div className="how-header" >
-                    <h1>FIND THE MATERIALS THAT YOU ARE TRYING TO RECYCLE</h1>
+                    <h1>FIND THE MATERIALS YOU ARE TRYING TO RECYCLE</h1>
                 </div>
                 <div className="how-body">
                     {items}

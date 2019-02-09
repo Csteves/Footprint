@@ -18,26 +18,29 @@ class SubHeader extends Component {
                     getPrograms(location)
                 }
             } else if (zip) {
-                let geoLocation = this.getGeo(zip);
-                if (Object.keys(geoLocation).length) {
-                    getPrograms(geoLocation)
+                let geoLocation = await this.getGeo(zip);
+                let{location} = geoLocation.data.results[0].geometry
+                if (Object.keys(location).length) {
+                    getPrograms(location)
                 }
             } else {
                 let defaultZip = '67446'
                 let geoLocation = await this.getGeo(defaultZip);
-                if (Object.keys(geoLocation).length) {
-                    getPrograms(geoLocation)
+                let{location} = geoLocation.data.results[0].geometry
+                if (Object.keys(location).length) {
+                    getPrograms(location)
                 }
             }
         }
     }
 
-    getGeo = async (zip) => {
-        let res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
-        let { location } = res.data.results[0].geometry;
-        if (Object.keys(location).length) {
-            return location
-        }
+    getGeo = (zip) => {
+        let res =  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${getGeoKey()}`)
+        return res
+        // let { location } = res.data.results[0].geometry;
+        // if (Object.keys(location).length) {
+        //     return location
+        // }
     }
 
     render() {
