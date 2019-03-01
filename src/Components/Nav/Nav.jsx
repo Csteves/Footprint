@@ -144,7 +144,7 @@ class Nav extends Component {
                             >FOOTPRINT</h3>
                         </div>
                     </Link>
-                    <section>
+                    <section id="ticker">
                         <ul className="news-list" data-length="1">
                             <Link to={`/prices${this.state.mat.id}`} >
                                 <li className="news">
