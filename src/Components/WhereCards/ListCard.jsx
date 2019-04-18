@@ -23,6 +23,9 @@ const styles = {
     },
     label: {
         color: "#DE751F"
+    },
+    source:{
+        color: "#DE751F"
     }
 
 };
@@ -95,7 +98,14 @@ class ListCard extends Component {
                         {hours}
                         <br />
                         {phone}
+                        <br/>
+
                     </Typography>
+                    <p>
+                    Information provided by <a className={classes.source} href="https://earth911.com/">Earth911!</a>
+                        <br/>
+                        Source: Earth911.com
+                    </p>
                 </CardContent>
 
                 <CardActions className='list-card-btn'>

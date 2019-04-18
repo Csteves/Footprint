@@ -45,6 +45,9 @@ const styles = theme => ({
   },
   programActions: {
     height: "4px"
+  },
+  source:{
+    color:"#DE751F"
   }
 
 });
@@ -113,6 +116,11 @@ class programs extends Component {
             <br />
             {phone}
           </Typography>
+          <p>
+            Information provided by <a className={classes.source} href="https://earth911.com/">Earth911!</a>
+                <br/>
+                Source: Earth911.com
+            </p>
           {note}
         </CardContent>
 

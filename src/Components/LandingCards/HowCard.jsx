@@ -29,6 +29,9 @@ const styles = {
   },
   button: {
     color: '#4799c2'
+  },
+  source: {
+    color:"#DE751F !important"
   }
 };
 
@@ -45,8 +48,12 @@ function HowCard(props) {
         <CardContent className={classes.content} >
           <Typography gutterBottom variant="h4" component="h2">
             Find how to recycle?
+
                 </Typography>
           <Typography variant='subtitle1'>
+          <p>
+          Information provided by <a className={classes.source} href="https://earth911.com/">Earth911.com!</a>
+          </p>
             Find out what can be recycled, what steps you need to take to prepare your items and more in our easy to use guides.
                 </Typography>
         </CardContent>

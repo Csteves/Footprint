@@ -31,6 +31,9 @@ const styles = {
   },
   button: {
     color: '#4799c2',
+  },
+  source: {
+    color:"#DE751F !important"
   }
 };
 
@@ -49,7 +52,10 @@ function WhereCard(props) {
             Find a location?
                 </Typography>
           <Typography variant="subtitle1">
-            Find locations near you that accept and recycle more than 350 products and materials, using America’s best recycling database.
+          <p>
+          Information provided by <a className={classes.source} href="https://earth911.com/">Earth911.com!</a>
+          </p>
+            Find locations near you that accept and recycle more than 350 products and materials, using America’s best recycling database, Earth911.
                 </Typography>
         </CardContent>
       </CardActionArea>

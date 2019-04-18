@@ -61,6 +61,9 @@ const styles = theme => ({
     padding: '10px',
     marginBottom: 25,
   },
+  source:{
+    color:"#DE751F",
+  }
 });
 
 class ListCard extends Component {
@@ -146,6 +149,11 @@ class ListCard extends Component {
             <br />
             {phone}
           </Typography>
+          <p>
+                    Information provided by <a className={classes.source} href="https://earth911.com/">Earth911!</a>
+                        <br/>
+                        Source: Earth911.com
+                    </p>
         </CardContent>
 
         <CardActions className={classes.fullListActions} disableActionSpacing>
